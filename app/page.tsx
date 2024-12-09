@@ -1,5 +1,7 @@
+import About from "./components/About";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
+import Services from "./components/Services";
 
 export default function Home() {
   return (
@@ -7,30 +9,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <section id="about" className="py-20 px-4 bg-slate-700">
-          <h3 className="text-3xl font-bold text-center">Sobre Nós</h3>
-          <p className="mt-4 text-center max-w-2xl mx-auto">
-            A GS Edge Consultoria oferece soluções inovadoras em tecnologia, com foco em redes e infraestrutura digital.
-          </p>
-        </section>
-
-        <section id="services" className="bg-gray-100 py-20 px-4 text-slate-600">
-          <h3 className="text-3xl font-bold text-center">Nossos Serviços</h3>
-          <ul className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <li className="bg-white p-6 rounded shadow">
-              <h4 className="text-xl font-semibold">Consultoria em Redes</h4>
-              <p className="mt-2 text-gray-600">Soluções personalizadas para sua infraestrutura.</p>
-            </li>
-            <li className="bg-white p-6 rounded shadow">
-              <h4 className="text-xl font-semibold">Soluções SDWAN</h4>
-              <p className="mt-2 text-gray-600">Conectividade otimizada para sua empresa.</p>
-            </li>
-            <li className="bg-white p-6 rounded shadow">
-              <h4 className="text-xl font-semibold">Implementação de Sistemas</h4>
-              <p className="mt-2 text-gray-600">Integrações robustas e escaláveis.</p>
-            </li>
-          </ul>
-        </section>
+        <About />
+        <Services />
 
         <section id="contact" className="py-20 px-4 bg-slate-600">
           <h3 className="text-3xl font-bold text-center">Entre em Contato</h3>
