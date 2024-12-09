@@ -1,3 +1,4 @@
+import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 
 export default function Home() {
@@ -5,17 +6,7 @@ export default function Home() {
     <div>
       <Navbar />
       <main>
-        <section id="hero" className="bg-gray-100 py-20 text-center text-slate-600">
-          <h2 className="text-4xl font-bold">Levando sua tecnologia ao próximo nível</h2>
-          <p className="mt-4 text-lg">Especialistas em redes, SDWAN e soluções empresariais.</p>
-          <a
-            href="#contact"
-            className="mt-6 inline-block bg-slate-600 text-white py-2 px-6 rounded hover:bg-slate-700"
-          >
-            Entre em Contato
-          </a>
-        </section>
-
+        <Hero />
         <section id="about" className="py-20 px-4 bg-slate-700">
           <h3 className="text-3xl font-bold text-center">Sobre Nós</h3>
           <p className="mt-4 text-center max-w-2xl mx-auto">
