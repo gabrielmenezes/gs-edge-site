@@ -18,7 +18,7 @@ export default function Hero() {
                     </p>
                     <a
                         href="#services"
-                        className="bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-400 transition duration-300"
+                        className="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-400 transition duration-300"
                     >
                         Conheça nossos serviços
                     </a>
