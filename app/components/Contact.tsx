@@ -13,11 +13,11 @@ export default function Contact() {
                 <p className="text-lg mb-8">
                     Estamos prontos para ajudar sua empresa a alcançar novos patamares. Entre em contato com a GS Edge Consultoria!
                 </p>
-                <div className="flex flex-col md:flex-row justify-center gap-6">
+                <div className="flex justify-center md:flex-row gap-4">
                     {/* Botão de Email */}
                     <a
                         href="mailto:contato@gsedge.com.br"
-                        className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-all"
+                        className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-all"
                     >
                         <FaEnvelope size={20} />
                         {/* <span>contato@gsedge.com.br</span> */}
