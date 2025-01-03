@@ -20,17 +20,15 @@ export default function Contact() {
                         className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-all"
                     >
                         <FaEnvelope size={20} />
-                        {/* <span>contato@gsedge.com.br</span> */}
                     </a>
                     {/* Botão de WhatsApp */}
                     <a
-                        href={`https://wa.me/5511952508537?text=${whatsappMessage}`}
+                        href={`https://wa.me/5511932187544?text=${whatsappMessage}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition-all"
                     >
                         <FaWhatsapp size={20} />
-                        {/* <span>+55 11 95250-8537</span> */}
                     </a>
                 </div>
                 <ContactForm />
