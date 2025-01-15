@@ -18,7 +18,7 @@ export default function Home() {
       </main>
 
       <footer className="bg-slate-700 text-white py-4 text-center">
-        © 2024 GS Edge Consultoria. Todos os direitos reservados.
+        © 2025 GS Edge Consultoria. Todos os direitos reservados.
       </footer>
     </div>
   );
