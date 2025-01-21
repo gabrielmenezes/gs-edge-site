@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -13,11 +12,6 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "GS Edge - Consultoria",
-  description: "",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,6 +24,8 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="title" content="GS Edge - Consultoria" />
+        <meta name="description" content="Oferecemos soluções personalizadas para otimizar a infraestrutura tecnológica da sua empresa, garantindo redes mais seguras, eficientes e escaláveis. Nossa expertise em telecomunicações e TI ajuda seu negócio a crescer com tecnologia de ponta." />
         <meta name="keywords" content="consultoria em telecomunicações, redes empresariais, segurança de redes, desenvolvimento de sistemas, software empresarial" />
       </head>
       <body
