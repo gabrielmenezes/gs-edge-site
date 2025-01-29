@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "./components/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +32,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div>
+          <Navbar />
+          {children}
+        </div>
+        <footer className="bg-slate-700 text-white py-4 text-center">
+          © 2025 GS Edge Consultoria. Todos os direitos reservados.
+        </footer>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import logo from '@/app/assets/images/logo.png';
+import Link from 'next/link';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -48,19 +49,24 @@ export default function Navbar() {
                         onClick={() => setIsOpen(false)}
                     >
                         <li className="py-2 md:py-0">
-                            <a href="#about" className="hover:no-underline block md:inline">
+                            <Link href="/#about" className="hover:no-underline block md:inline">
                                 Sobre
-                            </a>
+                            </Link>
                         </li>
                         <li className="py-2 md:py-0">
-                            <a href="#services" className="hover:no-underline  transition block md:inline">
+                            <Link href="/#services" className="hover:no-underline  transition block md:inline">
                                 Serviços
-                            </a>
+                            </Link>
                         </li>
                         <li className="py-2 md:py-0">
-                            <a href="#contact" className="Hover:no-underline  transition block md:inline">
+                            <Link href="/#contact" className="Hover:no-underline  transition block md:inline">
                                 Contato
-                            </a>
+                            </Link>
+                        </li>
+                        <li className="py-2 md:py-0">
+                            <Link href="/blog" className="Hover:no-underline  transition block md:inline">
+                                Blog
+                            </Link>
                         </li>
                     </ul>
                 </nav>
