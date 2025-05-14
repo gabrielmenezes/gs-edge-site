@@ -1,49 +1,42 @@
 
-import Image from 'next/image'
-
-import infra from '@/app/assets/images/infra.jpg'
-import design from '@/app/assets/images/design.jpg'
-import sdwan from '@/app/assets/images/sdwan.webp'
+import ServiceCard from './ServiceCard';
 
 export default function Services() {
     return (
-        <section id="services" className="bg-slate-700 py-16">
-            <div className="container mx-auto text-center px-4">
-                <h2 className="text-3xl font-bold mb-6">Nossos Serviços</h2>
-                <p className="text-lg mb-12">
-                    Oferecemos uma gama de soluções personalizadas para ajudar sua empresa a crescer e melhorar sua infraestrutura tecnológica.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-                    {/* Serviço 1 */}
-                    <div className="bg-slate-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
-                        <Image src={infra} alt="Redes" className="object-cover rounded-lg mb-4 mx-auto" />
-                        <h3 className="text-2xl font-semibold mb-4">Redes e Infraestrutura</h3>
-                        <p className="text-lg mb-4 text-justify px-4">
-                            Implementamos redes robustas e seguras, garantindo conectividade confiável e desempenho superior para sua empresa.
-                        </p>
-                        <a href="#contact" className="bg-slate-900 px-4 py-2 rounded hover:bg-slate-950">Saiba mais</a>
-                    </div>
+        <section id="services" className="py-16 bg-white">
+            <div className="text-center mb-10">
+                <h2 className="text-3xl font-semibold text-gray-900">Serviços</h2>
+                <p className="text-gray-600 mt-2">Soluções em TI para empresas que querem crescer com segurança e eficiência.</p>
+            </div>
 
-                    {/* Serviço 2 */}
-                    <div className="bg-slate-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
-                        <Image src={sdwan} alt="SD-WAN" className="object-cover rounded-lg mb-4 mx-auto" />
-                        <h3 className="text-2xl font-semibold mb-4">SD-WAN</h3>
-                        <p className="text-lg mb-4 text-justify px-4">
-                            Soluções SD-WAN para otimizar a conectividade entre filiais, reduzindo custos e melhorando a performance de rede.
-                        </p>
-                        <a href="#contact" className="bg-slate-900 px-4 py-2 rounded hover:bg-slate-950">Saiba mais</a>
-                    </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <ServiceCard
+                    title="Diagnóstico de Rede"
+                    description="Análise técnica completa da sua estrutura de rede e segurança."
+                    price="R$ 497"
+                    link="https://wa.me/5511952508537"
+                />
+                <ServiceCard
+                    title="Criação de Site"
+                    description="Presença digital com site moderno, formulário e domínio próprio."
+                    price="A partir de R$ 1.200"
+                    link="https://wa.me/5511952508537"
+                />
+                <ServiceCard
+                    title="Suporte Mensal"
+                    description="Manutenção contínua da sua rede e sistemas de TI."
+                    price="A partir de R$ 299/mês"
+                    link="https://wa.me/5511952508537"
+                />
+            </div>
 
-                    {/* Serviço 3 */}
-                    <div className="bg-slate-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
-                        <Image src={design} alt="Implementacao de Sistemas" className="object-cover rounded-lg mb-4 mx-auto" />
-                        <h3 className="text-2xl font-semibold mb-4">Implementação de Sistemas</h3>
-                        <p className="text-lg mb-4 text-justify px-4">
-                            Realizamos a implementação de sistemas personalizados para integrar seus processos e melhorar a eficiência operacional.
-                        </p>
-                        <a href="#contact" className="bg-slate-900 px-4 py-2 rounded hover:bg-slate-950">Saiba mais</a>
-                    </div>
-                </div>
+            <div className="mt-8 text-center">
+                <a
+                    href="/servicos"
+                    className="inline-block text-white bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded text-sm"
+                >
+                    Ver todos os serviços
+                </a>
             </div>
         </section>
     );
