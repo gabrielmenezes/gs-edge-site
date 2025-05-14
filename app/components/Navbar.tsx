@@ -13,7 +13,7 @@ export default function Navbar() {
     };
 
     return (
-        <header className="bg-slate-800 text-white py-4 z-50 fixed w-full top-0 left-0">
+        <header className="bg-slate-800 text-white py-4 w-full top-0 left-0">
             <div className="container mx-auto flex justify-between items-center px-4">
                 {/* Logo */}
                 <Link href="/" passHref>
@@ -46,7 +46,7 @@ export default function Navbar() {
                     <ul
                         className={
                             `${isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"} 
-                            flex flex-col items-center gap-4 absolute top-20 left-0 w-full bg-slate-600 text-center transition-all duration-300 ease-in-out
+                            flex flex-col items-center gap-4 z-50 absolute top-20 left-0 w-full bg-slate-600 text-center transition-all duration-300 ease-in-out
                             md:flex md:flex-row md:w-auto md:text-left md:static md:opacity-100 md:bg-transparent md:text-lg`}
                         onClick={() => setIsOpen(false)}
                     >
@@ -65,11 +65,11 @@ export default function Navbar() {
                                 Contato
                             </Link>
                         </li>
-                        <li className="py-2 md:py-0">
+                        {/* <li className="py-2 md:py-0">
                             <Link href="/blog" className="Hover:no-underline  transition block md:inline">
                                 Blog
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </div>
