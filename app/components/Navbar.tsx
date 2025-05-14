@@ -13,10 +13,12 @@ export default function Navbar() {
     };
 
     return (
-        <header className="bg-slate-800 text-white py-4">
+        <header className="bg-slate-800 text-white py-4 z-50 fixed w-full top-0 left-0">
             <div className="container mx-auto flex justify-between items-center px-4">
                 {/* Logo */}
-                <Image src={logo} width={600} height={600} className="rounded w-14" alt="Logo GS Edge Consultoria" />
+                <Link href="/" passHref>
+                    <Image src={logo} width={600} height={600} className="rounded w-14 cursor-pointer" alt="Logo GS Edge Consultoria" />
+                </Link>
 
                 {/* Ícone do Menu Sanduíche (para telas pequenas) */}
                 <button

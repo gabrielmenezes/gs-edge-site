@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: "*",
                 allow: "/",
-                disallow: ["/admin", "/dashboard"], // Bloqueia áreas restritas
+                disallow: ["/admin", "/dashboard", "/private"], // Bloqueia áreas restritas
             },
         ],
-        sitemap: "https://www.gsedge.com.br/sitemap.xml",
+        sitemap: "https://www.gsedge.com.br/sitemap.xml", // URL do sitemap
     };
 }
