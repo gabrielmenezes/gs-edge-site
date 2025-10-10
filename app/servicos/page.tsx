@@ -13,7 +13,7 @@ export default function ServicosPage() {
             >
                 <h1 className="text-4xl font-medium text-zinc-800">Serviços Técnicos</h1>
                 <p className="text-zinc-500 mt-2">
-                    Soluções sob medida para pequenas empresas e profissionais autônomos.
+                    Serviços profissionais de tecnologia para pequenas e médias empresas, focados em confiabilidade, segurança e crescimento.
                 </p>
             </motion.div>
 
@@ -24,11 +24,9 @@ export default function ServicosPage() {
                     transition={{ duration: 0.4, delay: 0.1 }}
                 >
                     <ServiceCard
-                        title="Diagnóstico de Rede e Segurança"
-                        description="Analisamos sua rede e segurança para identificar vulnerabilidades e melhorar a performance."
-                        price="R$ 497"
-                        link="https://wa.me/5511952508537"
-                    />
+                        title="Consultoria em Redes e Conectividade"
+                        description="Garantindo redes estáveis e seguras, personalizadas para pequenas e médias empresas."
+                        link={`https://wa.me/5511952508537?text=Ol%C3%A1,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20Consultoria%20em%20Redes%20e%20Conectividade`} />
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -36,11 +34,9 @@ export default function ServicosPage() {
                     transition={{ duration: 0.4, delay: 0.2 }}
                 >
                     <ServiceCard
-                        title="Site Profissional com Formulário"
-                        description="Criação de site com design moderno, domínio personalizado e formulário integrado."
-                        price="A partir de R$ 1.200"
-                        link="https://wa.me/5511952508537"
-                    />
+                        title="Integração de Sistemas"
+                        description="Conectando softwares e fluxos de trabalho para aumentar a eficiência da sua empresa."
+                        link={`https://wa.me/5511952508537?text=Ol%C3%A1,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20Integra%C3%A7%C3%A3o%20de%20Sistemas`} />
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -48,11 +44,9 @@ export default function ServicosPage() {
                     transition={{ duration: 0.4, delay: 0.3 }}
                 >
                     <ServiceCard
-                        title="Automação com Scripts"
-                        description="Automatize tarefas rotineiras com Golang, Bash ou Python: relatórios, backups, integrações."
-                        price="A partir de R$ 800"
-                        link="https://wa.me/5511952508537"
-                    />
+                        title="Planejamento de Nuvem e Infraestrutura"
+                        description="Projetando ambientes de TI escaláveis e confiáveis para negócios em crescimento."
+                        link={`https://wa.me/5511952508537?text=Ol%C3%A1,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20Planejamento%20de%20Nuvem%20e%20Infraestrutura`} />
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -60,11 +54,9 @@ export default function ServicosPage() {
                     transition={{ duration: 0.4, delay: 0.4 }}
                 >
                     <ServiceCard
-                        title="Implantação de VPN"
-                        description="Configure acesso remoto seguro com VPN, ideal para home office ou filiais."
-                        price="R$ 600"
-                        link="https://wa.me/5511952508537"
-                    />
+                        title="Manutenção Preventiva e Monitoramento"
+                        description="Evita interrupções e mantém seus sistemas funcionando de forma contínua."
+                        link={`https://wa.me/5511952508537?text=Ol%C3%A1,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20Manuten%C3%A7%C3%A3o%20Preventiva%20e%20Monitoramento`} />
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -72,11 +64,9 @@ export default function ServicosPage() {
                     transition={{ duration: 0.4, delay: 0.5 }}
                 >
                     <ServiceCard
-                        title="Suporte Técnico Mensal"
-                        description="Manutenção e suporte remoto mensal para sua estrutura de TI e rede."
-                        price="A partir de R$ 299/mês"
-                        link="https://wa.me/5511952508537"
-                    />
+                        title="Suporte à Presença Digital"
+                        description="Criando presença online simples e profissional, com sites e integração de e-mail."
+                        link={`https://wa.me/5511952508537?text=Ol%C3%A1,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20Suporte%20%C3%A0%20Presen%C3%A7a%20Digital`} />
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -84,11 +74,9 @@ export default function ServicosPage() {
                     transition={{ duration: 0.4, delay: 0.6 }}
                 >
                     <ServiceCard
-                        title="Mentoria Técnica Online"
-                        description="Aulas 1:1 sobre redes, Docker, AWS, Golang e muito mais."
-                        price="R$ 150/h"
-                        link="https://wa.me/5511952508537"
-                    />
+                        title="Consultoria de TI para PMEs"
+                        description="Orientação e mentoria para otimizar os investimentos em tecnologia."
+                        link={`https://wa.me/5511952508537?text=Ol%C3%A1,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20Consultoria%20de%20TI%20para%20PMEs`} />
                 </motion.div>
             </div>
             <div className="h-12" />

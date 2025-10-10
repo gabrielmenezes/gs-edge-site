@@ -10,18 +10,25 @@ export default function Hero() {
                 {/* Texto Hero */}
                 <div className="lg:w-1/2 text-center lg:text-left">
                     <h1 className="text-4xl lg:text-5xl font-bold leading-tight py-4">
-                        Transforme sua empresa <br />
-                        com soluções tecnológicas inovadoras
+                        Sistemas e redes que nunca falham, mesmo nos horários mais críticos
                     </h1>
                     <p className="text-lg py-4">
-                        A GS Edge Consultoria oferece serviços personalizados em tecnologia, redes e sistemas para otimizar sua operação.
+                        GS Edge garante que suas conexões e sistemas funcionem sem falhas, permitindo que sua empresa continue crescendo sem interrupções.
                     </p>
-                    <a
-                        href="#services"
-                        className="bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-400 transition duration-300"
-                    >
-                        Conheça nossos serviços
-                    </a>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-4 sm:space-y-0 py-4">
+                        <a
+                            href="https://wa.me/5511952508537"
+                            className="bg-yellow-500 text-white text-center px-6 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-400 transition duration-300"
+                        >
+                            Agende uma consultoria gratuita
+                        </a>
+                        <a
+                            href="/servicos"
+                            className="bg-white text-yellow-500 text-center px-6 py-3 rounded-lg text-lg font-semibold hover:bg-yellow-200 transition duration-300"
+                        >
+                            Veja nossos serviços
+                        </a>
+                    </div>
                 </div>
 
                 {/* Imagem Hero */}
