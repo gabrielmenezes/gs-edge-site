@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   title: 'GS Edge Consultoria | Conectividade e Sistemas Confiáveis',
@@ -50,6 +51,7 @@ export default function RootLayout({
         <footer className="bg-slate-700 text-white py-4 text-center">
           © 2025 GS Edge Consultoria. Todos os direitos reservados.
         </footer>
+        <Analytics mode="production" />
       </body>
     </html>
   );
