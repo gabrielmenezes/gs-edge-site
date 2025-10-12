@@ -1,5 +1,4 @@
 import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
-import ContactForm from "./FormContato";
 
 export default function Contact() {
 
@@ -31,7 +30,6 @@ export default function Contact() {
                         <FaWhatsapp size={20} />
                     </a>
                 </div>
-                <ContactForm />
             </div>
         </section>
     );
