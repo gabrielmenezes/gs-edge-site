@@ -2,6 +2,20 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
+export const metadata = {
+  title: 'GS Edge Consultoria | Conectividade e Sistemas Confiáveis',
+  description: 'Consultoria em tecnologia para pequenas e médias empresas. Redes seguras, sistemas integrados e infraestrutura confiável.',
+  keywords: ['consultoria em redes', 'infraestrutura de TI', 'consultoria em sistemas', 'suporte de TI', 'conectividade para empresas'],
+  openGraph: {
+    title: 'GS Edge Consultoria | Soluções em TI',
+    description: 'Conectividade e sistemas confiáveis para pequenas e médias empresas.',
+    url: 'https://gsedge.com.br',
+    siteName: 'GS Edge Consultoria',
+    locale: 'pt_BR',
+    type: 'website',
+  },
+};
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -25,9 +39,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <title>GS Edge - Consultoria</title>
-        <meta name="description" content="Oferecemos soluções personalizadas para otimizar a infraestrutura tecnológica da sua empresa, garantindo redes mais seguras, eficientes e escaláveis. Nossa expertise em telecomunicações e TI ajuda seu negócio a crescer com tecnologia de ponta." />
-        <meta name="keywords" content="consultoria em telecomunicações, redes empresariais, segurança de redes, desenvolvimento de sistemas, software empresarial" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
