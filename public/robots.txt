@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://gsedge.com.br
-
-# Sitemaps
-Sitemap: https://gsedge.com.br/sitemap.xml

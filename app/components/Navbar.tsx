@@ -48,16 +48,16 @@ export default function Navbar() {
     }, [pathname]);
 
     return (
-        <header className={`bg-slate-800 text-white py-4 w-full top-0 left-0 z-50 transition-shadow duration-300 ${isSticky ? 'fixed shadow-md' : 'relative'}`}>
+        <header className={`py-4 w-full top-0 left-0 z-50 transition-all duration-300 ${isSticky ? 'fixed bg-edge-darker/80 backdrop-blur-md border-b border-white/10 shadow-lg' : 'absolute bg-transparent'}`}>
             <div className="container mx-auto flex justify-between items-center px-4">
                 {/* Logo */}
-                <Link href="/" passHref>
-                    <Image src={logo} width={600} height={600} className="rounded w-14 cursor-pointer" alt="Logo GS Edge Consultoria" />
+                <Link href="/" passHref className="flex items-center">
+                    <Image src={logo} width={1024} height={400} className="rounded h-14 md:h-16 w-auto cursor-pointer hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]" alt="Logo GS Edge Consultoria" />
                 </Link>
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden text-white focus:outline-none absolute top-8 right-8 transition-transform duration-300"
+                    className="md:hidden text-slate-200 focus:outline-none absolute top-8 right-8 transition-transform duration-300 hover:text-edge-cyan"
                     onClick={toggleMenu}
                     aria-label="Toggle menu"
                     aria-expanded={isOpen}
@@ -82,18 +82,18 @@ export default function Navbar() {
                 <nav>
                     <ul
                         className={`
-                            fixed top-20 left-0 w-full bg-slate-700 bg-opacity-95 backdrop-blur-md flex flex-col items-center gap-6 py-6 z-50
+                            fixed top-[72px] left-0 w-full bg-edge-darker/95 backdrop-blur-md flex flex-col items-center gap-6 py-6 z-50 border-b border-white/10
                             transform transition-all duration-300 ease-in-out origin-top
                             ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}
-                            md:static md:flex-row md:bg-transparent md:bg-opacity-100 md:backdrop-blur-0 md:scale-100 md:opacity-100 md:pointer-events-auto md:py-0 md:gap-4 md:w-auto
-                            md:text-lg
+                            md:static md:flex-row md:bg-transparent md:backdrop-blur-none md:border-none md:scale-100 md:opacity-100 md:pointer-events-auto md:py-0 md:gap-8 md:w-auto
+                            md:text-sm font-medium tracking-wide uppercase text-slate-300
                         `}
                         onClick={() => setIsOpen(false)}
                     >
                         <li className="py-2 md:py-0">
                             <Link
                                 href="/#about"
-                                className={`hover:no-underline focus:no-underline block md:inline px-2 rounded transition ring-offset-2 ring-offset-slate-800 focus:ring-2 focus:ring-white ${activeSection === 'about' ? 'underline decoration-white underline-offset-4' : ''
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'about' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''
                                     }`}
                             >
                                 Sobre
@@ -102,7 +102,7 @@ export default function Navbar() {
                         <li className="py-2 md:py-0">
                             <Link
                                 href="/#services"
-                                className={`hover:no-underline focus:no-underline block md:inline px-2 rounded transition ring-offset-2 ring-offset-slate-800 focus:ring-2 focus:ring-white ${activeSection === 'services' ? 'underline decoration-white underline-offset-4' : ''
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'services' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''
                                     }`}
                             >
                                 Serviços
@@ -111,17 +111,21 @@ export default function Navbar() {
                         <li className="py-2 md:py-0">
                             <Link
                                 href="/#contact"
-                                className={`hover:no-underline focus:no-underline block md:inline px-2 rounded transition ring-offset-2 ring-offset-slate-800 focus:ring-2 focus:ring-white ${activeSection === 'contact' ? 'underline decoration-white underline-offset-4' : ''
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'contact' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''
                                     }`}
                             >
                                 Contato
                             </Link>
                         </li>
-                        {/* <li className="py-2 md:py-0">
-                            <Link href="/blog" className="hover:no-underline focus:no-underline block md:inline px-2 rounded transition ring-offset-2 ring-offset-slate-800 focus:ring-2 focus:ring-white">
+                        <li className="py-2 md:py-0">
+                            <Link
+                                href="/blog"
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/blog') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''
+                                    }`}
+                            >
                                 Blog
                             </Link>
-                        </li> */}
+                        </li>
                     </ul>
                 </nav>
             </div>
