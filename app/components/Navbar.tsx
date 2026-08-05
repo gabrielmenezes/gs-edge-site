@@ -26,7 +26,7 @@ export default function Navbar() {
                 setIsSticky(false);
             }
 
-            const sections = ['about'];
+            const sections = ['services', 'about', 'contact'];
             let current = '';
             sections.forEach((section) => {
                 const element = document.getElementById(section);
@@ -54,7 +54,7 @@ export default function Navbar() {
             <div className="container mx-auto flex justify-between items-center px-4">
                 {/* Logo */}
                 <Link href="/" passHref className="flex items-center">
-                    <Image src={logo} width={1024} height={400} className="rounded h-14 md:h-16 w-auto cursor-pointer hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]" alt="Logo GSEdge" />
+                    <Image src={logo} width={1024} height={400} className="rounded h-14 md:h-16 w-auto cursor-pointer hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]" alt="Logo GS Edge" />
                 </Link>
 
                 {/* Mobile Menu Button */}
@@ -94,9 +94,16 @@ export default function Navbar() {
                     >
                         <li className="py-2 md:py-0">
                             <Link
+                                href="/#services"
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'services' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
+                            >
+                                {t('nav_services')}
+                            </Link>
+                        </li>
+                        <li className="py-2 md:py-0">
+                            <Link
                                 href="/work"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/work') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''
-                                    }`}
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/work') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
                             >
                                 {t('nav_work')}
                             </Link>
@@ -104,8 +111,7 @@ export default function Navbar() {
                         <li className="py-2 md:py-0">
                             <Link
                                 href="/blog"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/blog') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''
-                                    }`}
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/blog') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
                             >
                                 {t('nav_blog')}
                             </Link>
@@ -113,25 +119,33 @@ export default function Navbar() {
                         <li className="py-2 md:py-0">
                             <Link
                                 href="/#about"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'about' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''
-                                    }`}
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'about' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
                             >
                                 {t('nav_about')}
                             </Link>
                         </li>
                         <li className="py-2 md:py-0">
+                            <Link
+                                href="/#contact"
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'contact' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
+                            >
+                                {t('nav_contact')}
+                            </Link>
+                        </li>
+                        <li className="py-2 md:py-0">
                             <button
                                 onClick={() => setLanguage(language === 'en' ? 'pt' : 'en')}
-                                className="px-3 py-1 rounded-md border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-xs font-bold text-edge-cyan uppercase tracking-widest flex items-center gap-2"
+                                className="px-3 py-1.5 rounded-lg border border-edge-cyan/30 bg-edge-cyan/10 hover:bg-edge-cyan/20 transition-all text-xs font-bold text-edge-cyan uppercase tracking-widest flex items-center gap-2"
                             >
-                                <span className={language === 'en' ? 'text-white' : 'opacity-40'}>EN</span>
+                                <span className={language === 'pt' ? 'text-white font-extrabold' : 'opacity-40'}>PT</span>
                                 <span className="w-px h-3 bg-white/20"></span>
-                                <span className={language === 'pt' ? 'text-white' : 'opacity-40'}>PT</span>
+                                <span className={language === 'en' ? 'text-white font-extrabold' : 'opacity-40'}>EN</span>
                             </button>
                         </li>
                     </ul>
                 </nav>
             </div>
         </header>
+
     );
 }

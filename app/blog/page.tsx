@@ -2,7 +2,8 @@ import { getAllPosts } from '@/lib/blog';
 import BlogIndex from '../components/BlogIndex';
 
 export default function BlogIndexPage() {
-  const posts = getAllPosts();
+  const initialPosts = getAllPosts('pt');
 
-  return <BlogIndex posts={posts} />;
+  return <BlogIndex initialPosts={initialPosts} />;
 }
+

@@ -1,16 +1,18 @@
 import Hero from "./components/Hero";
-import { getAllPosts } from "@/lib/blog";
+import ServicesSection from "./components/ServicesSection";
 import RecentPosts from "./components/RecentPosts";
 import AboutSection from "./components/AboutSection";
+import FormContato from "./components/FormContato";
 
 export default function Home() {
-  const posts = getAllPosts().slice(0, 3);
-
   return (
     <main className="min-h-screen">
       <Hero />
-      <RecentPosts posts={posts} />
+      <ServicesSection />
+      <RecentPosts />
       <AboutSection />
+      <FormContato />
     </main>
   );
 }
+

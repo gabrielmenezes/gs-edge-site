@@ -1,17 +1,45 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../components/LanguageContext';
+import { BlogPost } from '@/lib/blog';
 
-interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
+interface BlogIndexProps {
+  initialPosts?: BlogPost[];
 }
 
-export default function BlogIndex({ posts }: { posts: Post[] }) {
-  const { t } = useLanguage();
+export default function BlogIndex({ initialPosts }: BlogIndexProps) {
+  const { language, t } = useLanguage();
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts || []);
+  const [loading, setLoading] = useState(!initialPosts);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchPosts() {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/posts?lang=${language}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted) {
+            setPosts(data);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch posts for BlogIndex', err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+
+    fetchPosts();
+    return () => {
+      isMounted = false;
+    };
+  }, [language]);
+
+  const dateFormat = language === 'pt' ? 'pt-BR' : 'en-US';
 
   return (
     <main className="min-h-screen pt-32 pb-20 px-4 relative overflow-hidden">
@@ -20,16 +48,20 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
 
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-100">
-            {t('nav_blog').split(' ')[0]} <span className="text-edge-yellow">{t('nav_blog').split(' ')[1] || ''}</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-100 mb-4">
+            {t('recent_posts_title')}
           </h1>
-          <p className="text-lg text-slate-400 mt-6 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
             {t('recent_posts_subtitle')}
           </p>
         </div>
 
         <div className="grid gap-8">
-          {posts.length === 0 ? (
+          {loading && posts.length === 0 ? (
+            <div className="text-center text-slate-500 py-16">
+              <span className="inline-block animate-pulse">Carregando artigos...</span>
+            </div>
+          ) : posts.length === 0 ? (
             <div className="text-center text-slate-400 py-10">
               {t('no_posts')}
             </div>
@@ -38,10 +70,10 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
               <article key={post.slug} className="group bg-edge-darker/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:border-edge-cyan/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)] relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-edge-cyan to-edge-yellow transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
                 <div className="pl-4">
-                  <span className="text-edge-cyan text-sm font-semibold tracking-wider">
-                    {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  <span className="text-edge-cyan text-sm font-mono font-semibold tracking-wider">
+                    {new Date(post.date).toLocaleDateString(dateFormat, { year: 'numeric', month: 'long', day: 'numeric' })}
                   </span>
-                  <h2 className="text-2xl font-bold text-slate-100 mt-2 mb-3 group-hover:text-edge-yellow transition-colors">
+                  <h2 className="text-2xl font-bold text-slate-100 mt-2 mb-3 group-hover:text-edge-yellow transition-colors leading-snug">
                     <Link href={`/blog/${post.slug}`}>
                       {post.title}
                     </Link>
@@ -49,7 +81,7 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
                   <p className="text-slate-400 mb-6 leading-relaxed">
                     {post.excerpt}
                   </p>
-                  <Link href={`/blog/${post.slug}`} className="inline-flex items-center text-slate-200 font-semibold hover:text-edge-cyan transition-colors">
+                  <Link href={`/blog/${post.slug}`} className="inline-flex items-center text-slate-200 font-bold hover:text-edge-cyan transition-colors">
                     {t('read_more')} <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
                   </Link>
                 </div>
@@ -61,3 +93,4 @@ export default function BlogIndex({ posts }: { posts: Post[] }) {
     </main>
   );
 }
+

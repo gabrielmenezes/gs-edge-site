@@ -10,40 +10,69 @@ export type BlogPost = {
   date: string;
   excerpt: string;
   content: string;
+  lang?: string;
 };
 
-export function getPostSlugs() {
+export function getPostSlugs(): string[] {
   if (!fs.existsSync(postsDirectory)) {
     return [];
   }
-  return fs.readdirSync(postsDirectory);
+  const files = fs.readdirSync(postsDirectory);
+  const baseSlugs = new Set<string>();
+
+  files.forEach((file) => {
+    if (file.endsWith('.md')) {
+      // Remove .pt.md, .en.md or .md extension to get base slug
+      const baseSlug = file.replace(/\.(pt|en)\.md$/, '').replace(/\.md$/, '');
+      baseSlugs.add(baseSlug);
+    }
+  });
+
+  return Array.from(baseSlugs);
 }
 
-export function getPostBySlug(slug: string): BlogPost | null {
-  const realSlug = slug.replace(/\.md$/, '');
-  const fullPath = path.join(postsDirectory, `${realSlug}.md`);
+export function getPostBySlug(slug: string, lang: 'pt' | 'en' = 'pt'): BlogPost | null {
+  const cleanSlug = slug.replace(/\.(pt|en)\.md$/, '').replace(/\.md$/, '');
   
-  if (!fs.existsSync(fullPath)) {
+  // File candidates in order of preference for the requested language
+  const candidateFiles = [
+    path.join(postsDirectory, `${cleanSlug}.${lang}.md`),
+    path.join(postsDirectory, `${cleanSlug}.pt.md`),
+    path.join(postsDirectory, `${cleanSlug}.en.md`),
+    path.join(postsDirectory, `${cleanSlug}.md`),
+  ];
+
+  let targetFilePath: string | null = null;
+  for (const filePath of candidateFiles) {
+    if (fs.existsSync(filePath)) {
+      targetFilePath = filePath;
+      break;
+    }
+  }
+
+  if (!targetFilePath) {
     return null;
   }
 
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = fs.readFileSync(targetFilePath, 'utf8');
   const { data, content } = matter(fileContents);
 
   return {
-    slug: realSlug,
+    slug: cleanSlug,
     title: data.title || 'Sem título',
     date: data.date || '',
     excerpt: data.excerpt || '',
     content,
+    lang,
   };
 }
 
-export function getAllPosts(): BlogPost[] {
+export function getAllPosts(lang: 'pt' | 'en' = 'pt'): BlogPost[] {
   const slugs = getPostSlugs();
   const posts = slugs
-    .map((slug) => getPostBySlug(slug))
+    .map((slug) => getPostBySlug(slug, lang))
     .filter((post): post is BlogPost => post !== null)
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
 }
+

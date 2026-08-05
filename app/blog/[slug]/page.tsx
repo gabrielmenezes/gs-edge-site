@@ -1,49 +1,22 @@
 import { getPostBySlug, getPostSlugs } from '@/lib/blog';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
-import BlogBackLink from '@/app/components/BlogBackLink';
+import BlogPostView from '@/app/components/BlogPostView';
 
 export function generateStaticParams() {
   const slugs = getPostSlugs();
   return slugs.map((slug) => ({
-    slug: slug.replace(/\.md$/, ''),
+    slug: slug.replace(/\.(pt|en)\.md$/, '').replace(/\.md$/, ''),
   }));
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const post = getPostBySlug(resolvedParams.slug);
+  const post = getPostBySlug(resolvedParams.slug, 'pt');
 
   if (!post) {
     return notFound();
   }
 
-  return (
-    <main className="min-h-screen pt-32 pb-20 px-4 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-edge-cyan/5 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
-
-      <article className="max-w-3xl mx-auto relative z-10">
-        <div className="mb-10 text-center">
-          <BlogBackLink />
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-100 mb-6 leading-tight">
-            {post.title}
-          </h1>
-          <div className="text-slate-400 text-sm font-semibold tracking-wider">
-            {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </div>
-        </div>
-
-        <div className="prose prose-invert prose-lg prose-slate mx-auto prose-a:text-edge-cyan hover:prose-a:text-edge-yellow prose-headings:text-slate-100 prose-strong:text-slate-200 prose-p:leading-relaxed prose-iframe:w-full prose-iframe:aspect-video">
-          <ReactMarkdown 
-            rehypePlugins={[rehypeRaw]} 
-            remarkPlugins={[remarkGfm]}
-          >
-            {post.content}
-          </ReactMarkdown>
-        </div>
-      </article>
-    </main>
-  );
+  return <BlogPostView slug={resolvedParams.slug} initialPost={post} />;
 }
+

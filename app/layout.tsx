@@ -5,26 +5,27 @@ import { Analytics } from '@vercel/analytics/next';
 import { LanguageProvider } from "./components/LanguageContext";
 
 export const metadata = {
-  title: 'GSEdge | Solutions Engineer',
-  description: 'Personal website and portfolio of Gabriel Soares (GSEdge), a Solutions Engineer specializing in Network Architecture, Cybersecurity, and Cloud.',
+  title: 'GS Edge | Desenvolvimento de Software & Soluções Digitais',
+  description: 'A GS Edge é uma empresa especializada em Desenvolvimento de Software sob Medida, Aplicações Web Escaláveis, Arquitetura de APIs e Engenharia de Nuvem.',
   keywords: [
-    'Solutions Engineer',
-    'Network Architecture',
-    'Cybersecurity',
-    'Cloud Computing',
-    'GSEdge',
-    'Gabriel Soares',
-    'SD-WAN',
-    'Fortinet',
-    'Huawei',
-    'Tech Lead'
+    'Desenvolvimento de Software',
+    'Engenharia de Software',
+    'GS Edge',
+    'Desenvolvimento Web',
+    'Sistemas sob Medida',
+    'Next.js',
+    'React',
+    'Node.js',
+    'Arquitetura de Nuvem',
+    'Cibersegurança',
+    'Empresa de Software Brasil'
   ],
   openGraph: {
-    title: 'GSEdge | Solutions Engineer',
-    description: 'Professional portfolio of Gabriel Soares (GSEdge)',
+    title: 'GS Edge | Desenvolvimento de Software sob Medida',
+    description: 'Engenharia de software de alto desempenho, plataformas web escaláveis e arquiteturas de nuvem para impulsionar seu negócio.',
     url: 'https://gsedge.com.br',
-    siteName: 'GSEdge',
-    locale: 'en_US',
+    siteName: 'GS Edge',
+    locale: 'pt_BR',
     type: 'website',
   },
 };
@@ -66,11 +67,21 @@ export default function RootLayout({
             {children}
           </div>
         </LanguageProvider>
-        <footer className="bg-edge-dark border-t border-slate-800 text-slate-400 py-6 text-center text-sm relative z-10">
-          © {new Date().getFullYear()} GSEdge. All rights reserved.
+        <footer className="bg-edge-dark border-t border-slate-800 text-slate-400 py-8 text-center text-sm relative z-10">
+          <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+              © {new Date().getFullYear()} <span className="font-bold text-slate-200">GS Edge</span>. Todos os direitos reservados.
+            </div>
+            <div className="flex items-center gap-4 text-xs">
+              <a href="mailto:contato@gsedge.com.br" className="hover:text-edge-cyan transition-colors">
+                contato@gsedge.com.br
+              </a>
+            </div>
+          </div>
         </footer>
         <Analytics mode="production" />
       </body>
     </html>
   );
 }
+
