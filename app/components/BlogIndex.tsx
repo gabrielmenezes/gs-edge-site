@@ -67,25 +67,27 @@ export default function BlogIndex({ initialPosts }: BlogIndexProps) {
             </div>
           ) : (
             posts.map((post) => (
-              <article key={post.slug} className="group bg-edge-darker/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:border-edge-cyan/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)] relative overflow-hidden">
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="block group bg-edge-darker/50 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:border-edge-cyan/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] relative overflow-hidden cursor-pointer"
+              >
                 <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-edge-cyan to-edge-yellow transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
                 <div className="pl-4">
                   <span className="text-edge-cyan text-sm font-mono font-semibold tracking-wider">
                     {new Date(post.date).toLocaleDateString(dateFormat, { year: 'numeric', month: 'long', day: 'numeric' })}
                   </span>
                   <h2 className="text-2xl font-bold text-slate-100 mt-2 mb-3 group-hover:text-edge-yellow transition-colors leading-snug">
-                    <Link href={`/blog/${post.slug}`}>
-                      {post.title}
-                    </Link>
+                    {post.title}
                   </h2>
                   <p className="text-slate-400 mb-6 leading-relaxed">
                     {post.excerpt}
                   </p>
-                  <Link href={`/blog/${post.slug}`} className="inline-flex items-center text-slate-200 font-bold hover:text-edge-cyan transition-colors">
+                  <span className="inline-flex items-center text-slate-200 font-bold group-hover:text-edge-cyan transition-colors">
                     {t('read_more')} <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
-                  </Link>
+                  </span>
                 </div>
-              </article>
+              </Link>
             ))
           )}
         </div>

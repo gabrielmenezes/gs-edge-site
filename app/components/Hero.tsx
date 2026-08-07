@@ -48,21 +48,36 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                        className="flex flex-col sm:flex-row sm:items-center sm:justify-center lg:justify-start gap-4 py-4"
+                        className="flex flex-col sm:flex-row sm:items-center sm:justify-center lg:justify-start gap-4 pt-4 pb-2"
                     >
                         <a
-                            href="/#contact"
-                            className="group relative inline-flex items-center justify-center bg-edge-yellow text-edge-darker px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 hover:bg-yellow-400 hover:scale-105 hover:shadow-[0_0_25px_rgba(250,204,21,0.4)]"
+                            href="https://calendly.com/gsedge/30min"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative inline-flex items-center justify-center bg-edge-yellow text-edge-darker px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 hover:bg-yellow-400 hover:scale-105 hover:shadow-[0_0_30px_rgba(250,204,21,0.5)]"
                         >
-                            {t('hero_cta_contact')}
+                            <span className="flex items-center gap-2">
+                                <span>{t('hero_cta_diagnostics')}</span>
+                                <span className="group-hover:translate-x-1 transition-transform">→</span>
+                            </span>
                         </a>
                         <a
-                            href="/work"
+                            href="/#services"
                             className="group relative inline-flex items-center justify-center bg-edge-darker border border-slate-700 text-slate-300 px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 hover:border-edge-cyan hover:text-edge-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:scale-105"
                         >
                             {t('hero_cta_solutions')}
                         </a>
                     </motion.div>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                        className="text-xs sm:text-sm text-slate-400 mt-2 flex items-center justify-center lg:justify-start gap-2"
+                    >
+                        <span className="w-1.5 h-1.5 rounded-full bg-edge-yellow animate-pulse"></span>
+                        {t('hero_cta_phrase')}
+                    </motion.p>
                 </div>
 
                 {/* Imagem Hero */}

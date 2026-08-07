@@ -56,7 +56,7 @@ export default function BlogPostView({ slug, initialPost }: BlogPostViewProps) {
           </div>
         </div>
 
-        <div className="prose prose-invert prose-lg prose-slate mx-auto prose-a:text-edge-cyan hover:prose-a:text-edge-yellow prose-headings:text-slate-100 prose-strong:text-slate-200 prose-p:leading-relaxed prose-iframe:w-full prose-iframe:aspect-video">
+        <div className="prose prose-invert prose-lg prose-slate mx-auto prose-a:text-edge-cyan hover:prose-a:text-edge-yellow prose-headings:text-slate-100 prose-strong:text-slate-200 prose-p:leading-relaxed prose-p:indent-6 md:prose-p:indent-8 prose-p:text-justify prose-iframe:w-full prose-iframe:aspect-video">
           <ReactMarkdown 
             rehypePlugins={[rehypeRaw]} 
             remarkPlugins={[remarkGfm]}

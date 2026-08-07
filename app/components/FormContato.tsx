@@ -1,32 +1,10 @@
 'use client';
 
-import { useState } from "react";
 import { useLanguage } from "./LanguageContext";
-import { FaEnvelope, FaPaperPlane, FaCheckCircle } from "react-icons/fa";
+import { FaEnvelope, FaCalendarCheck } from "react-icons/fa";
 
 export default function FormContato() {
     const { t } = useLanguage();
-    const [submitted, setSubmitted] = useState(false);
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => {
-            setSubmitted(false);
-            setFormData({ name: "", email: "", subject: "", message: "" });
-        }, 5000);
-    };
 
     return (
         <section id="contact" className="py-24 px-4 bg-edge-darker/60 relative z-10 border-t border-white/5">
@@ -40,118 +18,41 @@ export default function FormContato() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-                    {/* Contact Info Card */}
-                    <div className="lg:col-span-2 bg-gradient-to-br from-edge-darker to-slate-900 border border-white/10 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-40 h-40 bg-edge-cyan/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="max-w-3xl mx-auto">
+                    {/* Schedule Technical Diagnostics CTA Card */}
+                    <div className="bg-gradient-to-br from-slate-900/90 to-edge-darker border border-edge-cyan/30 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden flex flex-col items-center text-center group hover:border-edge-cyan/60 transition-all duration-300">
+                        <div className="absolute -top-20 -right-20 w-60 h-60 bg-edge-yellow/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-edge-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                        <div className="w-14 h-14 rounded-2xl bg-edge-cyan/10 border border-edge-cyan/30 flex items-center justify-center text-edge-cyan text-2xl mb-6">
-                            <FaEnvelope />
-                        </div>
-
-                        <h3 className="text-xl font-bold text-slate-100 mb-2">
-                            {t('contact_email_title')}
-                        </h3>
-                        <p className="text-slate-400 text-sm mb-6">
-                            {t('contact_email_sub')}
-                        </p>
-
-                        <a
-                            href="mailto:contato@gsedge.com.br"
-                            className="inline-flex items-center gap-3 text-lg font-bold text-edge-cyan hover:text-edge-yellow transition-colors group py-2"
-                        >
-                            <span>contato@gsedge.com.br</span>
-                            <span className="group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
-
-                        <div className="mt-10 pt-8 border-t border-white/10 text-xs text-slate-500 space-y-2">
-                            <p className="font-semibold text-slate-400">GS Edge - Software Engineering</p>
-                            <p>Desenvolvimento de Software sob Medida</p>
-                            <p>São Paulo, SP - Brasil</p>
-                        </div>
-                    </div>
-
-                    {/* Contact Form */}
-                    <div className="lg:col-span-3 bg-edge-darker/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl relative">
-                        {submitted ? (
-                            <div className="py-12 text-center flex flex-col items-center justify-center">
-                                <FaCheckCircle className="text-edge-cyan text-5xl mb-4 animate-bounce" />
-                                <h4 className="text-2xl font-bold text-slate-100 mb-2">
-                                    {t('contact_success')}
-                                </h4>
+                        <div className="flex flex-col items-center text-center w-full">
+                            <div className="w-16 h-16 rounded-2xl bg-edge-yellow/10 border border-edge-yellow/30 flex items-center justify-center text-edge-yellow text-3xl mb-6 mx-auto group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(250,204,21,0.2)]">
+                                <FaCalendarCheck />
                             </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
-                                            {t('contact_name')}
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-edge-cyan focus:ring-1 focus:ring-edge-cyan transition-all text-sm"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                                            {t('contact_email')}
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-edge-cyan focus:ring-1 focus:ring-edge-cyan transition-all text-sm"
-                                        />
-                                    </div>
-                                </div>
 
-                                <div>
-                                    <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">
-                                        {t('contact_subject')}
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="subject"
-                                        name="subject"
-                                        value={formData.subject}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-edge-cyan focus:ring-1 focus:ring-edge-cyan transition-all text-sm"
-                                    />
-                                </div>
+                            <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-yellow/30 bg-edge-yellow/10 text-edge-yellow text-xs font-semibold uppercase tracking-widest mb-4 mx-auto">
+                                Reunião de 30 minutos
+                            </div>
 
-                                <div>
-                                    <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
-                                        {t('contact_message')}
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        rows={4}
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-edge-cyan focus:ring-1 focus:ring-edge-cyan transition-all text-sm"
-                                    ></textarea>
-                                </div>
+                            <h3 className="text-2xl md:text-4xl font-extrabold text-slate-100 mb-4 leading-tight text-center">
+                                {t('hero_cta_diagnostics')}
+                            </h3>
 
-                                <button
-                                    type="submit"
-                                    className="w-full py-4 bg-edge-cyan text-edge-darker font-bold rounded-xl shadow-lg hover:bg-cyan-300 transition-all flex items-center justify-center gap-2 text-base hover:shadow-[0_0_25px_rgba(34,211,238,0.4)]"
-                                >
-                                    <FaPaperPlane />
-                                    <span>{t('contact_submit')}</span>
-                                </button>
-                            </form>
-                        )}
+                            <p className="text-slate-300 text-base md:text-lg leading-relaxed mb-8 text-center max-w-xl mx-auto">
+                                {t('hero_cta_phrase')} Escolha o melhor dia e horário na nossa agenda oficial no Calendly para conversarmos sobre arquitetura, sistemas legados e infraestrutura.
+                            </p>
+                        </div>
+
+                        <div className="w-full sm:w-auto">
+                            <a
+                                href="https://calendly.com/gsedge/30min"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full sm:w-auto py-4 px-10 bg-edge-yellow text-edge-darker font-extrabold rounded-2xl shadow-lg hover:bg-yellow-400 transition-all flex items-center justify-center gap-3 text-lg hover:shadow-[0_0_30px_rgba(250,204,21,0.5)] hover:scale-[1.03]"
+                            >
+                                <span>{t('hero_cta_diagnostics')}</span>
+                                <span className="group-hover:translate-x-1.5 transition-transform text-xl">→</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

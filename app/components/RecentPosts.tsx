@@ -65,22 +65,24 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
             <p className="text-slate-400 col-span-full">{t('no_posts')}</p>
           ) : (
             posts.map((post) => (
-              <article key={post.slug} className="bg-edge-darker/60 backdrop-blur-md border border-white/5 rounded-2xl p-6 hover:border-edge-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.1)] flex flex-col group">
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="bg-edge-darker/60 backdrop-blur-md border border-white/5 rounded-2xl p-6 hover:border-edge-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] flex flex-col group cursor-pointer"
+              >
                 <span className="text-edge-cyan text-xs font-mono font-semibold tracking-wider mb-3 block">
                   {new Date(post.date).toLocaleDateString(dateFormat, { year: 'numeric', month: 'short', day: 'numeric' })}
                 </span>
                 <h3 className="text-xl font-bold text-slate-100 mb-3 group-hover:text-edge-yellow transition-colors line-clamp-2 leading-snug">
-                  <Link href={`/blog/${post.slug}`}>
-                    {post.title}
-                  </Link>
+                  {post.title}
                 </h3>
                 <p className="text-slate-400 text-sm mb-6 flex-grow line-clamp-3 leading-relaxed">
                   {post.excerpt}
                 </p>
-                <Link href={`/blog/${post.slug}`} className="inline-flex items-center text-sm font-bold text-slate-300 hover:text-edge-cyan transition-colors mt-auto pt-4 border-t border-white/5">
+                <div className="inline-flex items-center text-sm font-bold text-slate-300 group-hover:text-edge-cyan transition-colors mt-auto pt-4 border-t border-white/5">
                   {t('read_more')} <span className="ml-1.5 group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-              </article>
+                </div>
+              </Link>
             ))
           )}
         </div>
