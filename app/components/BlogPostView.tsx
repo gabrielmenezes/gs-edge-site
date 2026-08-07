@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import BlogBackLink from '@/app/components/BlogBackLink';
+import SocialShare from '@/app/components/SocialShare';
 import { useLanguage } from '@/app/components/LanguageContext';
 import { BlogPost } from '@/lib/blog';
 
@@ -55,6 +56,8 @@ export default function BlogPostView({ slug, initialPost }: BlogPostViewProps) {
             {new Date(post.date).toLocaleDateString(dateFormat, { year: 'numeric', month: 'long', day: 'numeric' })}
           </div>
         </div>
+
+        <SocialShare title={post.title} slug={slug} />
 
         <div className="prose prose-invert prose-lg prose-slate mx-auto prose-a:text-edge-cyan hover:prose-a:text-edge-yellow prose-headings:text-slate-100 prose-strong:text-slate-200 prose-p:leading-relaxed prose-p:indent-6 md:prose-p:indent-8 prose-p:text-justify prose-iframe:w-full prose-iframe:aspect-video">
           <ReactMarkdown 
