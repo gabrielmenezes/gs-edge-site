@@ -34,34 +34,40 @@ export default function SocialShare({ title }: SocialShareProps) {
     return '';
   };
 
-  const handleShare = (e: React.MouseEvent<HTMLAnchorElement>, type: string) => {
-    e.preventDefault();
-    const urlToShare = getUrl();
-    if (!urlToShare) return;
+  const activeUrl = getUrl();
+  const encodedUrl = encodeURIComponent(activeUrl);
+  const encodedTitle = encodeURIComponent(title);
 
-    let targetUrl = '';
-    const encodedUrl = encodeURIComponent(urlToShare);
-    const encodedTitle = encodeURIComponent(title);
-
-    switch (type) {
-      case 'linkedin':
-        targetUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
-        break;
-      case 'twitter':
-        targetUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
-        break;
-      case 'whatsapp':
-        targetUrl = `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`;
-        break;
-      case 'facebook':
-        targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-        break;
-      default:
-        return;
-    }
-
-    window.open(targetUrl, '_blank', 'noopener,noreferrer,width=600,height=600');
-  };
+  const shareItems = [
+    {
+      id: 'linkedin',
+      name: t('share_linkedin'),
+      icon: FaLinkedin,
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+      colorClass: 'hover:text-[#0A66C2] hover:bg-[#0A66C2]/15 hover:border-[#0A66C2]/40',
+    },
+    {
+      id: 'twitter',
+      name: t('share_twitter'),
+      icon: FaTwitter,
+      href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+      colorClass: 'hover:text-[#1DA1F2] hover:bg-[#1DA1F2]/15 hover:border-[#1DA1F2]/40',
+    },
+    {
+      id: 'whatsapp',
+      name: t('share_whatsapp'),
+      icon: FaWhatsapp,
+      href: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
+      colorClass: 'hover:text-[#25D366] hover:bg-[#25D366]/15 hover:border-[#25D366]/40',
+    },
+    {
+      id: 'facebook',
+      name: t('share_facebook'),
+      icon: FaFacebookF,
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      colorClass: 'hover:text-[#1877F2] hover:bg-[#1877F2]/15 hover:border-[#1877F2]/40',
+    },
+  ];
 
   const handleCopyLink = async () => {
     const urlToCopy = getUrl();
@@ -75,33 +81,6 @@ export default function SocialShare({ title }: SocialShareProps) {
     }
   };
 
-  const shareItems = [
-    {
-      id: 'linkedin',
-      name: t('share_linkedin'),
-      icon: FaLinkedin,
-      colorClass: 'hover:text-[#0A66C2] hover:bg-[#0A66C2]/15 hover:border-[#0A66C2]/40',
-    },
-    {
-      id: 'twitter',
-      name: t('share_twitter'),
-      icon: FaTwitter,
-      colorClass: 'hover:text-[#1DA1F2] hover:bg-[#1DA1F2]/15 hover:border-[#1DA1F2]/40',
-    },
-    {
-      id: 'whatsapp',
-      name: t('share_whatsapp'),
-      icon: FaWhatsapp,
-      colorClass: 'hover:text-[#25D366] hover:bg-[#25D366]/15 hover:border-[#25D366]/40',
-    },
-    {
-      id: 'facebook',
-      name: t('share_facebook'),
-      icon: FaFacebookF,
-      colorClass: 'hover:text-[#1877F2] hover:bg-[#1877F2]/15 hover:border-[#1877F2]/40',
-    },
-  ];
-
   return (
     <div className="my-8 p-4 sm:p-5 bg-slate-900/60 backdrop-blur-md border border-slate-800/80 rounded-2xl shadow-xl shadow-black/20 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div className="flex items-center gap-2.5 text-slate-300 font-medium text-sm sm:text-base">
@@ -114,21 +93,10 @@ export default function SocialShare({ title }: SocialShareProps) {
       <div className="flex items-center gap-2.5 flex-wrap justify-center">
         {shareItems.map((item) => {
           const Icon = item.icon;
-          const urlToShare = getUrl();
-          const encodedUrl = encodeURIComponent(urlToShare);
-          const encodedTitle = encodeURIComponent(title);
-
-          let href = '#';
-          if (item.id === 'linkedin') href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
-          if (item.id === 'twitter') href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
-          if (item.id === 'whatsapp') href = `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`;
-          if (item.id === 'facebook') href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-
           return (
             <a
               key={item.id}
-              href={href}
-              onClick={(e) => handleShare(e, item.id)}
+              href={item.href}
               target="_blank"
               rel="noopener noreferrer"
               title={item.name}
