@@ -24,7 +24,7 @@ export default function SocialShare({ title }: SocialShareProps) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setCurrentUrl(window.location.href);
+      requestAnimationFrame(() => setCurrentUrl(window.location.href));
     }
   }, []);
 

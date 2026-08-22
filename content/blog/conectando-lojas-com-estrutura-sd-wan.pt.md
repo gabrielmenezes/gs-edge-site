@@ -2,6 +2,10 @@
 title: "Conectando Lojas com Estrutura SD-WAN: Por Que Migrar da Rede Legada?"
 date: "2026-08-06"
 excerpt: "Descubra como a arquitetura SD-WAN otimiza custos operacionais, garante a estabilidade das filiais e impulsiona a adoção de serviços em nuvem no varejo e empresas distribuídas."
+image: "/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg"
+category: "Infraestrutura & Redes"
+author: "Gabriel Soares"
+authorRole: "Infrastructure & Systems"
 ---
 
 ## Conectando Lojas com Estrutura SD-WAN: Por Que e Como Modernizar sua Infraestrutura de Rede
@@ -9,6 +13,8 @@ excerpt: "Descubra como a arquitetura SD-WAN otimiza custos operacionais, garant
 No cenário corporativo moderno, a eficiência das filiais e unidades de atendimento depende diretamente da qualidade e da disponibilidade da conectividade de rede. O modelo tradicional de rede de longa distância (WAN), baseado exclusivamente em circuitos privados dedicados (como MPLS) e arquiteturas centralizadas *hub-and-spoke*, tem enfrentado gargalos severos de desempenho e custos elevados.
 
 Na **GS Edge**, acompanhamos de perto a transição das empresas para arquiteturas baseadas em **Software-Defined WAN (SD-WAN)**. Neste artigo, abordamos a evolução do SD-WAN, como ele reduz custos e aumenta a estabilidade das filiais, e por que essa tecnologia se tornou um requisito fundamental para a transformação digital em nuvem.
+
+![Arquitetura de conectividade global com SD-WAN interligando filiais e datacenters](/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg)
 
 ### De Onde Veio a Necessidade do SD-WAN?
 

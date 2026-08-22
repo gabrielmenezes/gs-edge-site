@@ -46,7 +46,7 @@ export default function Navbar() {
 
     // Close menu on route change
     useEffect(() => {
-        setIsOpen(false);
+        requestAnimationFrame(() => setIsOpen(false));
     }, [pathname]);
 
     return (
@@ -98,14 +98,6 @@ export default function Navbar() {
                                 className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'services' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
                             >
                                 {t('nav_services')}
-                            </Link>
-                        </li>
-                        <li className="py-2 md:py-0">
-                            <Link
-                                href="/work"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/work') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
-                            >
-                                {t('nav_work')}
                             </Link>
                         </li>
                         <li className="py-2 md:py-0">

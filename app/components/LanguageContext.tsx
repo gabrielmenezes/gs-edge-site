@@ -49,10 +49,12 @@ export const translations = {
     about_values_desc: 'Rigor técnico, transparência total, inovação prática, resiliência operacional e foco absoluto no sucesso do cliente.',
     recent_posts_title: 'Blog da GS Edge',
     recent_posts_subtitle: 'Artigos técnicos, engenharia de software, redes, nuvem e novidades sobre tecnologia.',
+    all_categories: 'Todos os Artigos',
+    related_posts_title: 'Artigos Recomendados',
     view_all: 'Ver todos os artigos',
     read_more: 'Ler artigo completo',
     back_to_blog: '← Voltar para o Blog',
-    no_posts: 'Nenhum artigo publicado neste idioma ainda.',
+    no_posts: 'Nenhum artigo publicado nesta categoria ainda.',
     share_title: 'Compartilhar artigo:',
     share_copy: 'Copiar Link',
     share_copied: 'Link Copiado!',
@@ -119,10 +121,12 @@ export const translations = {
     about_values_desc: 'Technical excellence, radical transparency, outcome-driven innovation, operational resilience, and relentless focus on client success.',
     recent_posts_title: 'GS Edge Tech Blog',
     recent_posts_subtitle: 'Technical articles, software engineering insights, cloud, networks, and tech updates.',
+    all_categories: 'All Articles',
+    related_posts_title: 'Recommended Articles',
     view_all: 'View all articles',
     read_more: 'Read full article',
     back_to_blog: '← Back to Blog',
-    no_posts: 'No articles published in this language yet.',
+    no_posts: 'No articles published in this category yet.',
     share_title: 'Share article:',
     share_copy: 'Copy Link',
     share_copied: 'Link Copied!',
@@ -160,10 +164,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const savedLang = localStorage.getItem('language') as Language;
-    if (savedLang && (savedLang === 'en' || savedLang === 'pt')) {
-      setLanguage(savedLang);
+    if (savedLang && (savedLang === 'en' || savedLang === 'pt') && savedLang !== language) {
+      requestAnimationFrame(() => setLanguage(savedLang));
     }
-  }, []);
+  }, [language]);
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);

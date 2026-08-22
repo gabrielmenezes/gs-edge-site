@@ -2,6 +2,10 @@
 title: "Connecting Retail Stores with SD-WAN: Why Upgrade Beyond Legacy Networks?"
 date: "2026-08-06"
 excerpt: "Learn how SD-WAN architecture reduces operational costs, ensures branch network stability, and empowers cloud service adoption across distributed enterprises."
+image: "/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg"
+category: "Infrastructure & Networks"
+author: "Gabriel Soares"
+authorRole: "Infrastructure & Systems"
 ---
 
 ## Connecting retail stores with SD-WAN architecture: why and how to modernize your network infrastructure
@@ -9,6 +13,8 @@ excerpt: "Learn how SD-WAN architecture reduces operational costs, ensures branc
 In today's digital economy, branch office and retail store efficiency relies directly on network connectivity quality and availability. Traditional Wide Area Network (WAN) models, built on dedicated private circuits (like MPLS) and centralized *hub-and-spoke* architectures, face severe performance bottlenecks and rising operational expenses.
 
 At **GS Edge**, we closely guide organizations through their transition toward **Software-Defined WAN (SD-WAN)** architectures. In this article, we cover the origins of SD-WAN, how it optimizes costs and increases network stability at branch locations, and why it is essential for modern cloud adoption.
+
+![Global SD-WAN connectivity architecture interconnecting branch stores and cloud data centers](/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg)
 
 ### Where did the need for SD-WAN come from?
 

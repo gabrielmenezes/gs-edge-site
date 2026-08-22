@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getPostBySlug, getPostSlugs } from '@/lib/blog';
+import { getPostBySlug, getPostSlugs, getRelatedPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import BlogPostView from '@/app/components/BlogPostView';
 
@@ -49,5 +49,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return notFound();
   }
 
-  return <BlogPostView slug={resolvedParams.slug} initialPost={post} />;
+  const initialRelatedPosts = getRelatedPosts(resolvedParams.slug, post.category, 'pt', 2);
+
+  return (
+    <BlogPostView
+      slug={resolvedParams.slug}
+      initialPost={post}
+      initialRelatedPosts={initialRelatedPosts}
+    />
+  );
 }

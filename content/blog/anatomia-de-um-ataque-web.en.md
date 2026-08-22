@@ -2,6 +2,10 @@
 title: "Anatomy of a web attack: How a PHP and MySQL vulnerability led to Server Compromise"
 date: "2026-08-07"
 excerpt: "Understand the technical analysis of a real incident where SQL Injection and Command Injection (RCE) flaws allowed full compromise of a PHP/MySQL server, and learn key mitigation strategies."
+image: "/images/blog/anatomia-de-um-ataque-web.jpg"
+category: "Defensive Security"
+author: "Gabriel Soares"
+authorRole: "Software & Security Engineer"
 ---
 
 ## Anatomy of a Web Attack: How a PHP and MySQL vulnerability led to Server Compromise
@@ -15,6 +19,8 @@ In this article, we detail step-by-step how attackers exploited the application 
 ## How the Attack Occurred
 
 The incident occurred in two distinct stages, combining **SQL Injection (SQLi)** to gain initial access and **Command Injection** for lateral movement and arbitrary code execution.
+
+![Technical diagram of SQL Injection and Command Injection vulnerability](/images/blog/anatomia-de-um-ataque-web.jpg)
 
 ```
 [Attacker] ──(1. SQL Injection on Login)──> [Authentication Bypassed]

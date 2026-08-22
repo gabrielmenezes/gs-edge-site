@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import heroImage from '@/app/assets/images/hero_network_abstract.png'; 
 import { useLanguage } from './LanguageContext';
@@ -61,12 +62,12 @@ export default function Hero() {
                                 <span className="group-hover:translate-x-1 transition-transform">→</span>
                             </span>
                         </a>
-                        <a
+                        <Link
                             href="/#services"
                             className="group relative inline-flex items-center justify-center bg-edge-darker border border-slate-700 text-slate-300 px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 hover:border-edge-cyan hover:text-edge-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:scale-105"
                         >
                             {t('hero_cta_solutions')}
-                        </a>
+                        </Link>
                     </motion.div>
 
                     <motion.p

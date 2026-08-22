@@ -5,6 +5,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const lang = (searchParams.get('lang') || 'pt') as 'pt' | 'en';
   const slug = searchParams.get('slug');
+  const category = searchParams.get('category') || undefined;
 
   if (slug) {
     const post = getPostBySlug(slug, lang);
@@ -14,6 +15,6 @@ export async function GET(request: Request) {
     return NextResponse.json(post);
   }
 
-  const posts = getAllPosts(lang);
+  const posts = getAllPosts(lang, category);
   return NextResponse.json(posts);
 }
