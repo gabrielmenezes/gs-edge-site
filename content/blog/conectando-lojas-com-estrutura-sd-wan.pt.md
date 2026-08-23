@@ -5,7 +5,7 @@ excerpt: "Descubra como a arquitetura SD-WAN otimiza custos operacionais, garant
 image: "/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg"
 category: "Infraestrutura & Redes"
 author: "Gabriel Soares"
-authorRole: "Infrastructure & Systems"
+authorRole: "Arquiteto de Soluções"
 ---
 
 ## Conectando Lojas com Estrutura SD-WAN: Por Que e Como Modernizar sua Infraestrutura de Rede

@@ -5,7 +5,7 @@ excerpt: "Learn how SD-WAN architecture reduces operational costs, ensures branc
 image: "/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg"
 category: "Infrastructure & Networks"
 author: "Gabriel Soares"
-authorRole: "Infrastructure & Systems"
+authorRole: "Solution Architect"
 ---
 
 ## Connecting retail stores with SD-WAN architecture: why and how to modernize your network infrastructure

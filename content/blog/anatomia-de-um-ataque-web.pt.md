@@ -5,7 +5,7 @@ excerpt: "Entenda a análise técnica de um incidente real onde falhas de SQL In
 image: "/images/blog/anatomia-de-um-ataque-web.jpg"
 category: "Segurança Defensiva"
 author: "Gabriel Soares"
-authorRole: "Software & Security Engineer"
+authorRole: "Arquiteto de Soluções"
 ---
 
 ## Anatomia de um ataque web: Como uma vulnerabilidade em PHP e MySQL permitiu a invasão de um servidor

@@ -5,7 +5,7 @@ excerpt: "Understand the technical analysis of a real incident where SQL Injecti
 image: "/images/blog/anatomia-de-um-ataque-web.jpg"
 category: "Defensive Security"
 author: "Gabriel Soares"
-authorRole: "Software & Security Engineer"
+authorRole: "Solution Architect"
 ---
 
 ## Anatomy of a Web Attack: How a PHP and MySQL vulnerability led to Server Compromise

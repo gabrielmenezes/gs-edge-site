@@ -180,7 +180,7 @@ export default function BlogPostView({ slug, initialPost, initialRelatedPosts }:
             <div className="flex items-center gap-3">
               <span className="flex items-center gap-1.5 font-medium">
                 <FaCalendarAlt className="opacity-70" />
-                {new Date(post.date).toLocaleDateString(dateFormat, {
+                {new Date(post.date.includes('T') ? post.date : `${post.date}T12:00:00`).toLocaleDateString(dateFormat, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -230,11 +230,11 @@ export default function BlogPostView({ slug, initialPost, initialRelatedPosts }:
             rehypePlugins={[rehypeRaw]}
             remarkPlugins={[remarkGfm]}
             components={{
-              img: ({ node, src, alt }) => {
+              img: ({ src, alt }) => {
                 if (!src || typeof src !== 'string') return null;
                 return (
-                  <figure className="my-8">
-                    <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-lg">
+                  <span className="block my-8">
+                    <span className="block relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-lg">
                       <Image
                         src={src}
                         alt={alt || ''}
@@ -242,17 +242,17 @@ export default function BlogPostView({ slug, initialPost, initialRelatedPosts }:
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 800px"
                       />
-                    </div>
+                    </span>
                     {alt && (
-                      <figcaption
-                        className={`text-center text-xs mt-2 font-mono ${
+                      <span
+                        className={`block text-center text-xs mt-2 font-mono ${
                           isLight ? 'text-slate-500' : 'text-slate-400'
                         }`}
                       >
                         {alt}
-                      </figcaption>
+                      </span>
                     )}
-                  </figure>
+                  </span>
                 );
               },
             }}

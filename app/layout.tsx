@@ -48,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
@@ -66,9 +66,9 @@ export default function RootLayout({
             
             <Navbar />
             {children}
+            <Footer />
           </div>
         </LanguageProvider>
-        <Footer />
         <Analytics mode="production" />
       </body>
     </html>

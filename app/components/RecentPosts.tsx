@@ -126,7 +126,7 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
 
                   <div className="flex items-center gap-2">
                     <span>
-                      {new Date(post.date).toLocaleDateString(dateFormat, {
+                      {new Date(post.date.includes('T') ? post.date : `${post.date}T12:00:00`).toLocaleDateString(dateFormat, {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
