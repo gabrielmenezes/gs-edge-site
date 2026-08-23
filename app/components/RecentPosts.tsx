@@ -44,24 +44,19 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
   const dateFormat = language === 'pt' ? 'pt-BR' : 'en-US';
 
   return (
-    <section id="recent-posts" className="py-24 px-4 relative z-10">
+    <section id="recent-posts" className="py-24 px-4 relative z-10 border-t border-white/5">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
-          <div>
-            <span className="text-edge-cyan text-xs font-mono font-bold tracking-widest uppercase mb-2 block">
-              Knowledge & Insights
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-100 tracking-tight">
-              {t('recent_posts_title')}
-            </h2>
-            <p className="text-slate-400 text-base md:text-lg mt-2">{t('recent_posts_subtitle')}</p>
+        {/* Centered Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs font-mono font-bold tracking-widest uppercase mb-4 mx-auto">
+            <span>{t('recent_posts_badge')}</span>
           </div>
-          <Link
-            href="/blog"
-            className="text-edge-cyan hover:text-edge-yellow transition-colors font-bold flex items-center gap-2 text-sm uppercase tracking-wider group"
-          >
-            {t('view_all')} <span className="text-lg group-hover:translate-x-1 transition-transform">→</span>
-          </Link>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-100 mb-4">
+            {t('recent_posts_title')}
+          </h2>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            {t('recent_posts_subtitle')}
+          </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
@@ -142,6 +137,17 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
               </Link>
             ))
           )}
+        </div>
+
+        {/* View All Button */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-edge-cyan hover:text-edge-yellow font-bold text-sm uppercase tracking-wider transition-all px-6 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-edge-cyan/40 hover:scale-105 group"
+          >
+            <span>{t('view_all')}</span>
+            <span className="text-lg group-hover:translate-x-1 transition-transform">→</span>
+          </Link>
         </div>
       </div>
     </section>

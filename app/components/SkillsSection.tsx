@@ -55,7 +55,7 @@ export default function SkillsSection() {
       <div className="container mx-auto px-4 mb-10 text-center relative z-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs font-semibold uppercase tracking-widest mb-3">
           <span className="w-1.5 h-1.5 rounded-full bg-edge-cyan animate-pulse"></span>
-          Tech Stack & Expertise
+          {t('skills_badge')}
         </div>
         <h2 className="text-2xl md:text-4xl font-extrabold text-slate-100 mb-3">
           {t('skills_title')}

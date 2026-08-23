@@ -102,6 +102,14 @@ export default function Navbar() {
                         </li>
                         <li className="py-2 md:py-0">
                             <Link
+                                href="/products"
+                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/products') || activeSection === 'products' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
+                            >
+                                {t('nav_products')}
+                            </Link>
+                        </li>
+                        <li className="py-2 md:py-0">
+                            <Link
                                 href="/blog"
                                 className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/blog') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
                             >

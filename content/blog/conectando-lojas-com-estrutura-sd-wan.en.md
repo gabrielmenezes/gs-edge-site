@@ -73,4 +73,4 @@ At **GS Edge**, we deliver custom network architecture engineering, legacy syste
 
 Ready to assess your network readiness and unlock cost optimization opportunities?
 
-👉 **[Schedule a Free 30-Minute Technical Assessment on Calendly](https://calendly.com/gsedge/30min)** with our engineering experts, or contact us via email at **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+👉 **[Schedule a Free 30-Minute Technical Assessment](https://calendly.com/gsedge/30min)** with our engineering experts, or contact us via email at **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
