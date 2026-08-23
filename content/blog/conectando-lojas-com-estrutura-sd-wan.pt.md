@@ -73,4 +73,4 @@ Na **GS Edge**, desenvolvemos projetos sob medida de arquitetura de rede, integr
 
 Quer avaliar o nível de maturidade da sua rede e identificar oportunidades de otimização de custos e estabilidade?
 
-👉 **[Agende um Diagnóstico Técnico Gratuito de 30 Minutos no Calendly](https://calendly.com/gsedge/30min)** com nossos engenheiros especialistas, ou entre em contato pelo e-mail **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+👉 **[Agende um Diagnóstico Técnico Gratuito de 30 Minutos](https://calendly.com/gsedge/30min)** com nossos engenheiros especialistas, ou entre em contato pelo e-mail **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.

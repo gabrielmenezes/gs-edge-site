@@ -30,7 +30,7 @@ export default function FormContato() {
                             </div>
 
                             <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-yellow/30 bg-edge-yellow/10 text-edge-yellow text-xs font-semibold uppercase tracking-widest mb-4 mx-auto">
-                                Reunião de 30 minutos
+                                {t('contact_badge')}
                             </div>
 
                             <h3 className="text-2xl md:text-4xl font-extrabold text-slate-100 mb-4 leading-tight text-center">
@@ -38,7 +38,7 @@ export default function FormContato() {
                             </h3>
 
                             <p className="text-slate-300 text-base md:text-lg leading-relaxed mb-8 text-center max-w-xl mx-auto">
-                                {t('hero_cta_phrase')} Escolha o melhor dia e horário na nossa agenda oficial no Calendly para conversarmos sobre arquitetura, sistemas legados e infraestrutura.
+                                {t('contact_cta_desc')}
                             </p>
                         </div>
 
