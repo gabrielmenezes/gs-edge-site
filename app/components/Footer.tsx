@@ -6,7 +6,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 export default function Footer() {
   return (
     <footer className="bg-edge-dark border-t border-slate-800 text-slate-400 py-10 text-sm relative z-10">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left space-y-1">
           <p className="font-bold text-slate-200 text-base">GS Edge - Software Engineering</p>
           <p className="text-xs text-slate-400">Design de Sistemas, Software sob Medida & Capacitação em TI</p>

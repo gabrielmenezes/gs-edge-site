@@ -52,7 +52,7 @@ export default function SkillsSection() {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-edge-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-edge-yellow/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="container mx-auto px-4 mb-10 text-center relative z-10">
+      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto px-4 mb-10 text-center relative z-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs font-semibold uppercase tracking-widest mb-3">
           <span className="w-1.5 h-1.5 rounded-full bg-edge-cyan animate-pulse"></span>
           {t('skills_badge')}

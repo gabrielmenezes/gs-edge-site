@@ -88,7 +88,7 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-emerald-500/10 blur-[180px] -z-10 pointer-events-none"></div>
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-edge-cyan/10 blur-[180px] -z-10 pointer-events-none"></div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto relative z-10">
         {/* Back Link */}
         <div className="mb-8">
           <Link

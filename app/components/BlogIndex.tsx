@@ -96,23 +96,23 @@ export default function BlogIndex({ initialPosts }: BlogIndexProps) {
         }`}
       ></div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto relative z-10">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b pb-8 transition-colors duration-300 border-slate-200 dark:border-white/10">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 transition-colors duration-300 bg-edge-cyan/10 text-edge-cyan border border-edge-cyan/20">
-              <FaTag className="text-[10px]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs 2xl:text-sm font-bold tracking-widest uppercase mb-4 transition-colors duration-300 bg-edge-cyan/10 text-edge-cyan border border-edge-cyan/20">
+              <FaTag className="text-[10px] 2xl:text-xs" />
               <span>{t('nav_blog')}</span>
             </div>
             <h1
-              className={`text-4xl md:text-5xl font-extrabold tracking-tight mb-3 transition-colors ${
+              className={`text-4xl md:text-5xl 2xl:text-6xl font-extrabold tracking-tight mb-3 transition-colors ${
                 isLight ? 'text-slate-900' : 'text-slate-100'
               }`}
             >
               {t('recent_posts_title')}
             </h1>
             <p
-              className={`text-base md:text-lg max-w-2xl leading-relaxed transition-colors ${
+              className={`text-base md:text-lg 2xl:text-xl max-w-2xl 2xl:max-w-3xl leading-relaxed transition-colors ${
                 isLight ? 'text-slate-600' : 'text-slate-400'
               }`}
             >
@@ -202,8 +202,8 @@ export default function BlogIndex({ initialPosts }: BlogIndexProps) {
             <p className="text-lg font-medium">{t('no_posts')}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {filteredPosts.map((post) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 2xl:gap-10">
+            {filteredPosts.map((post, index) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -221,8 +221,10 @@ export default function BlogIndex({ initialPosts }: BlogIndexProps) {
                         src={post.image}
                         alt={post.title}
                         fill
+                        priority={index < 2}
+                        loading={index < 2 ? 'eager' : 'lazy'}
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 550px"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1536px) 600px, 800px"
                       />
                       {/* Category Floating Pill */}
                       {post.category && (

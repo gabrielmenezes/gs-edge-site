@@ -33,9 +33,9 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="py-24 px-4 bg-edge-darker/30 relative z-10 border-t border-white/5">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-bold text-slate-100 mb-12 text-center">
+    <section id="about" className="py-24 2xl:py-32 px-4 bg-edge-darker/30 relative z-10 border-t border-white/5">
+      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto">
+        <h2 className="text-3xl md:text-5xl 2xl:text-6xl font-bold text-slate-100 mb-12 2xl:mb-16 text-center">
           {t('about_title')}
         </h2>
 

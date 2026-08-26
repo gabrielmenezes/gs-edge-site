@@ -23,35 +23,32 @@ export default function ProductsSection() {
   };
 
   return (
-    <section id="products" className="py-24 px-4 relative z-10 border-t border-white/5 overflow-hidden">
+    <section id="products" className="py-24 2xl:py-32 px-4 relative z-10 border-t border-white/5 overflow-hidden">
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-edge-cyan/5 blur-[160px] -z-10 pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] 2xl:w-[900px] h-[700px] 2xl:h-[900px] rounded-full bg-edge-cyan/5 blur-[160px] -z-10 pointer-events-none"></div>
 
-      <div className="max-w-6xl mx-auto">
+      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto">
         {/* Centered Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs font-mono font-bold tracking-widest uppercase mb-4 mx-auto">
+        <div className="text-center mb-16 2xl:mb-20">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs 2xl:text-sm font-mono font-bold tracking-widest uppercase mb-4 mx-auto">
             <FaRocket className="text-xs" />
             <span>{t('products_badge')}</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-100 mb-4">
+          <h2 className="text-3xl md:text-5xl 2xl:text-6xl font-bold text-slate-100 mb-4 2xl:mb-6">
             {t('products_title')}
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-400 text-lg 2xl:text-xl max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed">
             {t('products_subtitle')}
           </p>
         </div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 2xl:gap-10">
           {products.map((product, index) => (
-            <motion.div
+            <Link
               key={product.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 flex flex-col justify-between hover:border-edge-cyan/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] group hover:-translate-y-1.5 relative overflow-hidden"
+              href={`/products/${product.slug}`}
+              className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 flex flex-col justify-between hover:border-edge-cyan/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] group hover:-translate-y-1.5 relative overflow-hidden cursor-pointer"
             >
               {/* Subtle Card Accent Glow */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-edge-cyan/10 rounded-full blur-2xl group-hover:bg-edge-cyan/20 transition-all"></div>
@@ -100,15 +97,14 @@ export default function ProductsSection() {
 
               {/* Action Button */}
               <div className="pt-4 border-t border-white/10">
-                <Link
-                  href={`/products/${product.slug}`}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-edge-cyan hover:text-slate-950 border border-white/10 hover:border-edge-cyan text-slate-100 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 group/btn text-sm shadow-md"
+                <div
+                  className="w-full inline-flex items-center justify-center gap-2 bg-white/5 group-hover:bg-edge-cyan group-hover:text-slate-950 border border-white/10 group-hover:border-edge-cyan text-slate-100 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 group/btn text-sm shadow-md"
                 >
                   <span>{t('products_learn_more')}</span>
-                  <FaArrowRight className="text-xs group-hover/btn:translate-x-1 transition-transform" />
-                </Link>
+                  <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-            </motion.div>
+            </Link>
           ))}
         </div>
 

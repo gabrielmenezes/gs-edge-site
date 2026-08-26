@@ -10,15 +10,15 @@ export default function Hero() {
     const { t } = useLanguage();
 
     return (
-        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-            <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-4">
+        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 2xl:pt-56 2xl:pb-40 overflow-hidden">
+            <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-4">
                 {/* Texto Hero */}
                 <div className="lg:w-1/2 text-center lg:text-left z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs font-semibold uppercase tracking-widest mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs 2xl:text-sm font-semibold uppercase tracking-widest mb-6"
                     >
                         <span className="w-2 h-2 rounded-full bg-edge-cyan animate-pulse"></span>
                         {t('hero_badge')}
@@ -28,7 +28,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight py-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
+                        className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-extrabold leading-tight py-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400"
                     >
                         {t('hero_title_1')}{' '}
                         <span className="text-edge-cyan font-black drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">
@@ -40,7 +40,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-lg sm:text-xl text-slate-400 py-6 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                        className="text-lg sm:text-xl 2xl:text-2xl text-slate-400 py-6 max-w-2xl 2xl:max-w-3xl mx-auto lg:mx-0 leading-relaxed"
                     >
                         {t('hero_subtitle')}
                     </motion.p>
@@ -55,7 +55,7 @@ export default function Hero() {
                             href="https://calendly.com/gsedge/30min"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group relative inline-flex items-center justify-center bg-edge-yellow text-edge-darker px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 hover:bg-yellow-400 hover:scale-105 hover:shadow-[0_0_30px_rgba(250,204,21,0.5)]"
+                            className="group relative inline-flex items-center justify-center bg-edge-yellow text-edge-darker px-8 py-4 2xl:px-10 2xl:py-5 rounded-xl text-lg 2xl:text-xl font-bold transition-all duration-300 hover:bg-yellow-400 hover:scale-105 hover:shadow-[0_0_30px_rgba(250,204,21,0.5)]"
                         >
                             <span className="flex items-center gap-2">
                                 <span>{t('hero_cta_diagnostics')}</span>
@@ -64,7 +64,7 @@ export default function Hero() {
                         </a>
                         <Link
                             href="/#services"
-                            className="group relative inline-flex items-center justify-center bg-edge-darker border border-slate-700 text-slate-300 px-8 py-4 rounded-xl text-lg font-bold transition-all duration-300 hover:border-edge-cyan hover:text-edge-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:scale-105"
+                            className="group relative inline-flex items-center justify-center bg-edge-darker border border-slate-700 text-slate-300 px-8 py-4 2xl:px-10 2xl:py-5 rounded-xl text-lg 2xl:text-xl font-bold transition-all duration-300 hover:border-edge-cyan hover:text-edge-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:scale-105"
                         >
                             {t('hero_cta_solutions')}
                         </Link>
@@ -74,7 +74,7 @@ export default function Hero() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.6 }}
-                        className="text-xs sm:text-sm text-slate-400 mt-2 flex items-center justify-center lg:justify-start gap-2"
+                        className="text-xs sm:text-sm 2xl:text-base text-slate-400 mt-2 flex items-center justify-center lg:justify-start gap-2"
                     >
                         <span className="w-1.5 h-1.5 rounded-full bg-edge-yellow animate-pulse"></span>
                         {t('hero_cta_phrase')}
@@ -93,9 +93,9 @@ export default function Hero() {
                         <Image
                             src={heroImage}
                             alt="GS Edge Software Architecture"
-                            className="rounded-2xl shadow-2xl relative z-10 border border-white/10"
-                            width={600}
-                            height={600}
+                            className="rounded-2xl shadow-2xl relative z-10 border border-white/10 w-full max-w-[500px] 2xl:max-w-[650px]"
+                            width={650}
+                            height={650}
                             priority
                         />
                     </div>

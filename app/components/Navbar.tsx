@@ -51,7 +51,7 @@ export default function Navbar() {
 
     return (
         <header className={`py-4 w-full top-0 left-0 z-50 transition-all duration-300 ${isSticky ? 'fixed bg-edge-darker/80 backdrop-blur-md border-b border-white/10 shadow-lg' : 'absolute bg-transparent'}`}>
-            <div className="container mx-auto flex justify-between items-center px-4">
+            <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto flex justify-between items-center px-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center">
                     <Image src={logo} width={1024} height={400} className="rounded h-14 md:h-16 w-auto cursor-pointer hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]" alt="Logo GS Edge" />

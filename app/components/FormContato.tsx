@@ -7,18 +7,18 @@ export default function FormContato() {
     const { t } = useLanguage();
 
     return (
-        <section id="contact" className="py-24 px-4 bg-edge-darker/60 relative z-10 border-t border-white/5">
-            <div className="max-w-5xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-slate-100 mb-4">
+        <section id="contact" className="py-24 2xl:py-32 px-4 bg-edge-darker/60 relative z-10 border-t border-white/5">
+            <div className="w-full max-w-5xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto">
+                <div className="text-center mb-16 2xl:mb-20">
+                    <h2 className="text-3xl md:text-5xl 2xl:text-6xl font-bold text-slate-100 mb-4 2xl:mb-6">
                         {t('contact_title')}
                     </h2>
-                    <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-slate-400 text-lg 2xl:text-xl max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed">
                         {t('contact_subtitle')}
                     </p>
                 </div>
 
-                <div className="max-w-3xl mx-auto">
+                <div className="max-w-3xl 2xl:max-w-4xl mx-auto">
                     {/* Schedule Technical Diagnostics CTA Card */}
                     <div className="bg-gradient-to-br from-slate-900/90 to-edge-darker border border-edge-cyan/30 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden flex flex-col items-center text-center group hover:border-edge-cyan/60 transition-all duration-300">
                         <div className="absolute -top-20 -right-20 w-60 h-60 bg-edge-yellow/10 rounded-full blur-3xl pointer-events-none"></div>

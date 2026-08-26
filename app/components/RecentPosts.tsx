@@ -44,22 +44,22 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
   const dateFormat = language === 'pt' ? 'pt-BR' : 'en-US';
 
   return (
-    <section id="recent-posts" className="py-24 px-4 relative z-10 border-t border-white/5">
-      <div className="max-w-6xl mx-auto">
+    <section id="recent-posts" className="py-24 2xl:py-32 px-4 relative z-10 border-t border-white/5">
+      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto">
         {/* Centered Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs font-mono font-bold tracking-widest uppercase mb-4 mx-auto">
+        <div className="text-center mb-16 2xl:mb-20">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs 2xl:text-sm font-mono font-bold tracking-widest uppercase mb-4 mx-auto">
             <span>{t('recent_posts_badge')}</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-100 mb-4">
+          <h2 className="text-3xl md:text-5xl 2xl:text-6xl font-bold text-slate-100 mb-4 2xl:mb-6">
             {t('recent_posts_title')}
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-400 text-lg 2xl:text-xl max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed">
             {t('recent_posts_subtitle')}
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 2xl:gap-10 md:grid-cols-2">
           {loading && posts.length === 0 ? (
             <div className="col-span-full py-16 text-center text-slate-500">
               <div className="inline-block animate-spin w-8 h-8 border-4 border-edge-cyan border-t-transparent rounded-full mb-4"></div>
@@ -68,7 +68,7 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
           ) : posts.length === 0 ? (
             <p className="text-slate-400 col-span-full py-8 text-center">{t('no_posts')}</p>
           ) : (
-            posts.map((post) => (
+            posts.map((post, index) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -81,8 +81,10 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
                         src={post.image}
                         alt={post.title}
                         fill
+                        priority={index < 2}
+                        loading={index < 2 ? 'eager' : 'lazy'}
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 550px"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1536px) 600px, 800px"
                       />
                       {post.category && (
                         <div className="absolute top-4 left-4 z-10">
