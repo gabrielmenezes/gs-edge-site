@@ -2,33 +2,28 @@
 
 import React, { useEffect, useRef } from 'react';
 
-interface Node {
-    x: number;
-    y: number;
+interface NetworkNode {
+    id: number;
     baseX: number;
     baseY: number;
-    vx: number;
-    vy: number;
+    x: number;
+    y: number;
     radius: number;
-    layer: number; // 0: background, 1: midground, 2: foreground
+    type: 'hub' | 'gateway' | 'edge';
+    layer: number; // 0: background grid, 1: mid topology, 2: active foreground
+    activity: number; // 0 to 1 pulse
     color: string;
-    pulseCooldown: number;
+    neighbors: number[];
 }
 
-interface Pulse {
-    fromNode: number;
-    toNode: number;
+interface DataPacket {
+    fromId: number;
+    toId: number;
     progress: number; // 0 to 1
     speed: number;
     color: string;
     size: number;
-}
-
-interface Connection {
-    from: number;
-    to: number;
-    distance: number;
-    opacity: number;
+    trailLength: number;
 }
 
 export default function NetworkBackground() {
@@ -42,10 +37,10 @@ export default function NetworkBackground() {
         if (!ctx) return;
 
         let animationFrameId: number;
-        let isVisible = true;
         let width = 0;
         let height = 0;
         let scrollY = window.scrollY;
+        let targetScrollY = window.scrollY;
 
         const mouse = {
             x: -1000,
@@ -55,75 +50,147 @@ export default function NetworkBackground() {
             isHovered: false,
         };
 
-        let nodes: Node[] = [];
-        let pulses: Pulse[] = [];
-        let connections: Connection[] = [];
+        let nodes: NetworkNode[] = [];
+        let packets: DataPacket[] = [];
+        let maxPackets = 45;
 
-        // Colors palette
-        const colors = {
-            cyan: 'rgba(34, 211, 238, ',
-            yellow: 'rgba(250, 204, 21, ',
-            white: 'rgba(255, 255, 255, ',
-            blue: 'rgba(56, 189, 248, ',
+        // Palette
+        const cyan = '#22d3ee';
+        const yellow = '#facc15';
+        const blue = '#38bdf8';
+        const darkCyan = 'rgba(34, 211, 238, ';
+        const darkYellow = 'rgba(250, 204, 21, ';
+
+        const buildTopology = () => {
+            nodes = [];
+            packets = [];
+
+            const isMobile = width < 768;
+            const isTablet = width >= 768 && width < 1200;
+            const cols = isMobile ? 4 : isTablet ? 6 : 9;
+            const rows = isMobile ? 6 : isTablet ? 7 : 8;
+
+            const cellW = width / cols;
+            const cellH = height / rows;
+
+            let idCounter = 0;
+
+            // Generate structured topological grid with organic circuit offsets
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    // Density filter for circuit-like asymmetry
+                    if (Math.random() < 0.22 && (r > 0 && r < rows - 1)) continue;
+
+                    const jitterX = (Math.random() - 0.5) * cellW * 0.55;
+                    const jitterY = (Math.random() - 0.5) * cellH * 0.55;
+
+                    const baseX = (c + 0.5) * cellW + jitterX;
+                    const baseY = (r + 0.5) * cellH + jitterY;
+
+                    const isHub = Math.random() < 0.15;
+                    const isGateway = !isHub && Math.random() < 0.35;
+                    const type: 'hub' | 'gateway' | 'edge' = isHub ? 'hub' : isGateway ? 'gateway' : 'edge';
+
+                    const layer = isHub ? 2 : isGateway ? 1 : 0;
+                    const radius = isHub ? 4.5 : isGateway ? 3 : 2;
+                    const color = isHub ? yellow : isGateway ? cyan : blue;
+
+                    nodes.push({
+                        id: idCounter++,
+                        baseX,
+                        baseY,
+                        x: baseX,
+                        y: baseY,
+                        radius,
+                        type,
+                        layer,
+                        activity: Math.random(),
+                        color,
+                        neighbors: [],
+                    });
+                }
+            }
+
+            // Connect nodes into an interconnected network topology
+            const maxConnectDist = isMobile ? cellW * 1.7 : cellW * 1.5;
+
+            for (let i = 0; i < nodes.length; i++) {
+                const nodeA = nodes[i];
+                const candidates: { index: number; dist: number }[] = [];
+
+                for (let j = 0; j < nodes.length; j++) {
+                    if (i === j) continue;
+                    const nodeB = nodes[j];
+                    const dx = nodeA.baseX - nodeB.baseX;
+                    const dy = nodeA.baseY - nodeB.baseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxConnectDist) {
+                        candidates.push({ index: j, dist });
+                    }
+                }
+
+                // Sort closest
+                candidates.sort((a, b) => a.dist - b.dist);
+                const maxNeighbors = nodeA.type === 'hub' ? 5 : nodeA.type === 'gateway' ? 3 : 2;
+
+                for (let k = 0; k < Math.min(candidates.length, maxNeighbors); k++) {
+                    const targetIdx = candidates[k].index;
+                    if (!nodeA.neighbors.includes(targetIdx)) {
+                        nodeA.neighbors.push(targetIdx);
+                    }
+                    if (!nodes[targetIdx].neighbors.includes(i)) {
+                        nodes[targetIdx].neighbors.push(i);
+                    }
+                }
+            }
+
+            maxPackets = isMobile ? 25 : isTablet ? 45 : 70;
         };
 
-        const initNodes = () => {
-            const isMobile = width < 768;
-            const isTablet = width >= 768 && width < 1280;
-            const nodeCount = isMobile ? 35 : isTablet ? 60 : 95;
+        const spawnPacket = (forcedFrom?: number) => {
+            if (nodes.length === 0) return;
+            const fromIdx = forcedFrom !== undefined ? forcedFrom : Math.floor(Math.random() * nodes.length);
+            const sourceNode = nodes[fromIdx];
+            if (!sourceNode || sourceNode.neighbors.length === 0) return;
 
-            nodes = [];
-            pulses = [];
+            const toIdx = sourceNode.neighbors[Math.floor(Math.random() * sourceNode.neighbors.length)];
+            const isYellow = sourceNode.type === 'hub' || Math.random() < 0.25;
 
-            for (let i = 0; i < nodeCount; i++) {
-                const layer = Math.random() < 0.35 ? 0 : Math.random() < 0.7 ? 1 : 2;
-                const x = Math.random() * width;
-                const y = Math.random() * height;
-
-                const baseRadius = layer === 0 ? 1.5 : layer === 1 ? 2.2 : 3.2;
-                const isYellow = Math.random() < 0.2;
-                const nodeColor = isYellow ? colors.yellow : layer === 2 ? colors.cyan : colors.blue;
-
-                nodes.push({
-                    x,
-                    y,
-                    baseX: x,
-                    baseY: y,
-                    vx: (Math.random() - 0.5) * (0.3 + layer * 0.2),
-                    vy: (Math.random() - 0.5) * (0.3 + layer * 0.2),
-                    radius: baseRadius,
-                    layer,
-                    color: nodeColor,
-                    pulseCooldown: Math.random() * 120,
-                });
-            }
+            packets.push({
+                fromId: fromIdx,
+                toId: toIdx,
+                progress: 0,
+                speed: 0.35 + Math.random() * 0.45,
+                color: isYellow ? yellow : cyan,
+                size: sourceNode.type === 'hub' ? 2.8 : 2,
+                trailLength: 0.15 + Math.random() * 0.15,
+            });
         };
 
         const resize = () => {
             const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            const rect = canvas.getBoundingClientRect();
-            width = rect.width;
-            height = rect.height;
+            width = window.innerWidth;
+            height = window.innerHeight;
 
             canvas.width = width * dpr;
             canvas.height = height * dpr;
             ctx.scale(dpr, dpr);
 
-            initNodes();
+            buildTopology();
         };
 
         resize();
         window.addEventListener('resize', resize);
 
         const handleScroll = () => {
-            scrollY = window.scrollY;
+            targetScrollY = window.scrollY;
         };
         window.addEventListener('scroll', handleScroll, { passive: true });
 
         const handleMouseMove = (e: MouseEvent) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.targetX = e.clientX - rect.left;
-            mouse.targetY = e.clientY - rect.top;
+            mouse.targetX = e.clientX;
+            mouse.targetY = e.clientY;
             mouse.isHovered = true;
         };
 
@@ -136,198 +203,243 @@ export default function NetworkBackground() {
         window.addEventListener('mousemove', handleMouseMove);
         document.body.addEventListener('mouseleave', handleMouseLeave);
 
-        // Pause animation when hero is off-screen
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                isVisible = entry.isIntersecting;
-            },
-            { threshold: 0.05 }
-        );
-        observer.observe(canvas);
-
         let lastTime = performance.now();
 
         const render = (time: number) => {
             const deltaTime = Math.min((time - lastTime) / 1000, 0.1);
             lastTime = time;
 
-            if (isVisible && width > 0 && height > 0) {
-                ctx.clearRect(0, 0, width, height);
+            ctx.clearRect(0, 0, width, height);
 
-                // Smooth mouse tracking
-                mouse.x += (mouse.targetX - mouse.x) * 0.1;
-                mouse.y += (mouse.targetY - mouse.y) * 0.1;
+            // Smooth scroll parallax and mouse interpolation
+            scrollY += (targetScrollY - scrollY) * 0.08;
+            mouse.x += (mouse.targetX - mouse.x) * 0.1;
+            mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
-                // Parallax depth offset based on scroll
-                const maxDistance = width < 768 ? 110 : 160;
-                connections = [];
+            // Spawn data packets continuously
+            if (packets.length < maxPackets && Math.random() < 0.3) {
+                spawnPacket();
+            }
 
-                // Update & position nodes
-                for (let i = 0; i < nodes.length; i++) {
-                    const node = nodes[i];
+            // Update node positions with topology parallax and gentle heartbeat
+            const totalPageHeight = document.documentElement.scrollHeight || height * 2;
+            const scrollRatio = totalPageHeight > height ? scrollY / (totalPageHeight - height) : 0;
 
-                    // Parallax velocity based on layer depth
-                    const layerParallax = (node.layer + 1) * 0.18;
-                    const scrollOffset = scrollY * layerParallax;
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
 
-                    // Drift motion
-                    node.baseX += node.vx * 60 * deltaTime;
-                    node.baseY += node.vy * 60 * deltaTime;
+                // Parallax depth calculation
+                const parallaxSpeed = (node.layer + 1) * 0.12;
+                const scrollShift = scrollY * parallaxSpeed;
 
-                    // Boundary wrapping
-                    if (node.baseX < -40) node.baseX = width + 40;
-                    if (node.baseX > width + 40) node.baseX = -40;
-                    if (node.baseY < -40) node.baseY = height + 40;
-                    if (node.baseY > height + 40) node.baseY = -40;
+                // Subtle organic pulse of node activity
+                node.activity += deltaTime * (0.8 + node.layer * 0.5);
 
-                    node.x = node.baseX;
-                    node.y = (node.baseY - scrollOffset) % (height + 80);
-                    if (node.y < -40) node.y += height + 80;
+                // Modulo wrapping for infinite flow as user scrolls
+                let curY = (node.baseY - scrollShift) % (height + 120);
+                if (curY < -60) curY += height + 120;
 
-                    // Mouse interaction
-                    if (mouse.isHovered) {
-                        const dx = mouse.x - node.x;
-                        const dy = mouse.y - node.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        const mouseRadius = 180;
-                        if (dist < mouseRadius && dist > 0) {
-                            const force = (1 - dist / mouseRadius) * (node.layer === 2 ? 25 : 12);
-                            node.x -= (dx / dist) * force;
-                            node.y -= (dy / dist) * force;
-                        }
-                    }
+                node.x = node.baseX;
+                node.y = curY;
 
-                    // Node pulse cooldown & spawn
-                    node.pulseCooldown -= deltaTime * 60;
-                }
+                // Mouse interaction / network proximity
+                if (mouse.isHovered) {
+                    const dx = mouse.x - node.x;
+                    const dy = mouse.y - node.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const hoverRadius = 160;
 
-                // Calculate connection pairs & intertwining mesh
-                for (let i = 0; i < nodes.length; i++) {
-                    const nodeA = nodes[i];
+                    if (dist < hoverRadius && dist > 0) {
+                        const pull = (1 - dist / hoverRadius) * 18;
+                        node.x += (dx / dist) * pull;
+                        node.y += (dy / dist) * pull;
 
-                    for (let j = i + 1; j < nodes.length; j++) {
-                        const nodeB = nodes[j];
-
-                        // Nodes can connect across adjacent layers with higher density when scrolling
-                        const layerDiff = Math.abs(nodeA.layer - nodeB.layer);
-                        if (layerDiff > 1) continue;
-
-                        const dx = nodeA.x - nodeB.x;
-                        const dy = nodeA.y - nodeB.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < maxDistance) {
-                            const baseAlpha = 1 - dist / maxDistance;
-                            const layerMultiplier = nodeA.layer === 2 || nodeB.layer === 2 ? 0.35 : 0.18;
-                            const opacity = baseAlpha * layerMultiplier;
-
-                            connections.push({ from: i, to: j, distance: dist, opacity });
-
-                            // Spawn data pulses along lines
-                            if (nodeA.pulseCooldown <= 0 && pulses.length < 35 && Math.random() < 0.04) {
-                                nodeA.pulseCooldown = 80 + Math.random() * 150;
-                                const isYellow = Math.random() < 0.25;
-                                pulses.push({
-                                    fromNode: i,
-                                    toNode: j,
-                                    progress: 0,
-                                    speed: (0.4 + Math.random() * 0.5) * (nodeA.layer === 2 ? 1.2 : 0.9),
-                                    color: isYellow ? '#facc15' : '#22d3ee',
-                                    size: nodeA.layer === 2 ? 3 : 2,
-                                });
-                            }
+                        // Burst data packets when hovering near hubs
+                        if (node.type === 'hub' && Math.random() < 0.05 && packets.length < maxPackets + 10) {
+                            spawnPacket(i);
                         }
                     }
                 }
+            }
 
-                // Draw connection lines
-                for (let k = 0; k < connections.length; k++) {
-                    const conn = connections[k];
-                    const nodeA = nodes[conn.from];
-                    const nodeB = nodes[conn.to];
+            // 1. Draw Network Connections (Trunks, buses & data channels)
+            const drawnPairs = new Set<string>();
 
+            for (let i = 0; i < nodes.length; i++) {
+                const nodeA = nodes[i];
+
+                for (let n = 0; n < nodeA.neighbors.length; n++) {
+                    const neighborIdx = nodeA.neighbors[n];
+                    const nodeB = nodes[neighborIdx];
+                    if (!nodeB) continue;
+
+                    const pairKey = i < neighborIdx ? `${i}-${neighborIdx}` : `${neighborIdx}-${i}`;
+                    if (drawnPairs.has(pairKey)) continue;
+                    drawnPairs.add(pairKey);
+
+                    const dx = nodeA.x - nodeB.x;
+                    const dy = nodeA.y - nodeB.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    // Skip lines that wrap over screen edge
+                    if (dist > height * 0.5) continue;
+
+                    const isMainTrunk = nodeA.type === 'hub' || nodeB.type === 'hub';
+                    const baseAlpha = isMainTrunk ? 0.25 : 0.12;
+                    const strokeColor = isMainTrunk
+                        ? `${darkCyan}${baseAlpha})`
+                        : `rgba(148, 163, 184, ${baseAlpha})`;
+
+                    // Draw line
                     ctx.beginPath();
                     ctx.moveTo(nodeA.x, nodeA.y);
                     ctx.lineTo(nodeB.x, nodeB.y);
-
-                    const isHighlight = nodeA.color.includes('250, 204') || nodeB.color.includes('250, 204');
-                    const strokeColor = isHighlight
-                        ? `${colors.yellow}${conn.opacity * 1.2})`
-                        : `${colors.cyan}${conn.opacity})`;
-
                     ctx.strokeStyle = strokeColor;
-                    ctx.lineWidth = nodeA.layer === 2 && nodeB.layer === 2 ? 1.2 : 0.7;
+                    ctx.lineWidth = isMainTrunk ? 1.5 : 0.8;
                     ctx.stroke();
-                }
 
-                // Draw & update light pulses (traveling packets)
-                for (let p = pulses.length - 1; p >= 0; p--) {
-                    const pulse = pulses[p];
-                    const from = nodes[pulse.fromNode];
-                    const to = nodes[pulse.toNode];
-
-                    if (!from || !to) {
-                        pulses.splice(p, 1);
-                        continue;
-                    }
-
-                    pulse.progress += pulse.speed * deltaTime;
-
-                    if (pulse.progress >= 1) {
-                        pulses.splice(p, 1);
-                        continue;
-                    }
-
-                    const px = from.x + (to.x - from.x) * pulse.progress;
-                    const py = from.y + (to.y - from.y) * pulse.progress;
-
-                    // Light pulse glow
-                    const gradient = ctx.createRadialGradient(px, py, 0, px, py, pulse.size * 4);
-                    gradient.addColorStop(0, pulse.color);
-                    gradient.addColorStop(0.4, pulse.color === '#facc15' ? 'rgba(250, 204, 21, 0.6)' : 'rgba(34, 211, 238, 0.6)');
-                    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-                    ctx.beginPath();
-                    ctx.arc(px, py, pulse.size * 4, 0, Math.PI * 2);
-                    ctx.fillStyle = gradient;
-                    ctx.fill();
-
-                    // Pulse core
-                    ctx.beginPath();
-                    ctx.arc(px, py, pulse.size, 0, Math.PI * 2);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.shadowColor = pulse.color;
-                    ctx.shadowBlur = 10;
-                    ctx.fill();
-                    ctx.shadowBlur = 0; // reset
-                }
-
-                // Draw nodes
-                for (let i = 0; i < nodes.length; i++) {
-                    const node = nodes[i];
-                    const alpha = node.layer === 0 ? 0.35 : node.layer === 1 ? 0.65 : 0.95;
-
-                    // Outer node glow for foreground nodes
-                    if (node.layer === 2) {
+                    // Main trunks have subtle periodic dash pulse
+                    if (isMainTrunk) {
+                        ctx.save();
                         ctx.beginPath();
-                        ctx.arc(node.x, node.y, node.radius * 2.5, 0, Math.PI * 2);
-                        ctx.fillStyle = `${node.color}${alpha * 0.25})`;
-                        ctx.fill();
+                        ctx.setLineDash([4, 12]);
+                        ctx.lineDashOffset = -time * 0.02;
+                        ctx.moveTo(nodeA.x, nodeA.y);
+                        ctx.lineTo(nodeB.x, nodeB.y);
+                        ctx.strokeStyle = `${darkYellow}0.2)`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                        ctx.restore();
                     }
+                }
+            }
 
-                    // Main node body
+            // 2. Draw & Update Data Packets flowing through network
+            for (let p = packets.length - 1; p >= 0; p--) {
+                const pkt = packets[p];
+                const from = nodes[pkt.fromId];
+                const to = nodes[pkt.toId];
+
+                if (!from || !to) {
+                    packets.splice(p, 1);
+                    continue;
+                }
+
+                // Check distance
+                const dx = to.x - from.x;
+                const dy = to.y - from.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist > height * 0.5) {
+                    packets.splice(p, 1);
+                    continue;
+                }
+
+                pkt.progress += pkt.speed * deltaTime;
+
+                if (pkt.progress >= 1) {
+                    // Chained routing: When packet arrives at destination node, potentially route to next node
+                    if (Math.random() < 0.4 && to.neighbors.length > 1) {
+                        const nextNeighbors = to.neighbors.filter(n => n !== pkt.fromId);
+                        if (nextNeighbors.length > 0) {
+                            pkt.fromId = pkt.toId;
+                            pkt.toId = nextNeighbors[Math.floor(Math.random() * nextNeighbors.length)];
+                            pkt.progress = 0;
+                            continue;
+                        }
+                    }
+                    packets.splice(p, 1);
+                    continue;
+                }
+
+                const headX = from.x + dx * pkt.progress;
+                const headY = from.y + dy * pkt.progress;
+
+                const tailProgress = Math.max(0, pkt.progress - pkt.trailLength);
+                const tailX = from.x + dx * tailProgress;
+                const tailY = from.y + dy * tailProgress;
+
+                // Draw glowing packet trail
+                const trailGrad = ctx.createLinearGradient(tailX, tailY, headX, headY);
+                trailGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+                trailGrad.addColorStop(1, pkt.color);
+
+                ctx.beginPath();
+                ctx.moveTo(tailX, tailY);
+                ctx.lineTo(headX, headY);
+                ctx.strokeStyle = trailGrad;
+                ctx.lineWidth = pkt.size * 1.5;
+                ctx.stroke();
+
+                // Packet head glow
+                ctx.beginPath();
+                ctx.arc(headX, headY, pkt.size * 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = pkt.color === yellow ? 'rgba(250, 204, 21, 0.4)' : 'rgba(34, 211, 238, 0.4)';
+                ctx.fill();
+
+                // Packet head bright core
+                ctx.beginPath();
+                ctx.arc(headX, headY, pkt.size * 0.9, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+            }
+
+            // 3. Draw Network Nodes (Hubs, Gateways, Edge Points)
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+                const pulseScale = 1 + Math.sin(node.activity * 2) * 0.15;
+
+                // Hub: Concentric rings and router radar pulse
+                if (node.type === 'hub') {
+                    const ringAlpha = (0.2 + (Math.sin(node.activity * 1.5) + 1) * 0.15);
+
+                    // Outer pulse ring
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius * 3.2 * pulseScale, 0, Math.PI * 2);
+                    ctx.strokeStyle = `${darkYellow}${ringAlpha})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Inner halo
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius * 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `${darkYellow}0.25)`;
+                    ctx.fill();
+
+                    // Node center
                     ctx.beginPath();
                     ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `${node.color}${alpha})`;
+                    ctx.fillStyle = yellow;
                     ctx.fill();
 
-                    // White node center core
-                    if (node.layer >= 1) {
-                        ctx.beginPath();
-                        ctx.arc(node.x, node.y, node.radius * 0.45, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                        ctx.fill();
-                    }
+                    // Core bright dot
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius * 0.4, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fill();
+                } else if (node.type === 'gateway') {
+                    // Gateway: Diamond / Ring node
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius * 1.8, 0, Math.PI * 2);
+                    ctx.strokeStyle = `${darkCyan}0.35)`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = cyan;
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius * 0.35, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fill();
+                } else {
+                    // Edge node
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
+                    ctx.fill();
                 }
             }
 
@@ -341,20 +453,18 @@ export default function NetworkBackground() {
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('mousemove', handleMouseMove);
             document.body.removeEventListener('mouseleave', handleMouseLeave);
-            observer.disconnect();
             cancelAnimationFrame(animationFrameId);
         };
     }, []);
 
     return (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
             <canvas
                 ref={canvasRef}
                 className="w-full h-full block"
             />
-            {/* Ambient vignette and bottom section fade */}
-            <div className="absolute inset-0 bg-gradient-to-b from-edge-darker/40 via-transparent to-edge-darker pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-edge-darker via-edge-darker/80 to-transparent pointer-events-none" />
+            {/* Subtle cyber grid ambient background */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(34,211,238,0.12),rgba(5,8,16,0))] pointer-events-none" />
         </div>
     );
 }

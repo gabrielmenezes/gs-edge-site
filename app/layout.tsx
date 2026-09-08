@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import NetworkBackground from "./components/NetworkBackground";
 import { Analytics } from '@vercel/analytics/next';
 import { LanguageProvider } from "./components/LanguageContext";
 
@@ -58,8 +59,11 @@ export default function RootLayout({
       >
         <LanguageProvider>
           <div className="flex flex-col min-h-screen relative overflow-hidden">
+            {/* Global Interactive Network Diagram Background */}
+            <NetworkBackground />
+
             {/* Subtle Background Glow Effect */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
               <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-edge-cyan/10 blur-[100px] animate-blob"></div>
               <div className="absolute top-[20%] right-[-10%] w-[30%] h-[50%] rounded-full bg-edge-yellow/5 blur-[120px] animate-blob animation-delay-2000"></div>
             </div>
