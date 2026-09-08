@@ -10,17 +10,6 @@ export default function Hero() {
     return (
         <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-36 2xl:pt-56 2xl:pb-44 overflow-hidden">
             <div className="w-full max-w-5xl 2xl:max-w-6xl 3xl:max-w-7xl mx-auto flex flex-col items-center text-center px-4 relative z-10">
-                {/* Badge Hero */}
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-edge-cyan/40 bg-edge-cyan/10 text-edge-cyan text-xs 2xl:text-sm font-semibold uppercase tracking-widest mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(34,211,238,0.15)]"
-                >
-                    <span className="w-2 h-2 rounded-full bg-edge-cyan animate-pulse"></span>
-                    {t('hero_badge')}
-                </motion.div>
-
                 {/* Título Principal */}
                 <motion.h1 
                     initial={{ opacity: 0, y: 20 }}
