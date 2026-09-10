@@ -5,34 +5,29 @@ import Image from 'next/image';
 import logo from '@/app/assets/images/logo.png';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from './LanguageContext';
+import { FaArrowRight } from 'react-icons/fa';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const [isSticky, setIsSticky] = useState(false);
     const [activeSection, setActiveSection] = useState('');
     const pathname = usePathname();
     const { language, setLanguage, t } = useLanguage();
 
     const toggleMenu = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(prev => !prev);
     };
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 10) {
-                setIsSticky(true);
-            } else {
-                setIsSticky(false);
-            }
-
             const sections = ['services', 'about', 'contact'];
             let current = '';
             sections.forEach((section) => {
                 const element = document.getElementById(section);
                 if (element) {
-                    const top = element.getBoundingClientRect().top;
-                    if (top <= 80 && top >= -element.offsetHeight + 80) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 120 && rect.bottom >= 120) {
                         current = section;
                     }
                 }
@@ -40,112 +35,190 @@ export default function Navbar() {
             setActiveSection(current);
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     // Close menu on route change
     useEffect(() => {
-        requestAnimationFrame(() => setIsOpen(false));
+        setIsOpen(false);
     }, [pathname]);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
+
+    const navItems = [
+        { href: '/#services', label: t('nav_services'), active: activeSection === 'services' },
+        { href: '/products', label: t('nav_products'), active: pathname.includes('/products') || activeSection === 'products' },
+        { href: '/blog', label: t('nav_blog'), active: pathname.includes('/blog') },
+        { href: '/#about', label: t('nav_about'), active: activeSection === 'about' },
+        { href: '/#contact', label: t('nav_contact'), active: activeSection === 'contact' },
+    ];
+
+    const appleEase = [0.16, 1, 0.3, 1] as const;
+
+    const menuContainerVariants = {
+        closed: {
+            opacity: 0,
+            transition: {
+                duration: 0.25,
+                ease: appleEase,
+            },
+        },
+        open: {
+            opacity: 1,
+            transition: {
+                duration: 0.35,
+                ease: appleEase,
+                staggerChildren: 0.06,
+                delayChildren: 0.05,
+            },
+        },
+    };
+
+    const menuItemVariants = {
+        closed: {
+            opacity: 0,
+            y: -14,
+            transition: { duration: 0.2 },
+        },
+        open: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4, ease: appleEase },
+        },
+    };
+
     return (
-        <header className={`py-4 w-full top-0 left-0 z-50 transition-all duration-300 ${isSticky ? 'fixed bg-edge-darker/80 backdrop-blur-md border-b border-white/10 shadow-lg' : 'absolute bg-transparent'}`}>
-            <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto flex justify-between items-center px-4">
-                {/* Logo */}
-                <Link href="/" className="flex items-center">
-                    <Image src={logo} width={1024} height={400} className="rounded h-14 md:h-16 w-auto cursor-pointer hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(34,211,238,0.3)]" alt="Logo GS Edge" />
-                </Link>
+        <>
+            <header className="fixed top-0 left-0 right-0 z-50 h-12 md:h-14 bg-black/60 backdrop-blur-2xl border-b border-white/[0.08] transition-all duration-300">
+                <div className="w-full max-w-5xl 2xl:max-w-6xl h-full mx-auto flex items-center justify-between px-4 sm:px-6">
+                    {/* Logo */}
+                    <Link href="/" className="flex items-center gap-2 group z-50">
+                        <Image
+                            src={logo}
+                            width={240}
+                            height={80}
+                            className="h-7 md:h-8 w-auto object-contain transition-opacity duration-200 group-hover:opacity-80"
+                            alt="Logo GS Edge"
+                            priority
+                        />
+                    </Link>
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="md:hidden text-slate-200 focus:outline-none absolute top-8 right-8 transition-transform duration-300 hover:text-edge-cyan"
-                    onClick={toggleMenu}
-                    aria-label="Toggle menu"
-                    aria-expanded={isOpen}
-                >
-                    <svg
-                        className={`w-6 h-6 transform transition-transform duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-                        ></path>
-                    </svg>
-                </button>
+                    {/* Desktop Nav */}
+                    <nav className="hidden md:flex items-center gap-8">
+                        <ul className="flex items-center gap-7 text-[12px] font-normal tracking-tight text-white/70">
+                            {navItems.map((item, idx) => (
+                                <li key={idx}>
+                                    <Link
+                                        href={item.href}
+                                        className={`transition-colors duration-200 hover:text-white ${item.active ? 'text-edge-cyan font-semibold' : ''}`}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
 
-                {/* Menu */}
-                <nav>
-                    <ul
-                        className={`
-                            fixed top-[72px] left-0 w-full bg-edge-darker/95 backdrop-blur-md flex flex-col items-center gap-6 py-6 z-50 border-b border-white/10
-                            transform transition-all duration-300 ease-in-out origin-top
-                            ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}
-                            md:static md:flex-row md:bg-transparent md:backdrop-blur-none md:border-none md:scale-100 md:opacity-100 md:pointer-events-auto md:py-0 md:gap-8 md:w-auto
-                            md:text-sm font-medium tracking-wide uppercase text-slate-300
-                        `}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <li className="py-2 md:py-0">
-                            <Link
-                                href="/#services"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'services' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
-                            >
-                                {t('nav_services')}
-                            </Link>
-                        </li>
-                        <li className="py-2 md:py-0">
-                            <Link
-                                href="/products"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/products') || activeSection === 'products' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
-                            >
-                                {t('nav_products')}
-                            </Link>
-                        </li>
-                        <li className="py-2 md:py-0">
-                            <Link
-                                href="/blog"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${pathname.includes('/blog') ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
-                            >
-                                {t('nav_blog')}
-                            </Link>
-                        </li>
-                        <li className="py-2 md:py-0">
-                            <Link
-                                href="/#about"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'about' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
-                            >
-                                {t('nav_about')}
-                            </Link>
-                        </li>
-                        <li className="py-2 md:py-0">
-                            <Link
-                                href="/#contact"
-                                className={`hover:text-edge-cyan transition-colors duration-300 ${activeSection === 'contact' ? 'text-edge-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]' : ''}`}
-                            >
-                                {t('nav_contact')}
-                            </Link>
-                        </li>
-                        <li className="py-2 md:py-0">
+                        {/* Language Switcher Pill */}
+                        <div className="flex items-center pl-2 border-l border-white/10">
                             <button
                                 onClick={() => setLanguage(language === 'en' ? 'pt' : 'en')}
-                                className="px-3 py-1.5 rounded-lg border border-edge-cyan/30 bg-edge-cyan/10 hover:bg-edge-cyan/20 transition-all text-xs font-bold text-edge-cyan uppercase tracking-widest flex items-center gap-2"
+                                className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-semibold tracking-wider bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 text-slate-200 transition-all duration-200 active:scale-95"
+                                aria-label="Alternar idioma"
                             >
-                                <span className={language === 'pt' ? 'text-white font-extrabold' : 'opacity-40'}>PT</span>
-                                <span className="w-px h-3 bg-white/20"></span>
-                                <span className={language === 'en' ? 'text-white font-extrabold' : 'opacity-40'}>EN</span>
+                                <span className={language === 'pt' ? 'text-edge-cyan' : 'text-slate-400'}>PT</span>
+                                <span className="text-slate-600">/</span>
+                                <span className={language === 'en' ? 'text-edge-cyan' : 'text-slate-400'}>EN</span>
                             </button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+                        </div>
+                    </nav>
 
+                    {/* Mobile Menu Trigger (Apple 2-bar hamburger) */}
+                    <div className="flex items-center gap-3 md:hidden z-50">
+                        <button
+                            onClick={() => setLanguage(language === 'en' ? 'pt' : 'en')}
+                            className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wider bg-white/[0.06] border border-white/10 text-slate-200 active:scale-95"
+                        >
+                            {language === 'pt' ? 'EN' : 'PT'}
+                        </button>
+
+                        <button
+                            onClick={toggleMenu}
+                            className="w-8 h-8 flex flex-col items-center justify-center gap-[5px] focus:outline-none"
+                            aria-label="Menu"
+                            aria-expanded={isOpen}
+                        >
+                            <span
+                                className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 origin-center ${
+                                    isOpen ? 'rotate-45 translate-y-[3.25px]' : ''
+                                }`}
+                            />
+                            <span
+                                className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 origin-center ${
+                                    isOpen ? '-rotate-45 -translate-y-[3.25px]' : ''
+                                }`}
+                            />
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            {/* Apple Fullscreen Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial="closed"
+                        animate="open"
+                        exit="closed"
+                        variants={menuContainerVariants}
+                        className="fixed inset-0 top-12 bg-black/85 backdrop-blur-3xl md:hidden z-40 flex flex-col justify-between px-6 pt-6 pb-10 overflow-y-auto"
+                    >
+                        <motion.nav className="flex flex-col gap-3">
+                            {navItems.map((item, index) => (
+                                <motion.div key={index} variants={menuItemVariants}>
+                                    <Link
+                                        href={item.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className={`block text-2xl sm:text-3xl font-semibold tracking-tight py-2 transition-colors active:opacity-70 ${
+                                            item.active ? 'text-edge-cyan' : 'text-white/90 hover:text-white'
+                                        }`}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                    <div className="w-full h-px bg-white/[0.06] mt-2" />
+                                </motion.div>
+                            ))}
+                        </motion.nav>
+
+                        <motion.div variants={menuItemVariants} className="pt-6 flex flex-col gap-4">
+                            <a
+                                href="https://calendly.com/gsedge/30min"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setIsOpen(false)}
+                                className="w-full py-4 text-center rounded-full bg-edge-cyan text-slate-950 font-bold text-base shadow-[0_0_25px_rgba(34,211,238,0.35)] active:scale-95 transition-transform flex items-center justify-center gap-2"
+                            >
+                                <span>{t('hero_cta_diagnostics')}</span>
+                                <FaArrowRight className="text-xs" />
+                            </a>
+
+                            <p className="text-center text-xs text-slate-400">
+                                {t('hero_cta_phrase')}
+                            </p>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 }

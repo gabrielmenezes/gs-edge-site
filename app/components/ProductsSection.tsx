@@ -3,121 +3,138 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaArrowRight, FaRocket, FaShieldAlt, FaChartPie, FaCheckCircle } from 'react-icons/fa';
+import { FaArrowRight, FaRocket, FaCheckCircle } from 'react-icons/fa';
 import { useLanguage } from './LanguageContext';
 import { getAllProducts } from '@/lib/products';
 
 export default function ProductsSection() {
   const { language, t } = useLanguage();
   const products = getAllProducts(language);
+  const appleEase = [0.16, 1, 0.3, 1] as const;
 
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'live':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
       case 'beta':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+        return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
       default:
-        return 'bg-edge-cyan/10 text-edge-cyan border-edge-cyan/30';
+        return 'bg-edge-cyan/10 text-edge-cyan border-edge-cyan/20';
     }
   };
 
   return (
-    <section id="products" className="py-24 2xl:py-32 px-4 relative z-10 border-t border-white/5 overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] 2xl:w-[900px] h-[700px] 2xl:h-[900px] rounded-full bg-edge-cyan/5 blur-[160px] -z-10 pointer-events-none"></div>
-
-      <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto">
+    <section id="products" className="py-16 sm:py-24 px-4 sm:px-6 relative z-10 border-t border-white/[0.06] overflow-hidden">
+      <div className="w-full max-w-6xl 2xl:max-w-7xl mx-auto">
         {/* Centered Header */}
-        <div className="text-center mb-16 2xl:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-edge-cyan/30 bg-edge-cyan/10 text-edge-cyan text-xs 2xl:text-sm font-mono font-bold tracking-widest uppercase mb-4 mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: appleEase }}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-edge-cyan text-xs font-medium tracking-wide uppercase mb-3 sm:mb-4 mx-auto backdrop-blur-md">
             <FaRocket className="text-xs" />
             <span>{t('products_badge')}</span>
           </div>
-          <h2 className="text-3xl md:text-5xl 2xl:text-6xl font-bold text-slate-100 mb-4 2xl:mb-6">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-3 sm:mb-4">
             {t('products_title')}
           </h2>
-          <p className="text-slate-400 text-lg 2xl:text-xl max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed">
+          <p className="text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             {t('products_subtitle')}
           </p>
-        </div>
+        </motion.div>
 
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 2xl:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {products.map((product, index) => (
-            <Link
+            <motion.div
               key={product.slug}
-              href={`/products/${product.slug}`}
-              className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 flex flex-col justify-between hover:border-edge-cyan/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] group hover:-translate-y-1.5 relative overflow-hidden cursor-pointer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ duration: 0.5, delay: index * 0.08, ease: appleEase }}
             >
-              {/* Subtle Card Accent Glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-edge-cyan/10 rounded-full blur-2xl group-hover:bg-edge-cyan/20 transition-all"></div>
+              <Link
+                href={`/products/${product.slug}`}
+                className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] overflow-hidden cursor-pointer h-full"
+              >
+                {/* Subtle Ambient Card Glow */}
+                <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-b from-edge-cyan/10 to-transparent rounded-full blur-2xl group-hover:from-edge-cyan/20 transition-all pointer-events-none" />
 
-              <div>
-                {/* Status & Category */}
-                <div className="flex items-center justify-between gap-3 mb-6">
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${getStatusBadgeClass(product.status)}`}>
-                    {product.statusLabel}
-                  </span>
-                  <span className="text-xs text-slate-400 font-mono">
-                    {product.category.split('&')[0]}
-                  </span>
-                </div>
-
-                {/* Product Name & Tagline */}
-                <div className="mb-4">
-                  <h3 className="text-2xl font-extrabold text-slate-100 group-hover:text-edge-cyan transition-colors flex items-center gap-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-edge-yellow font-medium text-xs mt-1">
-                    {product.badge}
-                  </p>
-                </div>
-
-                {/* Summary */}
-                <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                  {product.summary}
-                </p>
-
-                {/* Key Highlights */}
-                {product.pillars && (
-                  <div className="space-y-2.5 mb-8 border-t border-white/5 pt-6">
-                    {product.pillars.slice(0, 3).map((pillar, pIdx) => (
-                      <div key={pIdx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                        <FaCheckCircle className="text-edge-cyan mt-0.5 shrink-0" />
-                        <span>
-                          <strong className="text-slate-100 font-semibold">{pillar.title}</strong>
-                          {pillar.percentage && ` (${pillar.percentage})`}
-                        </span>
-                      </div>
-                    ))}
+                <div>
+                  {/* Status & Category */}
+                  <div className="flex items-center justify-between gap-3 mb-5">
+                    <span className={`px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide border ${getStatusBadgeClass(product.status)}`}>
+                      {product.statusLabel}
+                    </span>
+                    <span className="text-[11px] text-slate-400 font-mono">
+                      {product.category.split('&')[0]}
+                    </span>
                   </div>
-                )}
-              </div>
 
-              {/* Action Button */}
-              <div className="pt-4 border-t border-white/10">
-                <div
-                  className="w-full inline-flex items-center justify-center gap-2 bg-white/5 group-hover:bg-edge-cyan group-hover:text-slate-950 border border-white/10 group-hover:border-edge-cyan text-slate-100 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 group/btn text-sm shadow-md"
-                >
-                  <span>{t('products_learn_more')}</span>
-                  <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                  {/* Product Name & Tagline */}
+                  <div className="mb-3">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-edge-cyan transition-colors">
+                      {product.name}
+                    </h3>
+                    <p className="text-edge-yellow font-medium text-xs mt-1">
+                      {product.badge}
+                    </p>
+                  </div>
+
+                  {/* Summary */}
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
+                    {product.summary}
+                  </p>
+
+                  {/* Key Highlights */}
+                  {product.pillars && (
+                    <div className="space-y-2 mb-6 border-t border-white/[0.06] pt-5">
+                      {product.pillars.slice(0, 3).map((pillar, pIdx) => (
+                        <div key={pIdx} className="flex items-start gap-2 text-xs text-slate-300">
+                          <FaCheckCircle className="text-edge-cyan mt-0.5 shrink-0 text-[11px]" />
+                          <span>
+                            <strong className="text-white font-medium">{pillar.title}</strong>
+                            {pillar.percentage && ` (${pillar.percentage})`}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </div>
-            </Link>
+
+                {/* Action Button */}
+                <div className="pt-4 border-t border-white/[0.06]">
+                  <div
+                    className="w-full inline-flex items-center justify-center gap-2 bg-white/[0.04] group-hover:bg-edge-cyan group-hover:text-slate-950 border border-white/10 group-hover:border-edge-cyan text-slate-200 font-semibold py-3 px-5 rounded-full transition-all duration-200 text-xs sm:text-sm"
+                  >
+                    <span>{t('products_learn_more')}</span>
+                    <FaArrowRight className="text-[10px] group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
 
         {/* View All Button */}
-        <div className="mt-12 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.5, ease: appleEase }}
+          className="mt-10 sm:mt-12 text-center"
+        >
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 text-edge-cyan hover:text-edge-yellow font-bold text-sm uppercase tracking-wider transition-all px-6 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-edge-cyan/40 hover:scale-105 group"
+            className="inline-flex items-center gap-2 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm transition-all px-6 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 active:scale-95 group"
           >
             <span>{t('products_view_all')}</span>
-            <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+            <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform text-edge-cyan" />
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

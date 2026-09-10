@@ -30,6 +30,7 @@ export interface Product {
   description: string;
   targetAudience: string;
   pricingPreview?: string;
+  appUrl?: string;
   demoUrl?: string;
   accentColor?: string;
   pillarsTitle?: string;
@@ -50,14 +51,16 @@ export const productsData: Record<'pt' | 'en', Product[]> = {
       slug: 'gsmoney',
       name: 'GSMoney',
       tagline: 'O controle financeiro pessoal definitivo para construir sua liberdade financeira.',
-      badge: 'Lista VIP & Early Access',
-      status: 'coming_soon',
-      statusLabel: 'Em Breve',
+      badge: 'Plataforma Online',
+      status: 'live',
+      statusLabel: 'Disponível',
+      appUrl: 'https://gsmoney.gsedge.com.br',
+      demoUrl: 'https://gsmoney.gsedge.com.br',
       category: 'Finanças Pessoais & Investimentos',
       summary: 'Plataforma inteligente de gestão financeira baseada na divisão estratégica da sua renda em potes e no planejamento visual do seu patrimônio rumo à independência.',
       description: 'O GSMoney transforma a forma como você lida com dinheiro. Em vez de apenas registrar gastos do passado em planilhas chatas, você assume o controle proativo do seu fluxo financeiro com um método comprovado de alocação de renda, metas de curto e médio prazo e trilha de patrimônio rumo à liberdade financeira.',
       targetAudience: 'Indivíduos, profissionais liberais e donos de negócios que buscam clareza total sobre suas finanças pessoais e um plano prático de investimentos.',
-      pricingPreview: 'Gratuito durante o Beta • Planos a partir de R$ 19,90/mês no lançamento',
+      pricingPreview: 'Acesso Online Disponível • Comece Agora',
       accentColor: 'from-emerald-400 to-cyan-400',
       pillarsTitle: 'A Metodologia GSMoney',
       pillarsSubtitle: 'Uma estratégia prática e equilibrada para fazer seu dinheiro trabalhar por você sem abrir mão do presente.',
@@ -126,16 +129,12 @@ export const productsData: Record<'pt' | 'en', Product[]> = {
           answer: 'O GSMoney é um aplicativo SaaS de finanças pessoais focado em planejamento inteligente, método de divisão de renda por objetivos e construção de patrimônio rumo à liberdade financeira.',
         },
         {
-          question: 'Quando o GSMoney será lançado?',
-          answer: 'O GSMoney está atualmente em fase de desenvolvimento avançado. Os inscritos na Lista VIP terão acesso antecipado exclusivo (Beta Fechado) com condições especiais e descontos vitalícios.',
-        },
-        {
-          question: 'Como funciona a Lista de Espera / Early Access?',
-          answer: 'Basta cadastrar seu nome e e-mail no formulário desta página. Você receberá convites prioritários para testar a plataforma antes de todo mundo e terá canal direto para sugerir melhorias.',
+          question: 'Como posso acessar o GSMoney?',
+          answer: 'O GSMoney já pode ser acessado diretamente através do link oficial https://gsmoney.gsedge.com.br. Você pode criar sua conta e começar a gerenciar seu fluxo financeiro agora mesmo.',
         },
         {
           question: 'O GSMoney conecta com bancos?',
-          answer: 'Sim, na versão completa ofereceremos integração bancária segura (Open Finance) para sincronização automática de extratos, além da opção de inserção manual e importação de arquivos para quem prefere controle total.',
+          answer: 'Sim, na versão completa oferecemos integração bancária segura (Open Finance) para sincronização automática de extratos, além da opção de inserção manual e importação de arquivos para quem prefere controle total.',
         },
         {
           question: 'Meus dados estarão seguros?',
@@ -145,20 +144,99 @@ export const productsData: Record<'pt' | 'en', Product[]> = {
       metaTitle: 'GSMoney | Controle Financeiro Inteligente & Liberdade Financeira',
       metaDescription: 'Organize suas finanças pessoais com o método dos 4 potes, planeje seus investimentos e alcance sua liberdade financeira com o GSMoney.',
     },
+    {
+      slug: 'gsedge-dc-game',
+      name: 'Hyperscale: Cloud & DC Manager',
+      tagline: 'O simulador definitivo de engenharia, infraestrutura e expansão de Data Centers.',
+      badge: 'Em Breve',
+      status: 'coming_soon',
+      statusLabel: 'Em Breve',
+      category: 'Games & Simulação Cloud',
+      summary: 'Construa, refrigere e escale seu Data Center desde a era da garagem até o Hyperscale Cloud. Gerencie energia, racks, contratos corporativos de SLA e resolva crises de rede em tempo real.',
+      description: 'Hyperscale: Cloud & DC Manager é um jogo de estratégia e simulação profunda de infraestrutura de TI. Você assume o papel de Lead Data Center Architect, gerenciando capacidade térmica, racks de servidores de alta densidade, geradores de emergência a diesel, contratos de SLA rigorosos e mitigação de desastres em tempo real.',
+      targetAudience: 'Engenheiros de redes, arquitetos de nuvem, administradores de sistemas, estudantes de TI e entusiastas de jogos de simulação e tycoon.',
+      pricingPreview: 'Gratuito na Web • Lançamento em Breve',
+      accentColor: 'from-cyan-400 to-indigo-500',
+      pillarsTitle: 'Os 4 Pilares da Simulação de Data Center',
+      pillarsSubtitle: 'Engenharia de missão crítica reproduzida em uma experiência interativa e envolvente.',
+      pillars: [
+        {
+          title: 'Da Garagem ao Hyperscale Cloud',
+          percentage: '4 Eras',
+          subtitle: 'Árvore de evolução tecnológica',
+          description: 'Comece com servidores torre em uma garagem modesta e desbloqueie arquiteturas Tier III/IV e clusters de IA de última geração.',
+        },
+        {
+          title: 'Gestão Térmica & Energia Crítica',
+          percentage: 'PUE & kW',
+          subtitle: 'Eficiência e refrigeração de precisão',
+          description: 'Monitore o consumo em kW, temperatura ambiente dos corredores quentes/frios e mantenha geradores a diesel abastecidos.',
+        },
+        {
+          title: 'Contratos de SLA & Clientes Corporativos',
+          percentage: '99.99%',
+          subtitle: 'Uptime, reputação e fluxo financeiro',
+          description: 'Feche contratos de hosting de alta densidade, honre prazos de disponibilidade e evite multas catastróficas por indisponibilidade.',
+        },
+        {
+          title: 'Mitigação de Crises & Incidentes',
+          percentage: 'Tempo Real',
+          subtitle: 'Cortes de fibra, DDoS e falhas de hardware',
+          description: 'Tome decisões estratégicas rápidas quando cabos de fibra romperem, discos quebrarem ou tempestades desarmarem a subestação principal.',
+        },
+      ],
+      featuresTitle: 'Mecânicas Desenhadas por Engenheiros de Redes',
+      featuresSubtitle: 'Fidelidade técnica com uma interface moderna, gráficos retro-futuristas e jogabilidade fluida.',
+      features: [
+        {
+          title: 'Visão Isométrica do NOC & Racks',
+          description: 'Visualize sua sala de servidores em perspectiva isométrica, inspecione lâminas individuais e acompanhe LEDs de atividade.',
+        },
+        {
+          title: 'Árvore Tecnológica de 4 Eras',
+          description: 'Pesquise e desbloqueie tecnologias que moldaram a computação moderna: de roteadores legados a fabrics Spine-Leaf de 400Gbps.',
+        },
+        {
+          title: 'Telemetria em Tempo Real',
+          description: 'Monitore gráficos ao vivo de consumo elétrico, emissão de calor, carga de rede e eficiência energética (PUE).',
+        },
+        {
+          title: 'Sistema de Geradores & Redundância',
+          description: 'Configure contingências com geradores a diesel automáticos para quando a concessionária de energia falhar.',
+        },
+        {
+          title: 'Economia & Expansão de Negócios',
+          description: 'Gerencie empréstimos bancários, taxas de juros, expansão imobiliária e mantenha sua empresa longe da falência.',
+        },
+        {
+          title: '100% Web & Sem Instalação',
+          description: 'Jogue direto no navegador em qualquer computador com carregamento instantâneo e sem downloads pesados.',
+        },
+      ],
+      stats: [
+        { value: '4 Eras', label: 'Evolução da Garagem ao Hyperscale' },
+        { value: 'Tier I-IV', label: 'Níveis reais de arquitetura e redundância' },
+        { value: '99.99%', label: 'SLA corporativo a manter' },
+      ],
+      metaTitle: 'Hyperscale: Cloud & DC Manager | Simulador de Data Center & Cloud Tycoon',
+      metaDescription: 'Construa e gerencie seu próprio império de Data Centers. Simulador estratégico de infraestrutura de TI da GS Edge.',
+    },
   ],
   en: [
     {
       slug: 'gsmoney',
       name: 'GSMoney',
       tagline: 'The ultimate personal financial system to build your financial independence.',
-      badge: 'VIP List & Early Access',
-      status: 'coming_soon',
-      statusLabel: 'Coming Soon',
+      badge: 'Live Platform',
+      status: 'live',
+      statusLabel: 'Live',
+      appUrl: 'https://gsmoney.gsedge.com.br',
+      demoUrl: 'https://gsmoney.gsedge.com.br',
       category: 'Personal Finance & Wealth Management',
       summary: 'Smart financial management platform powered by strategic income allocation and visual wealth progression toward true financial freedom.',
       description: 'GSMoney changes how you manage money. Instead of simply tracking past expenses on tedious spreadsheets, take proactive control of your cash flow with a proven income bucket strategy, goal-oriented savings, and clear path to financial independence.',
       targetAudience: 'Individuals, freelancers, and small business owners seeking absolute clarity over personal finances and actionable wealth growth.',
-      pricingPreview: 'Free during Beta • Plans starting at $4.90/month at launch',
+      pricingPreview: 'Online Access Available • Get Started',
       accentColor: 'from-emerald-400 to-cyan-400',
       pillarsTitle: 'The GSMoney Methodology',
       pillarsSubtitle: 'A balanced, proven framework to make your money work for you without sacrificing the present.',
@@ -227,12 +305,8 @@ export const productsData: Record<'pt' | 'en', Product[]> = {
           answer: 'GSMoney is a modern personal finance SaaS designed for proactive income allocation, goal budgeting, and long-term wealth building toward financial freedom.',
         },
         {
-          question: 'When will GSMoney launch?',
-          answer: 'GSMoney is currently in advanced development. VIP Waitlist subscribers will receive priority access to the closed beta with exclusive founder perks and discounts.',
-        },
-        {
-          question: 'How does Early Access work?',
-          answer: 'Simply enter your name and email on this page. You will get an exclusive invitation to test the application before the general public with direct feedback channels.',
+          question: 'How do I access GSMoney?',
+          answer: 'You can directly access GSMoney at https://gsmoney.gsedge.com.br to start managing your income, buckets, and wealth targets right away.',
         },
         {
           question: 'Does GSMoney connect with bank accounts?',
@@ -245,6 +319,83 @@ export const productsData: Record<'pt' | 'en', Product[]> = {
       ],
       metaTitle: 'GSMoney | Smart Personal Finance & Financial Freedom',
       metaDescription: 'Take control of your personal finances with the 4-bucket methodology, goal budgeting, and wealth roadmap with GSMoney.',
+    },
+    {
+      slug: 'gsedge-dc-game',
+      name: 'Hyperscale: Cloud & DC Manager',
+      tagline: 'The ultimate IT infrastructure, data center operations, and cloud tycoon simulation.',
+      badge: 'Coming Soon',
+      status: 'coming_soon',
+      statusLabel: 'Coming Soon',
+      category: 'Gaming & Cloud Simulation',
+      summary: 'Build, cool, and scale your data center from a humble garage setup to a global Hyperscale Cloud. Manage power, racks, enterprise SLAs, and resolve real-time network crises.',
+      description: 'Hyperscale: Cloud & DC Manager is a deep IT infrastructure simulation game. Step into the shoes of a Lead Data Center Architect managing thermal loads, high-density server racks, backup diesel generators, strict enterprise SLA contracts, and real-time incident mitigation.',
+      targetAudience: 'Network engineers, cloud architects, sysadmins, IT students, and tycoon game enthusiasts.',
+      pricingPreview: 'Free Web Experience • Coming Soon',
+      accentColor: 'from-cyan-400 to-indigo-500',
+      pillarsTitle: 'The 4 Pillars of Data Center Simulation',
+      pillarsSubtitle: 'Mission-critical engineering translated into an addictive, hands-on strategy simulation.',
+      pillars: [
+        {
+          title: 'From Garage to Hyperscale',
+          percentage: '4 Eras',
+          subtitle: 'Evolutionary computing tech tree',
+          description: 'Start with budget tower servers in a home garage and progress to enterprise Tier IV cloud facilities and modern AI compute clusters.',
+        },
+        {
+          title: 'Thermal & Power Grid Management',
+          percentage: 'PUE & kW',
+          subtitle: 'Precision cooling and efficiency',
+          description: 'Manage total kW draw, hot/cold aisle temperatures, precision CRAC units, and keep backup diesel tanks filled for grid blackouts.',
+        },
+        {
+          title: 'Enterprise SLAs & Contracts',
+          percentage: '99.99%',
+          subtitle: 'Uptime, client trust, and cash flow',
+          description: 'Secure high-paying corporate hosting contracts, fulfill strict availability promises, and avoid devastating downtime penalties.',
+        },
+        {
+          title: 'Crisis & Disaster Mitigation',
+          percentage: 'Real-Time',
+          subtitle: 'Fiber cuts, DDoS, and hardware failures',
+          description: 'Make critical triage decisions during catastrophic events like backbone fiber cuts, massive DDoS attacks, and power substation failures.',
+        },
+      ],
+      featuresTitle: 'Built with Network Engineering Fidelity',
+      featuresSubtitle: 'Technical realism combined with polished isometric visuals, retro-futuristic soundscapes, and smooth gameplay.',
+      features: [
+        {
+          title: 'Isometric NOC & Rack View',
+          description: 'Inspect your server room in detailed isometric view with animated LEDs, rack utilization indicators, and power draw gauges.',
+        },
+        {
+          title: '4 Eras Tech Tree',
+          description: 'Research historical and cutting-edge networking and compute milestones, from legacy 100Mbps Ethernet to 400Gbps Spine-Leaf fabrics.',
+        },
+        {
+          title: 'Live Telemetry & Diagnostics',
+          description: 'Track real-time graphs of power consumption, thermal dissipation, network traffic, and PUE energy efficiency.',
+        },
+        {
+          title: 'Diesel Generators & Grid Contingency',
+          description: 'Deploy automated emergency power systems and manage fuel reserves to maintain 100% uptime during city grid outages.',
+        },
+        {
+          title: 'Financial & Business Tycoon',
+          description: 'Manage bank loans, interest rates, facility real estate expansion, and navigate your enterprise to massive profitability.',
+        },
+        {
+          title: '100% Web-Based & Instant Load',
+          description: 'Play instantly in your modern web browser on any desktop device with zero installation or downloads required.',
+        },
+      ],
+      stats: [
+        { value: '4 Eras', label: 'Garage to Hyperscale Progression' },
+        { value: 'Tier I-IV', label: 'Realistic data center redundancy levels' },
+        { value: '99.99%', label: 'Enterprise uptime SLA to maintain' },
+      ],
+      metaTitle: 'Hyperscale: Cloud & DC Manager | Data Center & Cloud Tycoon Simulation',
+      metaDescription: 'Build, cool, and manage your data center empire. Deep IT infrastructure strategy game by GS Edge.',
     },
   ],
 };
