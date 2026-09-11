@@ -17,25 +17,19 @@ interface SocialShareProps {
   slug?: string;
 }
 
-export default function SocialShare({ title }: SocialShareProps) {
+export default function SocialShare({ title, slug }: SocialShareProps) {
   const { t } = useLanguage();
-  const [currentUrl, setCurrentUrl] = useState('');
+  const defaultUrl = slug ? `https://gsedge.com.br/blog/${slug}` : 'https://gsedge.com.br/blog';
+  const [currentUrl, setCurrentUrl] = useState(defaultUrl);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      requestAnimationFrame(() => setCurrentUrl(window.location.href));
+      setCurrentUrl(window.location.href);
     }
   }, []);
 
-  const getUrl = () => {
-    if (currentUrl) return currentUrl;
-    if (typeof window !== 'undefined') return window.location.href;
-    return '';
-  };
-
-  const activeUrl = getUrl();
-  const encodedUrl = encodeURIComponent(activeUrl);
+  const encodedUrl = encodeURIComponent(currentUrl);
   const encodedTitle = encodeURIComponent(title);
 
   const shareItems = [
@@ -70,7 +64,7 @@ export default function SocialShare({ title }: SocialShareProps) {
   ];
 
   const handleCopyLink = async () => {
-    const urlToCopy = getUrl();
+    const urlToCopy = currentUrl || (typeof window !== 'undefined' ? window.location.href : '');
     if (!urlToCopy) return;
     try {
       await navigator.clipboard.writeText(urlToCopy);
