@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { LanguageProvider } from "./components/LanguageContext";
 
 export const metadata = {
+  metadataBase: new URL('https://gsedge.com.br'),
   title: 'GS Edge | Desenvolvimento de Software & Soluções Digitais',
   description: 'A GS Edge é uma empresa especializada em Desenvolvimento de Software sob Medida, Aplicações Web Escaláveis, Arquitetura de APIs e Engenharia de Nuvem.',
   keywords: [
@@ -29,6 +30,20 @@ export const metadata = {
     siteName: 'GS Edge',
     locale: 'pt_BR',
     type: 'website',
+    images: [
+      {
+        url: '/images/blog/era-jobs-na-apple.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'GS Edge',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'GS Edge | Desenvolvimento de Software sob Medida',
+    description: 'Engenharia de software de alto desempenho, plataformas web escaláveis e arquiteturas de nuvem para impulsionar seu negócio.',
+    images: ['/images/blog/era-jobs-na-apple.jpg'],
   },
 };
 
