@@ -37,7 +37,7 @@ export default function AboutSection() {
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, ease: appleEase }}
           className="text-center mb-12 sm:mb-16"
         >
@@ -50,11 +50,11 @@ export default function AboutSection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5, ease: appleEase }}
-          className="bg-white/[0.02] hover:bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-3xl p-6 sm:p-10 flex flex-col md:flex-row items-center gap-6 sm:gap-10 relative overflow-hidden mb-8 transition-all"
+          className="bg-white/[0.02] hover:bg-white/[0.03] backdrop-blur-md md:backdrop-blur-xl border border-white/[0.08] rounded-3xl p-6 sm:p-10 flex flex-col md:flex-row items-center gap-6 sm:gap-10 relative overflow-hidden mb-8 transition-all"
         >
-          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-b from-edge-cyan/10 to-transparent rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-b from-edge-cyan/10 to-transparent rounded-full blur-xl pointer-events-none" />
 
           {/* Official GS Edge Logo Card */}
           <div className="relative flex-shrink-0 w-full md:w-60 p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center">
@@ -86,9 +86,9 @@ export default function AboutSection() {
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: appleEase }}
-                className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] hover:border-white/20 rounded-3xl p-6 sm:p-8 transition-all duration-300 flex flex-col items-start relative overflow-hidden group hover:-translate-y-1 active:scale-[0.99]"
+                className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md md:backdrop-blur-xl border border-white/[0.08] hover:border-white/20 rounded-3xl p-6 sm:p-8 transition-all duration-300 flex flex-col items-start relative overflow-hidden group hover:-translate-y-1 active:scale-[0.99]"
               >
                 <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center text-xl mb-5 ${pillar.iconBg} group-hover:scale-105 transition-transform`}>
                   <Icon />

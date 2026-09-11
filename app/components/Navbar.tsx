@@ -20,19 +20,27 @@ export default function Navbar() {
     };
 
     useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
-            const sections = ['services', 'about', 'contact'];
-            let current = '';
-            sections.forEach((section) => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    if (rect.top <= 120 && rect.bottom >= 120) {
-                        current = section;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const sections = ['services', 'about', 'contact'];
+                    let current = '';
+                    for (const section of sections) {
+                        const element = document.getElementById(section);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            if (rect.top <= 120 && rect.bottom >= 120) {
+                                current = section;
+                                break;
+                            }
+                        }
                     }
-                }
-            });
-            setActiveSection(current);
+                    setActiveSection(prev => (prev !== current ? current : prev));
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -100,7 +108,7 @@ export default function Navbar() {
 
     return (
         <>
-            <header className="fixed top-0 left-0 right-0 z-50 h-12 md:h-14 bg-black/60 backdrop-blur-2xl border-b border-white/[0.08] transition-all duration-300">
+            <header className="fixed top-0 left-0 right-0 z-50 h-12 md:h-14 bg-black/75 backdrop-blur-md md:backdrop-blur-xl border-b border-white/[0.08] transition-all duration-300">
                 <div className="w-full max-w-5xl 2xl:max-w-6xl h-full mx-auto flex items-center justify-between px-4 sm:px-6">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group z-50">
@@ -181,7 +189,7 @@ export default function Navbar() {
                         animate="open"
                         exit="closed"
                         variants={menuContainerVariants}
-                        className="fixed inset-0 top-12 bg-black/85 backdrop-blur-3xl md:hidden z-40 flex flex-col justify-between px-6 pt-6 pb-10 overflow-y-auto"
+                        className="fixed inset-0 top-12 bg-[#050810]/95 backdrop-blur-xl md:hidden z-40 flex flex-col justify-between px-6 pt-6 pb-10 overflow-y-auto"
                     >
                         <motion.nav className="flex flex-col gap-3">
                             {navItems.map((item, index) => (

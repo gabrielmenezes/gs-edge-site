@@ -30,11 +30,11 @@ export default function ProductsSection() {
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, ease: appleEase }}
           className="text-center mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-edge-cyan text-xs font-medium tracking-wide uppercase mb-3 sm:mb-4 mx-auto backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-edge-cyan text-xs font-medium tracking-wide uppercase mb-3 sm:mb-4 mx-auto backdrop-blur-sm md:backdrop-blur-md">
             <FaRocket className="text-xs" />
             <span>{t('products_badge')}</span>
           </div>
@@ -53,15 +53,15 @@ export default function ProductsSection() {
               key={product.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.5, delay: index * 0.08, ease: appleEase }}
             >
               <Link
                 href={`/products/${product.slug}`}
-                className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] overflow-hidden cursor-pointer h-full"
+                className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 backdrop-blur-md md:backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] overflow-hidden cursor-pointer h-full"
               >
                 {/* Subtle Ambient Card Glow */}
-                <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-b from-edge-cyan/10 to-transparent rounded-full blur-2xl group-hover:from-edge-cyan/20 transition-all pointer-events-none" />
+                <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-b from-edge-cyan/10 to-transparent rounded-full blur-xl group-hover:from-edge-cyan/20 transition-all pointer-events-none" />
 
                 <div>
                   {/* Status & Category */}
@@ -123,7 +123,7 @@ export default function ProductsSection() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5, ease: appleEase }}
           className="mt-10 sm:mt-12 text-center"
         >

@@ -50,10 +50,10 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
 
   return (
     <main className="min-h-screen pt-24 sm:pt-32 pb-24 px-4 sm:px-6 bg-edge-darker text-slate-100 relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-emerald-500/10 blur-[180px] -z-10 pointer-events-none" />
-      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-edge-cyan/10 blur-[180px] -z-10 pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] rounded-full bg-amber-500/5 blur-[180px] -z-10 pointer-events-none" />
+      {/* Background ambient lighting with zero-cost radial gradients */}
+      <div className="absolute top-0 right-1/4 w-[500px] sm:w-[600px] h-[500px] sm:h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.1)_0%,transparent_70%)] -z-10 pointer-events-none" />
+      <div className="absolute top-1/3 left-0 w-[400px] sm:w-[500px] h-[400px] sm:h-[500px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.08)_0%,transparent_70%)] -z-10 pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[400px] sm:w-[500px] h-[400px] sm:h-[500px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(250,204,21,0.05)_0%,transparent_70%)] -z-10 pointer-events-none" />
 
       <div className="w-full max-w-6xl 2xl:max-w-7xl mx-auto relative z-10">
         {/* Back Link */}
@@ -644,7 +644,7 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, ease: appleEase }}
               className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
             >
@@ -665,9 +665,9 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
                   key={idx}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.15 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.5, delay: idx * 0.08, ease: appleEase }}
-                  className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] hover:border-emerald-400/30 rounded-3xl p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 active:scale-[0.99]"
+                  className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md md:backdrop-blur-xl border border-white/[0.08] hover:border-emerald-400/30 rounded-3xl p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 active:scale-[0.99]"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-5">
@@ -704,7 +704,7 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, ease: appleEase }}
               className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
             >
@@ -725,9 +725,9 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
                   key={fIdx}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.15 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.5, delay: fIdx * 0.06, ease: appleEase }}
-                  className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] hover:border-white/20 rounded-3xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 active:scale-[0.99]"
+                  className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md md:backdrop-blur-xl border border-white/[0.08] hover:border-white/20 rounded-3xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 active:scale-[0.99]"
                 >
                   <div className="w-10 h-10 rounded-2xl bg-edge-cyan/10 border border-edge-cyan/20 flex items-center justify-center text-edge-cyan mb-4">
                     <FaCheckCircle className="text-sm" />
@@ -752,7 +752,7 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, ease: appleEase }}
               className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
             >
@@ -775,9 +775,9 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
                     key={qIdx}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.4, ease: appleEase }}
-                    className="bg-white/[0.02] border border-white/[0.08] hover:border-white/20 rounded-2xl overflow-hidden transition-all backdrop-blur-xl"
+                    className="bg-white/[0.02] border border-white/[0.08] hover:border-white/20 rounded-2xl overflow-hidden transition-all backdrop-blur-md md:backdrop-blur-xl"
                   >
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : qIdx)}
@@ -817,12 +817,12 @@ export default function ProductLandingView({ slug, initialProduct }: ProductLand
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6, ease: appleEase }}
-          className="bg-white/[0.02] backdrop-blur-2xl border border-white/[0.1] rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden"
+          className="bg-white/[0.02] backdrop-blur-md md:backdrop-blur-xl border border-white/[0.1] rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-edge-cyan/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-400/10 rounded-full blur-xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-edge-cyan/10 rounded-full blur-xl pointer-events-none" />
 
           <div className="max-w-2xl mx-auto space-y-6 relative z-10">
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">

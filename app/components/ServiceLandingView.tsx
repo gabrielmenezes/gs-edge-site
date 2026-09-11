@@ -40,8 +40,8 @@ export default function ServiceLandingView({ slug, initialService }: ServiceLand
   return (
     <main className="min-h-screen pt-32 pb-24 px-4 relative overflow-hidden bg-edge-darker text-slate-100">
       {/* Background glow effects */}
-      <div className="absolute top-10 right-0 w-[500px] 2xl:w-[700px] h-[500px] 2xl:h-[700px] rounded-full bg-edge-cyan/10 blur-[150px] -z-10 pointer-events-none"></div>
-      <div className="absolute top-1/2 left-0 w-[400px] 2xl:w-[600px] h-[400px] 2xl:h-[600px] rounded-full bg-edge-yellow/5 blur-[140px] -z-10 pointer-events-none"></div>
+      <div className="absolute top-10 right-0 w-[500px] 2xl:w-[700px] h-[500px] 2xl:h-[700px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.1)_0%,transparent_70%)] -z-10 pointer-events-none"></div>
+      <div className="absolute top-1/2 left-0 w-[400px] 2xl:w-[600px] h-[400px] 2xl:h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(250,204,21,0.05)_0%,transparent_70%)] -z-10 pointer-events-none"></div>
 
       <div className="w-full max-w-6xl 2xl:max-w-[85%] 3xl:max-w-[80%] mx-auto relative z-10">
         {/* Back Link */}

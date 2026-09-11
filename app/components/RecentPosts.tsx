@@ -52,11 +52,11 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, ease: appleEase }}
           className="text-center mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-edge-cyan text-xs font-medium tracking-wide uppercase mb-3 sm:mb-4 mx-auto backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-edge-cyan text-xs font-medium tracking-wide uppercase mb-3 sm:mb-4 mx-auto backdrop-blur-sm md:backdrop-blur-md">
             <span>{t('recent_posts_badge')}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-3 sm:mb-4">
@@ -81,12 +81,12 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
                 key={post.slug}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.5, delay: index * 0.08, ease: appleEase }}
               >
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group relative flex flex-col justify-between rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] overflow-hidden cursor-pointer h-full"
+                  className="group relative flex flex-col justify-between rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 backdrop-blur-md md:backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] overflow-hidden cursor-pointer h-full"
                 >
                   <div>
                     {post.image && (
@@ -102,7 +102,7 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
                         />
                         {post.category && (
                           <div className="absolute top-4 left-4 z-10">
-                            <span className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide backdrop-blur-xl bg-[#050810]/80 text-edge-cyan border border-white/10 shadow-md">
+                            <span className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide backdrop-blur-md bg-[#050810]/85 text-edge-cyan border border-white/10 shadow-md">
                               {post.category}
                             </span>
                           </div>
@@ -160,7 +160,7 @@ export default function RecentPosts({ initialPosts }: RecentPostsProps) {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: appleEase }}
           className="mt-10 sm:mt-12 text-center"
         >

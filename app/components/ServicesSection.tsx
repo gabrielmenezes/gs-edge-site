@@ -45,7 +45,7 @@ export default function ServicesSection() {
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, ease: appleEase }}
           className="text-center mb-12 sm:mb-16"
         >
@@ -65,15 +65,15 @@ export default function ServicesSection() {
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.5, delay: index * 0.08, ease: appleEase }}
               >
                 <Link
                   href={`/services/${service.slug}`}
-                  className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] overflow-hidden cursor-pointer h-full"
+                  className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.08] hover:border-white/20 backdrop-blur-md md:backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-[0.99] overflow-hidden cursor-pointer h-full"
                 >
                   {/* Subtle Apple Top Gradient Spotlight */}
-                  <div className={`absolute -top-12 -left-12 w-40 h-40 rounded-full bg-gradient-to-br ${service.accent} blur-2xl pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity`} />
+                  <div className={`absolute -top-12 -left-12 w-40 h-40 rounded-full bg-gradient-to-br ${service.accent} blur-xl pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity`} />
 
                   <div>
                     <div className={`w-12 h-12 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center ${service.iconColor} text-xl mb-6 group-hover:scale-105 transition-transform duration-300`}>

@@ -72,7 +72,7 @@ export default function SkillsSection() {
             return (
               <div
                 key={idx}
-                className="group flex items-center gap-3.5 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] hover:border-white/20 rounded-2xl px-5 py-3.5 backdrop-blur-xl transition-all duration-300 shrink-0 cursor-default"
+                className="group flex items-center gap-3.5 bg-[#0c1322]/85 hover:bg-[#111a2e] border border-white/[0.08] hover:border-white/20 rounded-2xl px-5 py-3.5 transition-all duration-200 shrink-0 cursor-default"
               >
                 <div className="w-9 h-9 rounded-xl bg-white/[0.04] flex items-center justify-center text-xl border border-white/[0.06] group-hover:scale-105 transition-transform">
                   <Icon className={`${skill.color} transition-colors`} />

@@ -75,7 +75,7 @@ export default function Hero() {
                     </a>
                     <Link
                         href="/#services"
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-slate-200 px-7 py-3.5 rounded-full text-sm sm:text-base font-medium backdrop-blur-md transition-all duration-200 active:scale-95"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-slate-200 px-7 py-3.5 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm md:backdrop-blur-md transition-all duration-200 active:scale-95"
                     >
                         {t('hero_cta_solutions')}
                     </Link>
@@ -103,7 +103,7 @@ export default function Hero() {
                         return (
                             <div
                                 key={idx}
-                                className="group relative flex items-center gap-4 sm:flex-col sm:items-center text-left sm:text-center p-4 sm:p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] hover:border-white/20 backdrop-blur-xl transition-all duration-300 active:scale-[0.99]"
+                                className="group relative flex items-center gap-4 sm:flex-col sm:items-center text-left sm:text-center p-4 sm:p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] hover:border-white/20 backdrop-blur-md md:backdrop-blur-xl transition-all duration-300 active:scale-[0.99]"
                             >
                                 <div className={`w-10 h-10 rounded-xl bg-white/[0.05] flex items-center justify-center shrink-0 ${item.accent} text-lg`}>
                                     <Icon />

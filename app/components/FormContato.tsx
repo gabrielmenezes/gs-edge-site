@@ -14,7 +14,7 @@ export default function FormContato() {
                 <motion.div
                     initial={{ opacity: 0, y: 25 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.15 }}
                     transition={{ duration: 0.5, ease: appleEase }}
                     className="text-center mb-12 sm:mb-16"
                 >
@@ -31,13 +31,13 @@ export default function FormContato() {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: false, amount: 0.15 }}
+                        viewport={{ once: true, amount: 0.1 }}
                         transition={{ duration: 0.5, ease: appleEase }}
-                        className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] hover:border-white/20 rounded-3xl p-8 sm:p-12 relative overflow-hidden flex flex-col items-center text-center transition-all duration-300"
+                        className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md md:backdrop-blur-xl border border-white/[0.08] hover:border-white/20 rounded-3xl p-8 sm:p-12 relative overflow-hidden flex flex-col items-center text-center transition-all duration-300"
                     >
                         {/* Apple-style subtle ambient glow */}
-                        <div className="absolute top-0 right-0 w-60 h-60 bg-gradient-to-b from-edge-cyan/15 to-transparent rounded-full blur-3xl pointer-events-none" />
-                        <div className="absolute bottom-0 left-0 w-60 h-60 bg-gradient-to-t from-edge-yellow/10 to-transparent rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute top-0 right-0 w-60 h-60 bg-gradient-to-b from-edge-cyan/15 to-transparent rounded-full blur-xl pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-60 h-60 bg-gradient-to-t from-edge-yellow/10 to-transparent rounded-full blur-xl pointer-events-none" />
 
                         <div className="flex flex-col items-center text-center w-full">
                             <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-edge-cyan text-2xl mb-6 shadow-sm">
