@@ -26,6 +26,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${post.title} | Blog GS Edge`,
     description: post.excerpt || `Artigo técnico: ${post.title}`,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt || `Artigo técnico: ${post.title}`,

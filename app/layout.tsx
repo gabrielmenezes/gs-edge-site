@@ -8,6 +8,9 @@ import { LanguageProvider } from "./components/LanguageContext";
 
 export const metadata = {
   metadataBase: new URL('https://gsedge.com.br'),
+  alternates: {
+    canonical: '/',
+  },
   title: 'GS Edge | Desenvolvimento de Software & Soluções Digitais',
   description: 'A GS Edge é uma empresa especializada em Desenvolvimento de Software sob Medida, Aplicações Web Escaláveis, Arquitetura de APIs e Engenharia de Nuvem.',
   keywords: [

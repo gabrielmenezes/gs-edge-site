@@ -27,6 +27,9 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   return {
     title: `${service.title} | GS Edge`,
     description: service.summary,
+    alternates: {
+      canonical: `/services/${slug}`,
+    },
     openGraph: {
       title: `${service.title} - GS Edge`,
       description: service.description,
