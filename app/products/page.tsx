@@ -4,14 +4,14 @@ import { getAllProducts } from '@/lib/products';
 import ProductsSection from '../components/ProductsSection';
 
 export const metadata: Metadata = {
-  title: 'Produtos Digitais & SaaS | GS Edge',
-  description: 'Conheça o catálogo de produtos digitais, aplicações em nuvem e plataformas SaaS desenvolvidas pela GS Edge.',
+  title: 'GS Edge Labs & Soluções Proprietárias | GS Edge',
+  description: 'Conheça o portfólio de plataformas experimentais, simuladores e soluções proprietárias concebidas nos laboratórios da GS Edge.',
   alternates: {
     canonical: '/products',
   },
   openGraph: {
-    title: 'Produtos Digitais & SaaS | GS Edge',
-    description: 'Plataformas inteligentes de software e SaaS criadas com excelência técnica pela GS Edge.',
+    title: 'GS Edge Labs & Soluções Proprietárias | GS Edge',
+    description: 'Plataformas inteligentes, simuladores de infraestrutura e aplicações proprietárias concebidas nos laboratórios da GS Edge.',
     url: 'https://gsedge.com.br/products',
     siteName: 'GS Edge',
     locale: 'pt_BR',

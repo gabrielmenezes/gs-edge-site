@@ -27,10 +27,13 @@ export default function ServiceLandingView({ slug, initialService }: ServiceLand
 
   const getServiceIcon = () => {
     switch (service.iconName) {
-      case 'code':
-        return <FaCode className="text-3xl lg:text-4xl 2xl:text-5xl text-edge-cyan" />;
+      case 'audit':
+        return <FaShieldAlt className="text-3xl lg:text-4xl 2xl:text-5xl text-edge-cyan" />;
+      case 'advisory':
       case 'training':
         return <FaGraduationCap className="text-3xl lg:text-4xl 2xl:text-5xl text-edge-cyan" />;
+      case 'code':
+        return <FaCode className="text-3xl lg:text-4xl 2xl:text-5xl text-edge-cyan" />;
       case 'network':
       default:
         return <FaNetworkWired className="text-3xl lg:text-4xl 2xl:text-5xl text-edge-cyan" />;

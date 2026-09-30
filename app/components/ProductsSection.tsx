@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaArrowRight, FaRocket, FaCheckCircle } from 'react-icons/fa';
+import { FaArrowRight, FaFlask, FaCheckCircle } from 'react-icons/fa';
 import { useLanguage } from './LanguageContext';
 import { getAllProducts } from '@/lib/products';
 
@@ -35,7 +35,7 @@ export default function ProductsSection() {
           className="text-center mb-12 sm:mb-16"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-edge-cyan text-xs font-medium tracking-wide uppercase mb-3 sm:mb-4 mx-auto backdrop-blur-sm md:backdrop-blur-md">
-            <FaRocket className="text-xs" />
+            <FaFlask className="text-xs" />
             <span>{t('products_badge')}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-3 sm:mb-4">
@@ -123,7 +123,7 @@ export default function ProductsSection() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: appleEase }}
           className="mt-10 sm:mt-12 text-center"
         >

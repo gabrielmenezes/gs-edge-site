@@ -8,8 +8,8 @@ export default function Footer() {
     <footer className="border-t border-white/[0.06] text-slate-400 py-10 sm:py-12 text-xs relative z-10 bg-[#050810]/80">
       <div className="w-full max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left space-y-1">
-          <p className="font-semibold text-slate-200 text-sm">GS Edge • Software Engineering</p>
-          <p className="text-xs text-slate-400">Design de Sistemas, Software sob Medida & Capacitação em TI</p>
+          <p className="font-semibold text-slate-200 text-sm">GS Edge • Technology Consulting & Architecture</p>
+          <p className="text-xs text-slate-400">Consultoria Estratégica, Arquitetura de Nuvem & Governança de Sistemas</p>
           <p className="text-[11px] text-slate-500">São Paulo, SP - Brasil</p>
         </div>
         

@@ -34,6 +34,7 @@ export default function Hero() {
     return (
         <section className="relative pt-24 pb-12 sm:pt-32 sm:pb-16 md:pt-36 md:pb-20 overflow-hidden">
             <div className="w-full max-w-5xl 2xl:max-w-6xl mx-auto flex flex-col items-center text-center px-4 sm:px-6 relative z-10">
+
                 {/* Título Principal */}
                 <motion.h1
                     initial={{ opacity: 0, y: 15 }}
