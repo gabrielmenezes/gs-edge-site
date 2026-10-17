@@ -76,8 +76,4 @@ Diferente de uma Big Tech trilionária que pode se apoiar em sua gigantesca base
 
 ---
 
-> **Proteja o Ciclo de Desenvolvimento da Sua Empresa com a GS Edge**  
->  
-> Na **GS Edge**, desenhamos e aprimoramos arquiteturas tecnológicas e esteiras operacionais sob medida, implementando soluções e padrões de mercado que blindam infraestruturas contra vulnerabilidades, eliminam gargalos de sustentação e garantem escalabilidade sustentável para o seu negócio.  
->  
-> 👉 **[Agende um Diagnóstico Técnico Gratuito de 30 Minutos](https://calendly.com/gsedge/30min)** com nossos especialistas em segurança e engenharia, ou entre em contato pelo e-mail **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+Gostou do tema? Conheça meus [projetos](/projetos) ou [entre em contato](mailto:contato@gsedge.com.br).

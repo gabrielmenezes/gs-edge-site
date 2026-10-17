@@ -1,76 +1,38 @@
-import { Metadata } from 'next';
-import { getPostBySlug, getPostSlugs, getRelatedPosts } from '@/lib/blog';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getPostBySlug, getPostSlugs, getRelatedPosts, summarizePost } from '@/lib/blog';
+import { articleSchema, breadcrumbSchema, pageMetadata } from '@/lib/seo';
 import BlogPostView from '@/app/components/BlogPostView';
+import JsonLd from '@/app/components/JsonLd';
 
-export function generateStaticParams() {
-  const slugs = getPostSlugs();
-  return slugs.map((slug) => ({
-    slug: slug.replace(/\.(pt|en)\.md$/, '').replace(/\.md$/, ''),
-  }));
+type BlogPageProps = { params: Promise<{ slug: string }> };
+
+export function generateStaticParams() { return getPostSlugs().map(slug => ({ slug })); }
+
+export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug, 'pt');
+  if (!post) notFound();
+  return pageMetadata({
+    title: `${post.title} | Gabriel Soares`,
+    description: post.excerpt || `Artigo de ${post.author}: ${post.title}`,
+    path: `/blog/${slug}`,
+    image: post.image,
+    imageAlt: post.title,
+    article: { author: post.author, publishedTime: post.date || undefined },
+  });
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const post = getPostBySlug(resolvedParams.slug, 'pt');
-
-  if (!post) {
-    return {};
-  }
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gsedge.com.br';
-  const postUrl = `${siteUrl}/blog/${post.slug}`;
-  const rawImage = post.image || '/images/blog/era-jobs-na-apple.jpg';
-  const imageUrl = rawImage.startsWith('http') ? rawImage : `${siteUrl}${rawImage}`;
-
-  return {
-    title: `${post.title} | Blog GS Edge`,
-    description: post.excerpt || `Artigo técnico: ${post.title}`,
-    alternates: {
-      canonical: `/blog/${post.slug}`,
-    },
-    openGraph: {
-      title: post.title,
-      description: post.excerpt || `Artigo técnico: ${post.title}`,
-      url: postUrl,
-      siteName: 'GS Edge',
-      locale: 'pt_BR',
-      type: 'article',
-      publishedTime: post.date,
-      authors: [post.author],
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt || `Artigo técnico: ${post.title}`,
-      images: [imageUrl],
-    },
-  };
-}
-
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const post = getPostBySlug(resolvedParams.slug, 'pt');
-
-  if (!post) {
-    return notFound();
-  }
-
-  const initialRelatedPosts = getRelatedPosts(resolvedParams.slug, post.category, 'pt', 2);
-
+export default async function BlogPostPage({ params }: BlogPageProps) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug, 'pt');
+  if (!post) notFound();
+  const related = getRelatedPosts(slug, post.category, 'pt', 2).map(summarizePost);
   return (
-    <BlogPostView
-      slug={resolvedParams.slug}
-      initialPost={post}
-      initialRelatedPosts={initialRelatedPosts}
-    />
+    <>
+      <JsonLd data={breadcrumbSchema([{ name: 'Início', path: '/' }, { name: 'Blog', path: '/blog' }, { name: post.title, path: `/blog/${slug}` }])} />
+      <JsonLd data={articleSchema(post)} />
+      <BlogPostView slug={slug} initialPost={post} initialRelatedPosts={related} />
+    </>
   );
 }

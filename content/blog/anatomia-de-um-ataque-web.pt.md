@@ -10,7 +10,7 @@ authorRole: "Arquiteto de Soluções"
 
 ## Anatomia de um ataque web: Como uma vulnerabilidade em PHP e MySQL permitiu a invasão de um servidor
 
-No cenário atual de segurança da informação, aplicações web legadas ou desenvolvidas sem o devido controle de entrada de dados representam uma das principais portas de entrada para cibercriminosos. Na **GS Edge**, analisamos recentemente um incidente em que um servidor rodando uma aplicação **PHP com MySQL** foi totalmente comprometido.
+No cenário atual de segurança da informação, aplicações web legadas ou desenvolvidas sem o devido controle de entrada de dados representam uma das principais portas de entrada para cibercriminosos. Este artigo analisa um incidente em que um servidor rodando uma aplicação **PHP com MySQL** foi totalmente comprometido.
 
 Neste artigo, detalhamos o passo a passo de como os atacantes exploraram a aplicação e, mais importante, quais medidas técnicas devem ser adotadas para mitigar essas falhas de forma definitiva.
 
@@ -94,10 +94,6 @@ Para conter a execução de comandos via parâmetros da URL ou formulários:
 
 A combinação de SQL Injection e Command Injection é devastadora, pois transforma uma falha comum de validação em um comprometimento total do servidor. A correção dessas falhas envolve a reestruturação do código para o uso de *Prepared Statements*, a remoção de chamadas diretas ao sistema operacional e o reforço da segurança na infraestrutura.
 
-> **Proteja a infraestrutura e as aplicações da sua empresa com a GS Edge**
+---
 
-Na **GS Edge**, realizamos auditorias de código seguro e consultoria especializada em cibersegurança e infraestrutura de alta disponibilidade.
-
-> Quer avaliar a segurança das suas aplicações web e proteger sua empresa contra invasões?
-
-👉 **[Agende um Diagnóstico Técnico Gratuito](https://calendly.com/gsedge/30min)** com nossos especialistas, ou entre em contato pelo e-mail **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+Gostou do tema? Conheça meus [projetos](/projetos) ou [entre em contato](mailto:contato@gsedge.com.br).

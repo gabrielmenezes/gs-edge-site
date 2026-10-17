@@ -12,7 +12,7 @@ authorRole: "Arquiteto de Soluções"
 
 No cenário corporativo moderno, a eficiência das filiais e unidades de atendimento depende diretamente da qualidade e da disponibilidade da conectividade de rede. O modelo tradicional de rede de longa distância (WAN), baseado exclusivamente em circuitos privados dedicados (como MPLS) e arquiteturas centralizadas *hub-and-spoke*, tem enfrentado gargalos severos de desempenho e custos elevados.
 
-Na **GS Edge**, acompanhamos de perto a transição das empresas para arquiteturas baseadas em **Software-Defined WAN (SD-WAN)**. Neste artigo, abordamos a evolução do SD-WAN, como ele reduz custos e aumenta a estabilidade das filiais, e por que essa tecnologia se tornou um requisito fundamental para a transformação digital em nuvem.
+A transição para arquiteturas baseadas em **Software-Defined WAN (SD-WAN)** muda a forma de conectar filiais e serviços em nuvem. Neste artigo, abordamos a evolução do SD-WAN, como ele reduz custos e aumenta a estabilidade das filiais, e por que essa tecnologia se tornou um requisito fundamental para a transformação digital em nuvem.
 
 ![Arquitetura de conectividade global com SD-WAN interligando filiais e datacenters](/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg)
 
@@ -67,10 +67,6 @@ Abrir portas de internet diretamente nas filiais exige que a segurança acompanh
 
 Investir na infraestrutura SD-WAN para a sua rede de lojas ou filiais não é apenas uma atualização técnica; é uma decisão estratégica para reduzir custos operacionais, eliminar indisponibilidades de sistemas no ponto de venda e extrair o máximo valor dos seus investimentos em nuvem.
 
-> **Transforme a Infraestrutura da Sua Empresa com a GS Edge**
+---
 
-Na **GS Edge**, desenvolvemos projetos sob medida de arquitetura de rede, integração com sistemas legados e consultoria em infraestrutura de alto desempenho.
-
-Quer avaliar o nível de maturidade da sua rede e identificar oportunidades de otimização de custos e estabilidade?
-
-👉 **[Agende um Diagnóstico Técnico Gratuito de 30 Minutos](https://calendly.com/gsedge/30min)** com nossos engenheiros especialistas, ou entre em contato pelo e-mail **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+Gostou do tema? Conheça meus [projetos](/projetos) ou [entre em contato](mailto:contato@gsedge.com.br).

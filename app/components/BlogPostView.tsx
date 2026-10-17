@@ -1,376 +1,65 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
-import { FaClock, FaSun, FaMoon, FaArrowLeft, FaCalendarAlt } from 'react-icons/fa';
-import SocialShare from '@/app/components/SocialShare';
-import ReadingProgressBar from '@/app/components/ReadingProgressBar';
-import { useLanguage } from '@/app/components/LanguageContext';
-import { BlogPost } from '@/lib/blog';
+import type { BlogPost, BlogPostSummary } from '@/lib/blog';
+import { formatPostDate } from '@/lib/post-format';
+import SocialShare from './SocialShare';
+import ReadingProgressBar from './ReadingProgressBar';
+import ReadingTheme, { useReadingTheme } from './ReadingTheme';
 
 interface BlogPostViewProps {
   slug: string;
   initialPost: BlogPost;
-  initialRelatedPosts?: BlogPost[];
+  initialRelatedPosts?: BlogPostSummary[];
 }
 
-export default function BlogPostView({ slug, initialPost, initialRelatedPosts }: BlogPostViewProps) {
+export default function BlogPostView({ slug, initialPost: post, initialRelatedPosts = [] }: BlogPostViewProps) {
   const articleRef = useRef<HTMLElement>(null);
-  const { language, t } = useLanguage();
-  const [post, setPost] = useState<BlogPost>(initialPost);
-  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>(initialRelatedPosts || []);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-
-  // Load theme preference on mount safely
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('blog-theme') as 'dark' | 'light' | null;
-    if (savedTheme && savedTheme !== theme) {
-      requestAnimationFrame(() => setTheme(savedTheme));
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    localStorage.setItem('blog-theme', nextTheme);
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchLocalizedPost() {
-      try {
-        const res = await fetch(`/api/posts?slug=${slug}&lang=${language}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (isMounted) {
-            setPost(data);
-          }
-        }
-
-        const allRes = await fetch(`/api/posts?lang=${language}`);
-        if (allRes.ok) {
-          const allData: BlogPost[] = await allRes.json();
-          if (isMounted) {
-            const others = allData.filter((p) => p.slug !== slug);
-            setRelatedPosts(others.slice(0, 2));
-          }
-        }
-      } catch (err) {
-        console.error('Failed to fetch localized post', err);
-      }
-    }
-
-    fetchLocalizedPost();
-    return () => {
-      isMounted = false;
-    };
-  }, [slug, language]);
-
-  const dateFormat = language === 'pt' ? 'pt-BR' : 'en-US';
-  const isLight = theme === 'light';
+  // The page header already presents the title and cover.
+  const content = post.content.replace(/^\s*#{1,2}\s+([^\n]+)\n/, (heading, title: string) => title.trim() === post.title.trim() ? '' : heading);
+  const { isLight, toggleTheme } = useReadingTheme();
 
   return (
-    <>
+    <main id="main-content" className={`editorial-page ${isLight ? 'blog-light' : ''}`}>
       <ReadingProgressBar targetRef={articleRef} />
-      <main
-        className={`min-h-screen pt-32 pb-24 px-4 transition-colors duration-500 relative overflow-hidden ${
-          isLight ? 'bg-slate-50 text-slate-900' : 'bg-edge-darker text-slate-100'
-        }`}
-      >
-        {/* Background glow effects */}
-        <div
-          className={`absolute top-0 right-0 w-[600px] 2xl:w-[800px] h-[600px] 2xl:h-[800px] rounded-full blur-[160px] -z-10 pointer-events-none transition-opacity duration-500 ${
-            isLight ? 'bg-cyan-200/40 opacity-60' : 'bg-edge-cyan/10 opacity-100'
-          }`}
-        ></div>
-        <div
-          className={`absolute top-1/3 left-0 w-[500px] 2xl:w-[700px] h-[500px] 2xl:h-[700px] rounded-full blur-[160px] -z-10 pointer-events-none transition-opacity duration-500 ${
-            isLight ? 'bg-amber-100/50 opacity-50' : 'bg-edge-yellow/5 opacity-100'
-          }`}
-        ></div>
-
-        <article ref={articleRef} className="w-full max-w-3xl 2xl:max-w-[85%] 3xl:max-w-[75%] mx-auto relative z-10">
-          {/* Navigation & Theme Bar */}
-          <div className="flex items-center justify-between mb-8">
-            <Link
-              href="/blog"
-              className={`inline-flex items-center gap-2 text-sm 2xl:text-base font-semibold transition-all duration-200 hover:-translate-x-1 ${
-                isLight ? 'text-slate-600 hover:text-slate-950' : 'text-edge-cyan hover:text-edge-yellow'
-              }`}
-            >
-              <FaArrowLeft className="text-xs 2xl:text-sm" />
-              <span>{t('back_to_blog')}</span>
-            </Link>
-
-            <button
-              onClick={toggleTheme}
-              aria-label="Alternar tema claro/escuro"
-              className={`p-2.5 2xl:p-3 rounded-xl border transition-all flex items-center gap-2 text-xs 2xl:text-sm font-semibold ${
-                isLight
-                  ? 'bg-white border-slate-200 text-slate-700 shadow-sm hover:bg-slate-100'
-                  : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              {isLight ? (
-                <>
-                  <FaMoon className="text-slate-600" />
-                  <span>Modo Escuro</span>
-                </>
-              ) : (
-                <>
-                  <FaSun className="text-edge-yellow" />
-                  <span>Modo Claro</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Post Header */}
-          <header className="mb-10">
-            {post.category && (
-              <span
-                className={`inline-block mb-4 px-3.5 py-1 rounded-full text-xs 2xl:text-sm font-bold uppercase tracking-wider ${
-                  isLight
-                    ? 'bg-slate-200 text-slate-800'
-                    : 'bg-edge-cyan/15 text-edge-cyan border border-edge-cyan/30'
-                }`}
-              >
-                {post.category}
-              </span>
-            )}
-
-            <h1
-              className={`text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-extrabold mb-6 leading-tight tracking-tight transition-colors ${
-                isLight ? 'text-slate-900' : 'text-slate-100'
-              }`}
-            >
-              {post.title}
-            </h1>
-
-            {post.excerpt && (
-              <p
-                className={`text-lg md:text-xl 2xl:text-2xl leading-relaxed mb-8 transition-colors ${
-                  isLight ? 'text-slate-600' : 'text-slate-300'
-                }`}
-              >
-                {post.excerpt}
-              </p>
-            )}
-
-            {/* Author & Metadata Strip (Ensaio Style) */}
-            <div
-              className={`flex flex-wrap items-center justify-between gap-4 py-4 border-y text-xs 2xl:text-sm transition-colors ${
-                isLight ? 'border-slate-200 text-slate-500' : 'border-white/10 text-slate-400'
-              }`}
-            >
-              {/* Author info */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 2xl:w-12 2xl:h-12 rounded-full bg-gradient-to-tr from-edge-cyan to-edge-yellow flex items-center justify-center text-slate-950 font-black text-sm 2xl:text-base shadow-md">
-                  {post.author ? post.author.charAt(0) : 'G'}
-                </div>
-                <div>
-                  <span className={`font-bold text-sm 2xl:text-base block ${isLight ? 'text-slate-900' : 'text-slate-100'}`}>
-                    {post.author || 'Gabriel Soares'}
-                  </span>
-                  <span className="text-xs 2xl:text-sm opacity-75">{post.authorRole || 'GS Edge'}</span>
-                </div>
+      <div className="personal-main editorial-post">
+        <div className="editorial-toolbar"><Link href="/blog" className="text-link">← Todos os artigos</Link><ReadingTheme isLight={isLight} onToggle={toggleTheme} /></div>
+        <article ref={articleRef}>
+          <header className="editorial-post-header">
+            <p className="eyebrow">{post.category}</p>
+            <h1>{post.title}</h1>
+            {post.excerpt && <p className="editorial-deck">{post.excerpt}</p>}
+            <div className="editorial-byline">
+              <div className="editorial-author">
+                {post.author === 'Gabriel Soares' ? <Image src="/gabriel-soares.webp" alt="" width={44} height={44} className="editorial-avatar" /> : <span className="editorial-author-initial">{post.author.charAt(0)}</span>}
+                <div><span>{post.author}</span><span className="editorial-author-note">{post.authorRole || 'Autor'}</span></div>
               </div>
-
-              {/* Date & Read time */}
-              <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1.5 font-medium">
-                  <FaCalendarAlt className="opacity-70" />
-                  {new Date(post.date.includes('T') ? post.date : `${post.date}T12:00:00`).toLocaleDateString(dateFormat, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1.5 font-semibold text-edge-cyan">
-                  <FaClock className="opacity-80" />
-                  {post.readTime}
-                </span>
-              </div>
+              <div className="editorial-date"><time dateTime={post.date}>{formatPostDate(post.date)}</time><span>{post.readTime}</span></div>
             </div>
           </header>
-
-          {/* Featured Image */}
-          {post.image && (
-            <div
-              className={`relative w-full aspect-video rounded-2xl overflow-hidden my-8 border transition-all duration-300 shadow-2xl ${
-                isLight
-                  ? 'border-slate-200 shadow-slate-200/50'
-                  : 'border-white/10 shadow-[0_0_40px_rgba(34,211,238,0.15)]'
-              }`}
-            >
-              <Image
-                src={post.image}
-                alt={post.title}
-                fill
-                priority
-                loading="eager"
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1536px) 900px, 1200px"
-              />
+          {post.image && <div className="editorial-cover"><Image src={post.image} alt={post.title} fill priority sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1280px) calc(100vw - 96px), 1160px" /></div>}
+          <div className="editorial-reading-column">
+            <div className="editorial-prose prose prose-lg max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                img: ({ src, alt }) => {
+                  if (typeof src !== 'string' || !src || src === post.image) return null;
+                  return <span className="editorial-inline-image"><span><Image src={src} alt={alt || ''} fill sizes="(max-width: 768px) calc(100vw - 40px), 720px" /></span>{alt && <span className="editorial-caption">{alt}</span>}</span>;
+                },
+                table: ({ children }) => <div className="editorial-table-scroll" role="region" aria-label="Tabela do artigo" tabIndex={0}><table>{children}</table></div>,
+              }}>{content}</ReactMarkdown>
             </div>
-          )}
-
-          {/* Social Share */}
-          <SocialShare title={post.title} slug={slug} />
-
-          {/* Markdown Content */}
-          <div
-            className={`prose prose-lg 2xl:prose-xl 3xl:prose-2xl max-w-none my-10 transition-colors ${
-              isLight
-                ? 'prose-slate prose-headings:text-slate-900 prose-a:text-cyan-700 hover:prose-a:text-cyan-900 prose-strong:text-slate-900 prose-pre:bg-slate-900 prose-pre:text-slate-100'
-                : 'prose-invert prose-slate prose-headings:text-slate-100 prose-a:text-edge-cyan hover:prose-a:text-edge-yellow prose-strong:text-slate-200 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-white/10'
-            } prose-p:leading-relaxed prose-p:text-justify prose-headings:tracking-tight prose-iframe:w-full prose-iframe:aspect-video`}
-          >
-          <ReactMarkdown
-            rehypePlugins={[rehypeRaw]}
-            remarkPlugins={[remarkGfm]}
-            components={{
-              img: ({ src, alt }) => {
-                if (!src || typeof src !== 'string') return null;
-                return (
-                  <span className="block my-8">
-                    <span className="block relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-lg">
-                      <Image
-                        src={src}
-                        alt={alt || ''}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 800px"
-                      />
-                    </span>
-                    {alt && (
-                      <span
-                        className={`block text-center text-xs mt-2 font-mono ${
-                          isLight ? 'text-slate-500' : 'text-slate-400'
-                        }`}
-                      >
-                        {alt}
-                      </span>
-                    )}
-                  </span>
-                );
-              },
-            }}
-          >
-            {post.content}
-          </ReactMarkdown>
-        </div>
-
-        {/* Share Section Bottom */}
-        <div className="pt-8 border-t border-slate-200 dark:border-white/10">
-          <SocialShare title={post.title} slug={slug} />
-        </div>
-
-        {/* Recommended Posts Section (Ensaio Style) */}
-        {relatedPosts.length > 0 && (
-          <section className="mt-16 pt-12 border-t border-slate-200 dark:border-white/10">
-            <div className="flex items-center justify-between mb-8">
-              <h2
-                className={`text-2xl font-bold tracking-tight ${
-                  isLight ? 'text-slate-900' : 'text-slate-100'
-                }`}
-              >
-                {t('related_posts_title')}
-              </h2>
-              <Link
-                href="/blog"
-                className={`text-xs font-bold uppercase tracking-wider transition-colors ${
-                  isLight ? 'text-cyan-700 hover:text-cyan-900' : 'text-edge-cyan hover:text-edge-yellow'
-                }`}
-              >
-                {t('view_all')} →
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {relatedPosts.map((rPost) => (
-                <Link
-                  key={rPost.slug}
-                  href={`/blog/${rPost.slug}`}
-                  className={`group flex flex-col justify-between rounded-2xl overflow-hidden border transition-all duration-300 hover:-translate-y-1 ${
-                    isLight
-                      ? 'bg-white border-slate-200 shadow-sm hover:shadow-lg'
-                      : 'bg-slate-900/60 backdrop-blur-md border-white/10 hover:border-edge-cyan/40 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)]'
-                  }`}
-                >
-                  <div>
-                    {rPost.image && (
-                      <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-800">
-                        <Image
-                          src={rPost.image}
-                          alt={rPost.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="(max-width: 768px) 100vw, 400px"
-                        />
-                        {rPost.category && (
-                          <div className="absolute top-3 left-3 z-10">
-                            <span
-                              className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${
-                                isLight
-                                  ? 'bg-white/90 text-slate-900 shadow-sm'
-                                  : 'bg-edge-darker/90 text-edge-cyan border border-edge-cyan/30'
-                              }`}
-                            >
-                              {rPost.category}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <div className="p-5">
-                      <h3
-                        className={`text-base font-bold mb-2 line-clamp-2 leading-snug transition-colors ${
-                          isLight
-                            ? 'text-slate-900 group-hover:text-cyan-700'
-                            : 'text-slate-100 group-hover:text-edge-cyan'
-                        }`}
-                      >
-                        {rPost.title}
-                      </h3>
-                      <p
-                        className={`text-xs line-clamp-2 leading-relaxed ${
-                          isLight ? 'text-slate-600' : 'text-slate-400'
-                        }`}
-                      >
-                        {rPost.excerpt}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`px-5 py-3 border-t flex items-center justify-between text-[11px] ${
-                      isLight
-                        ? 'bg-slate-50/70 border-slate-100 text-slate-500'
-                        : 'bg-black/20 border-white/5 text-slate-400'
-                    }`}
-                  >
-                    <span>{rPost.author || 'Gabriel Soares'}</span>
-                    <span className="flex items-center gap-1">
-                      <FaClock className="text-[9px] opacity-70" />
-                      {rPost.readTime}
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-      </article>
+            <SocialShare title={post.title} slug={slug} />
+          </div>
+        </article>
+        {initialRelatedPosts.length > 0 && <section className="editorial-related">
+          <div className="section-heading"><div><p className="eyebrow">MAIS IDEIAS</p><h2>Continue a leitura.</h2></div><Link href="/blog" className="text-link">Todos os artigos ↗</Link></div>
+          <div className="article-list">{initialRelatedPosts.map((related, index) => <Link key={related.slug} href={`/blog/${related.slug}`} className="article-row"><span className="article-number">0{index + 1}</span><div><span className="article-category">{related.category}</span><h3>{related.title}</h3></div><span className="article-time">{related.readTime}</span><span className="article-arrow" aria-hidden="true">↗</span></Link>)}</div>
+        </section>}
+      </div>
     </main>
-  </>
   );
 }
-
-

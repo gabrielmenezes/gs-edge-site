@@ -12,7 +12,7 @@ authorRole: "Solution Architect"
 
 In today's digital economy, branch office and retail store efficiency relies directly on network connectivity quality and availability. Traditional Wide Area Network (WAN) models, built on dedicated private circuits (like MPLS) and centralized *hub-and-spoke* architectures, face severe performance bottlenecks and rising operational expenses.
 
-At **GS Edge**, we closely guide organizations through their transition toward **Software-Defined WAN (SD-WAN)** architectures. In this article, we cover the origins of SD-WAN, how it optimizes costs and increases network stability at branch locations, and why it is essential for modern cloud adoption.
+The transition toward **Software-Defined WAN (SD-WAN)** changes how organizations connect branches and cloud services. In this article, we cover the origins of SD-WAN, how it optimizes costs and increases network stability at branch locations, and why it is essential for modern cloud adoption.
 
 ![Global SD-WAN connectivity architecture interconnecting branch stores and cloud data centers](/images/blog/conectando-lojas-com-estrutura-sd-wan.jpg)
 
@@ -67,10 +67,6 @@ Enabling local internet breakouts at branch locations requires robust edge secur
 
 Upgrading your retail stores or remote branches to an SD-WAN architecture goes beyond hardware replacement—it is a strategic investment to lower WAN operating costs, guarantee system availability at point-of-sale terminals, and maximize your cloud investments.
 
-> **Transform Your Infrastructure with GS Edge**
+---
 
-At **GS Edge**, we deliver custom network architecture engineering, legacy system integration, and high-performance IT infrastructure consulting.
-
-Ready to assess your network readiness and unlock cost optimization opportunities?
-
-👉 **[Schedule a Free 30-Minute Technical Assessment](https://calendly.com/gsedge/30min)** with our engineering experts, or contact us via email at **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+Explore my [projects](/projetos) or [get in touch](mailto:contato@gsedge.com.br).

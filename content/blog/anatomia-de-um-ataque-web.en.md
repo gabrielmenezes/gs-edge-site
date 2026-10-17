@@ -10,7 +10,7 @@ authorRole: "Solution Architect"
 
 ## Anatomy of a Web Attack: How a PHP and MySQL vulnerability led to Server Compromise
 
-In today's cybersecurity landscape, legacy web applications or systems built without proper input validation represent one of the primary entry points for cybercriminals. At **GS Edge**, we recently analyzed an incident in which a server running a **PHP and MySQL** application was completely compromised.
+In today's cybersecurity landscape, legacy web applications or systems built without proper input validation represent one of the primary entry points for cybercriminals. This article examines an incident in which a server running a **PHP and MySQL** application was completely compromised.
 
 In this article, we detail step-by-step how attackers exploited the application and, more importantly, which technical controls should be implemented to permanently mitigate these flaws.
 
@@ -94,10 +94,6 @@ To prevent arbitrary OS command execution via URL parameters or forms:
 
 Combining SQL Injection and Command Injection is devastating, turning a routine validation oversight into complete server compromise. Remediation requires refactoring code to use *Prepared Statements*, eliminating direct OS execution calls, and strengthening infrastructure defense controls.
 
-> **Secure your enterprise infrastructure and applications with GS Edge**
+---
 
-At **GS Edge**, we perform secure code reviews, and specialized cybersecurity consulting for high-availability environments.
-
-> Looking to assess your web application security and protect your enterprise against cyber threats?
-
-👉 **[Schedule a Free Technical Assessment](https://calendly.com/gsedge/30min)** with our engineering team, or reach out to us at **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+Explore my [projects](/projetos) or [get in touch](mailto:contato@gsedge.com.br).

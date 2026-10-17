@@ -14,7 +14,7 @@ O avanço dos assistentes de programação baseados em modelos de linguagem (LLM
 
 No entanto, essa aceleração traz um importante tema sobre a segurança do código gerado. Modelos de IA são treinados para produzir código que seja **sintaticamente plausível e funcionalmente convincente**, e não necessariamente resiliente, seguro ou aderente a políticas corporativas de governança.
 
-Na **GS Edge**, temos observado um crescimento alarmante de incidentes originados por código gerado por IA introduzido em produção sem a devida triagem técnica. Neste artigo, analisamos os principais vetores de vulnerabilidade introduzidos por essa prática e as defesas essenciais que todo time de engenharia deve implementar.
+Código gerado por IA pode introduzir vulnerabilidades quando chega à produção sem a devida revisão técnica. Neste artigo, analisamos os principais vetores de vulnerabilidade introduzidos por essa prática e as defesas essenciais que todo time de engenharia deve implementar.
 
 ![Segurança e DevSecOps no ciclo de desenvolvimento assistido por Inteligência Artificial](/images/blog/ia-no-desenvolvimento-riscos-seguranca.jpg)
 
@@ -112,10 +112,6 @@ A Inteligência Artificial é uma aliada formidável para a produtividade da eng
 
 A mitigação eficaz desse cenário exige o alinhamento entre **cultura de engenharia**, **revisão técnica qualificada por Tech Leads** e **automação robusta com boas práticas de mercado**.
 
-> **Proteja o Ciclo de Desenvolvimento da Sua Empresa com a GS Edge**
+---
 
-Na **GS Edge**, garantimos nossa esteira de desenvolvimento alinhando com boas práticas de mercado, usando ferramentas para garantir a segurança do código gerado por IA.
-
-> Quer implementar uma esteira automatizada de desenvolvimento e blindar seus repositórios contra vulnerabilidades e vazamentos?
-
-👉 **[Agende um Diagnóstico Técnico Gratuito de 30 Minutos](https://calendly.com/gsedge/30min)** com nossos especialistas em segurança e engenharia, ou entre em contato pelo e-mail **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+Gostou do tema? Conheça meus [projetos](/projetos) ou [entre em contato](mailto:contato@gsedge.com.br).

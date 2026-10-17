@@ -1,14 +1,10 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from 'next';
+import { absoluteUrl, siteIndexable } from '@/lib/site';
 
 export default function robots(): MetadataRoute.Robots {
-    return {
-        rules: [
-            {
-                userAgent: "*",
-                allow: "/",
-                disallow: ["/admin", "/dashboard", "/private"], // Bloqueia áreas restritas
-            },
-        ],
-        sitemap: "https://gsedge.com.br/sitemap.xml", // URL do sitemap
-    };
+  if (!siteIndexable) return { rules: { userAgent: '*', disallow: '/' } };
+  return {
+    rules: { userAgent: '*', allow: '/', disallow: '/api/' },
+    sitemap: absoluteUrl('/sitemap.xml'),
+  };
 }

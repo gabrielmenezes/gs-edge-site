@@ -76,8 +76,4 @@ Unlike a trillion-dollar Big Tech giant with an enormous installed base to cushi
 
 ---
 
-> **Safeguard Your Company’s Engineering Lifecycle with GS Edge**  
->  
-> At **GS Edge**, we design, modernize, and scale enterprise architectures and automated delivery pipelines. We implement industry-leading practices that harden infrastructures against vulnerabilities, eliminate maintenance bottlenecks, and unlock sustainable growth for your business.  
->  
-> 👉 **[Schedule a Free 30-Minute Technical Assessment](https://calendly.com/gsedge/30min)** with our solutions architects, or contact us directly at **[contato@gsedge.com.br](mailto:contato@gsedge.com.br)**.
+Explore my [projects](/projetos) or [get in touch](mailto:contato@gsedge.com.br).

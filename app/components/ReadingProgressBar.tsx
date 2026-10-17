@@ -66,10 +66,10 @@ export default function ReadingProgressBar({ targetRef }: ReadingProgressBarProp
   return (
     <div
       aria-hidden="true"
-      className="fixed top-0 left-0 right-0 z-50 h-[3.5px] bg-slate-900/30 backdrop-blur-xs pointer-events-none"
+      className="editorial-progress"
     >
       <div
-        className="h-full bg-gradient-to-r from-edge-cyan via-cyan-300 to-edge-yellow transition-[width] duration-75 ease-out shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+        className="editorial-progress-fill"
         style={{ width: `${progress}%` }}
       />
     </div>
